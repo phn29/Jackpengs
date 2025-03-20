@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增一分一段表（位次表）')" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-ranking-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">分数段：</label>
+            <div class="col-sm-8">
+                <input name="grade" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">全体本段人数：</label>
+            <div class="col-sm-8">
+                <input name="allPeopleNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">全体本段位次：</label>
+            <div class="col-sm-8">
+                <input name="allRanking" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考物理本段人数：</label>
+            <div class="col-sm-8">
+                <input name="physicsPeopleNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考物理累计人数：</label>
+            <div class="col-sm-8">
+                <input name="physicsTotalPeople" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考化学本段人数：</label>
+            <div class="col-sm-8">
+                <input name="chemicalPeopleNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考化学累计人数：</label>
+            <div class="col-sm-8">
+                <input name="chemicalTotalPeople" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考生物本段人数：</label>
+            <div class="col-sm-8">
+                <input name="biologyPeopleNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考生物累计人数：</label>
+            <div class="col-sm-8">
+                <input name="biologyTotalPeople" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考政治本段人数：</label>
+            <div class="col-sm-8">
+                <input name="politicsPeopleNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考政治累计人数：</label>
+            <div class="col-sm-8">
+                <input name="politicsTotalPeople" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考历史本段人数：</label>
+            <div class="col-sm-8">
+                <input name="historyPeopleNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考历史累计人数：</label>
+            <div class="col-sm-8">
+                <input name="historyTotalPeople" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考地理本段人数：</label>
+            <div class="col-sm-8">
+                <input name="geographyPeopleNumber" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">选考地理累计人数：</label>
+            <div class="col-sm-8">
+                <input name="geographyTotalPeople" class="form-control" type="text">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var prefix = ctx + "system/ranking"
+    $("#form-ranking-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-ranking-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>

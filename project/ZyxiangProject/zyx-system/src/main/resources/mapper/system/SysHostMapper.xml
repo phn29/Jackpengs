@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysHostMapper">
+    
+    <resultMap type="SysHost" id="SysHostResult">
+        <result property="hostId"    column="host_id"    />
+        <result property="hostTitle"    column="host_title"    />
+        <result property="hostAuthor"    column="host_author"    />
+        <result property="hostContent"    column="host_content"    />
+        <result property="hostSource"    column="host_source"    />
+        <result property="hostTime"    column="host_time"    />
+        <result property="hostImg"    column="host_img"    />
+        <result property="hostVideo"    column="host_video"    />
+    </resultMap>
+
+    <sql id="selectSysHostVo">
+        select host_id, host_title, host_author, host_content ,host_source, host_time, host_img, host_video from sys_host
+    </sql>
+
+    <select id="selectSysHostList" parameterType="SysHost" resultMap="SysHostResult">
+        <include refid="selectSysHostVo"/>
+        <where>
+            <if test="hostTitle != null  and hostTitle != ''"> and host_title like concat('%',  #{hostTitle}, '%')</if>
+            <if test="hostAuthor != null  and hostAuthor != ''"> and host_author = #{hostAuthor}</if>
+            <if test="hostContent != null  and hostContent != ''"> and host_content = #{hostContent}</if>
+            <if test="hostImg != null  and hostImg != ''"> and host_img = #{hostImg}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysHostById" parameterType="Long" resultMap="SysHostResult">
+        <include refid="selectSysHostVo"/>
+        where host_id = #{hostId}
+    </select>
+        
+    <insert id="insertSysHost" parameterType="SysHost" useGeneratedKeys="true" keyProperty="hostId">
+        insert into sys_host
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="hostTitle != null">host_title,</if>
+            <if test="hostAuthor != null">host_author,</if>
+            <if test="hostContent != null">host_content,</if>
+            <if test="hostSource != null">host_source,</if>
+            <if test="hostTime != null">host_time,</if>
+            <if test="hostImg != null">host_img,</if>
+            <if test="hostVideo != null">host_video,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="hostTitle != null">#{hostTitle},</if>
+            <if test="hostAuthor != null">#{host_author},</if>
+            <if test="hostContent != null">#{hostContent},</if>
+            <if test="hostSource != null">#{hostSource},</if>
+            <if test="hostTime != null">#{hostTime},</if>
+            <if test="hostImg != null">#{hostImg},</if>
+            <if test="hostVideo != null">#{hostVideo},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysHost" parameterType="SysHost">
+        update sys_host
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="hostTitle != null">host_title = #{hostTitle},</if>
+            <if test="hostAuthor != null">host_author = #{hostAuthor},</if>
+            <if test="hostContent != null">host_content = #{hostContent},</if>
+            <if test="hostSource != null">host_source = #{hostSource},</if>
+            <if test="hostTime != null">host_time = #{hostTime},</if>
+            <if test="hostImg != null">host_img = #{hostImg},</if>
+            <if test="hostVideo != null">host_video = #{hostVideo},</if>
+        </trim>
+        where host_id = #{hostId}
+    </update>
+
+    <delete id="deleteSysHostById" parameterType="Long">
+        delete from sys_host where host_id = #{hostId}
+    </delete>
+
+    <delete id="deleteSysHostByIds" parameterType="String">
+        delete from sys_host where host_id in 
+        <foreach item="hostId" collection="array" open="(" separator="," close=")">
+            #{hostId}
+        </foreach>
+    </delete>
+
+</mapper>

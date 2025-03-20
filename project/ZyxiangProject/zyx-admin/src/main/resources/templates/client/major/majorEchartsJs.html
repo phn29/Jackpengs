@@ -1,0 +1,100 @@
+<div th:fragment="majorEchartsJs">
+    <script>
+        function loadData(option){
+            var majorId = document.getElementById("majorId").value;
+            console.log(majorId);
+            $.ajax({
+                type:"GET",
+                async:false,
+                url:"/client/majorDetail/"+majorId+"/salary",
+                data:{},
+                dataType:'json',
+                success:function(result){
+                    if(result){
+                        //初始化x轴数据
+                        option.xAxis.data=[];
+                        for(var i=0;i<result.length;i++){
+                            option.xAxis.data.push(result[i].years+"年");
+                        }
+                        //初始化y轴数据
+                        option.series[0].data=[];
+                        for(var i=0;i<result.length;i++){
+                            option.series[0].data.push(result[i].salary);
+                        }
+                    }
+                },
+                error:function(errorMsg){
+                    alert("获取后台数据失败，请联系工作开发人员！！");
+                }
+            });
+        }
+        // 1. 实例化对象
+        var dom = document.getElementById("container");
+        var myChart = echarts.init(dom);
+        // 2.指定配置
+        var option = {
+            // 通过这个color修改两条线的颜色
+            color: ["#F24C05"],
+            tooltip: {
+                trigger: "axis"
+            },
+            grid: {
+                top: "3%",
+                left: "0",
+                right: "4%",
+                bottom: "15%",
+                show: true, // 显示边框
+                borderColor: "#012f4a", // 边框颜色
+                containLabel: true // 包含刻度文字在内
+            },
+            xAxis: {
+                type: "category",
+                boundaryGap: false,
+                data: [],
+                axisTick: {
+                    show: false // 去除刻度线
+                },
+                axisLabel: {
+                    color: "#4c9bfd" // 文本颜色
+                },
+                axisLine: {
+                    show: false // 去除轴线
+                }
+            },
+            yAxis: {
+                type: "value",
+                axisTick: {
+                    show: false // 去除刻度线
+                },
+                axisLabel: {
+                    color: "#252525" // 文本颜色
+                },
+                axisLine: {
+                    show: false // 去除轴线
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: "#012f4a" // 分割线颜色
+                    }
+                }
+            },
+            series: [
+                {
+                    name: "平均工资：",
+                    type: "line",
+                    // true 可以让我们的折线显示带有弧度
+                    smooth: false,
+                    data: []
+                }
+            ]
+        };
+        // 3. 加载数据到option
+        loadData(option);
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        // 5. 让图表跟随屏幕自动的去适应
+        window.addEventListener("resize", function() {
+            myChart.resize();
+        });
+    </script>
+</div>

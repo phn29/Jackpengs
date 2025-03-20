@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||首页')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a class="active" th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}">查学校</a>
+                <a th:href="@{/client/selectConsult}" >查资讯</a>
+                <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}">找专家</a>
+                <a th:href="@{/client/personal/index}" onclick="personalIndex()">个人中心</a>
+            </div>
+        </div>
+    </div>
+	<!--热点咨询轮播图及高考时间轴-->
+	<div class="i_top_wrap">
+		<!--热点咨询轮播图-->
+		<div class="h_news_nav fl">
+			<div class="h_news">
+				<ul class="pic">
+					<li th:each="SysHost : ${pageInfoHost.list}">
+						<a th:href="@{/client/consultDetail/{hostId}(hostId=${SysHost.hostId})}">
+							<img th:src="${SysHost.hostImg}"/>
+							<div class="bg">
+								<p th:text="${SysHost.hostTitle}"></p>
+							</div>
+						</a>
+					</li>
+				</ul>
+				<a class="prev" href="javascript:void(0)"></a>
+				<a class="next" href="javascript:void(0)"></a>
+				<ul class="hd"><li>1</li><li>2</li><li>3</li><li>4</li></ul>
+			</div>
+			<div class="quick_nav">
+				<a th:href="@{/onlineChat}" class="cg"><span class="a"></span>在线咨询</a>
+				<a th:href="@{/client/selectRanking}" class="cg"><span class="b"></span>一分一段表</a>
+				<a href="" class="cg"><span class="c"></span>高中介绍</a>
+				<a th:href="@{/client/selectUniversity}" class="cg"><span class="d"></span>高校名单</a>
+				<a th:href="@{/client/aspiration}" class="cg"><span class="e"></span>志愿填报</a>
+				<a th:href="@{/client/universityIdentification}" class="cg"><span class="f"></span>院校识别</a>
+			</div>
+		</div>
+		<!--高考时间轴-->
+		<div class="h_img fr">
+			<div class="fr wrap">
+				<div class="timeline fr">
+					<h2>高考时间轴</h2>
+                    <div class="count_down">
+                        <div style="float: left">距离2023年高考还有:</div>
+                        <div id="day" style="float: left"></div>
+                        <div id="hour" style="float: left"></div>
+                        <div id="minute" style="float: left"></div>
+                        <div id="second" style="float: left"></div>
+                    </div>
+					<div class="tl_box">
+						<div id="tl_box" style="width: 344px">
+							<ul>
+								<li th:each="SysTimeaxis : ${pageInfoTimeAxis.list}">
+									<span>
+										<h5 th:text="${SysTimeaxis.month}"></h5>
+										<p th:text="${SysTimeaxis.content}"></p>
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    <!--热门院校-->
+	<div class="hot_school1" id="universityList">
+		<div class="l_title clearfix">
+			<div class="left_title">热门院校</div>
+			<div class="left_title1">
+                <a onclick="sdBkUiversity()" id="sdBk">河北本科院校</a>
+            </div>
+			<div class="left_title1">
+                <a onclick="sdZkUiversity()" id="sdZk">河北专科院校</a>
+            </div>
+			<div class="left_title1">
+                <a onclick="otherBkUiversity()" id="otherBk">省外本科院校</a>
+            </div>
+			<div class="left_title1">
+                <a onclick="otherZkUiversity()" id="otherZk">省外专科院校</a>
+            </div>
+		</div>
+		<div class="hot_school_box clearfix">
+			<div class="left" th:each="SysUniversity,SysUniversityStat : ${pageInfo.list}" th:if="${SysUniversityStat.count}<=1">
+				<a id="leftUniversityId" th:href="@{/client/universityDetail/{universityId}(universityId=${SysUniversity.universityId})}">
+					<h3 th:text="${SysUniversity.universityName}" id="leftUniversityName"></h3>
+                    <p class="tag">
+                        <span th:text="${SysUniversity.universityType}" id="leftUniversityType"></span>
+                        <span th:if="${SysUniversity.dualClassName} == 双一流" id="leftDualClassName">双一流</span>
+                        <span th:if="${SysUniversity.f985} == 1" id="leftF985">985</span>
+                        <span th:if="${SysUniversity.f211} == 1" id="leftF211">211</span>
+                    </p>
+					<div class="tuijian">
+						<div class="school_tuijian">
+							<div class="school_img">
+								<img th:src="${SysUniversity.universityBadge}" id="leftUniversityBadge">
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+			<div class="right" id="rightUniversityList">
+				<div class="school_item" th:each="SysUniversity,SysUniversityStat : ${pageInfo.list}" th:if="${SysUniversityStat.count}>1 and ${SysUniversityStat.count}<=10 ">
+                    <a th:href="@{/client/universityDetail/{universityId}(universityId=${SysUniversity.universityId})}">
+                        <img th:src="${SysUniversity.universityBadge}">
+						<div class="school_msg">
+							<h3 th:text="${SysUniversity.universityName}" id="universityName"></h3>
+                            <div class="clearfix check_btn">
+                                <span class="school_class" th:text="${SysUniversity.universityType}"></span>
+                                <span class="school_class" th:text="${SysUniversity.provinceName}"></span>
+                                <span class="school_class" th:text="${SysUniversity.cityName}"></span>
+                            </div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="fl left">
+        <!--院校风采-->
+        <div class="policy" style="box-shadow: 0px 0px 15px #e6e6e6; height: 530px">
+            <h1 class="title" style="border-bottom: 1px solid #f0f0f0; height: 35px; margin: 20px 22px 5px;">
+                <span>院校风采</span>
+            </h1>
+            <div style="float: left; margin-left: 22px; margin-top: 15px;" th:each="SysUniversity,SysUniversityStat : ${pageInfo.list}" th:if="${SysUniversityStat.count}<=8">
+                <a th:href="@{/client/universityDetail/{universityId}(universityId=${SysUniversity.universityId})}" >
+                    <div id="universityImg">
+                        <img width="180" height="135" th:src="${SysUniversity.universityPicture}">
+                    </div>
+                </a>
+                <div style="font-size: 16px; font-weight: 600; margin-top: 15px">
+                    <span th:text="${SysUniversity.universityName}"></span>
+                </div>
+                <div style="color: #999; font-size: 12px; font-weight: 400; margin-top: 5px">
+                    <p th:text="'访问次数：'+${SysUniversity.visitNumber}"></p>
+                </div>
+            </div>
+        </div>
+
+<!--        &lt;!&ndash;专家入驻&ndash;&gt;-->
+<!--        <div class="policy" style="box-shadow: 0px 0px 15px #e6e6e6; height: 530px; margin-top: 20px">-->
+<!--            <h1 class="title" style="border-bottom: 1px solid #f0f0f0; height: 35px; margin: 20px 22px 5px;">-->
+<!--                <span>专家入驻</span>-->
+<!--            </h1>-->
+<!--            <div style="height: 220px; width: 180px; background: red; float: left; margin-left: 22px; margin-top: 15px;">-->
+<!--                <a>-->
+<!--                    <img src="http://image.gaokaokdb.com/58ec718655979.jpeg"-->
+<!--                         width="65" height="65"-->
+<!--                         style="border-radius: 50%; margin: 0 auto; margin-top: 15px;">-->
+<!--                    <p style="text-align: center;margin-top: 15px;font-size: 16px;font-weight: 600;">黄莉莉</p>-->
+<!--                    <p style="text-align: center; margin-top: 10px;font-size: 16px;font-weight: 600;">女</p>-->
+<!--                    <div class="boxBorde">-->
+<!--                        <span class="border">志愿填报</span>-->
+<!--                        <span class="border">高考政策解读</span>-->
+<!--                    </div>-->
+<!--                    <div class="boxBorde">-->
+<!--                        <span class="border">志愿填报</span>-->
+<!--                        <span class="border">高考政策解读</span>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            <div style="height: 220px; width: 180px; background: #FAFFFB; float: left; margin-left: 22px; margin-top: 15px;">-->
+<!--                <a>-->
+<!--                    <img src="http://image.gaokaokdb.com/58ec718655979.jpeg" width="50" height="50" style="border-radius: 50%">-->
+<!--                    <p>黄莉</p>-->
+<!--                    <div class="boxBorde">-->
+<!--                        <span class="border">志愿填报</span>-->
+<!--                        <span class="border">高考政策解读</span>-->
+<!--                    </div>-->
+<!--                    <div class="boxBorde">-->
+<!--                        <span class="border">志愿填报</span>-->
+<!--                        <span class="border">高考政策解读</span>-->
+<!--                    </div>-->
+<!--                    <div class="introduce">-->
+<!--                        <b>高考政策解高考政策解高考政策解高考政策解高考政策解</b>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </div>-->
+
+<!--        </div>-->
+        <!--政策解读-->
+        <div class="policy" style="box-shadow: 0px 0px 15px #e6e6e6; padding: 20px 15px 5px; margin-top: 20px">
+            <h1 class="title" style="border-bottom: 1px solid #f0f0f0; height: 35px">
+                <span>政策解读</span>
+            </h1>
+            <div class="fl left_list" th:each="SysHost,SysHostStat : ${pageInfoHost.list}" th:if="${SysHostStat.count}<=1">
+                <a th:href="@{/client/consultDetail/{hostId}(hostId=${SysHost.hostId})}">
+                    <img th:src="${SysHost.hostImg}">
+                </a>
+                <div style="font-size: 16px; font-weight: 600; margin-top: 15px">
+                    <span th:text="${SysHost.hostTitle}">民办大学和公办大学毕业</span>
+                </div>
+                <div style="color: #999; font-size: 12px; font-weight: 400; margin-top: 5px">
+                    <p style="float: left">时间：</p>
+                    <p style="float: left" th:text="${SysHost.hostSource}">来源：</p>
+                </div>
+            </div>
+            <div class="fr right_list">
+                <div class="top" th:each="SysHost,SysHostStat : ${pageInfoHost.list}" th:if="${SysHostStat.count}> 1 and${SysHostStat.count} <=5">
+                    <a th:href="@{/client/consultDetail/{hostId}(hostId=${SysHost.hostId})}"  class="fl" style="width: 81px; height: 54px">
+                        <img th:src="${SysHost.hostImg}" width="81" height="54">
+                    </a>
+                    <div style="font-size: 14px; font-weight: 400; margin-left: 90px">
+                        <p  th:text="${SysHost.hostTitle}">民办大学和公办大证有区别吗？民办大</p>
+                    </div>
+                    <div style="color: #999; font-size: 12px; font-weight: 400; margin-left: 90px; margin-top: 15px">
+                        <p style="float: left">时间：</p>
+                        <p style="float: left" th:text="${SysHost.hostSource}">来源：</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+	<div class="clear"></div>
+    <!--footer-->
+    <div th:replace="client/public/footer :: footer"></div>
+</div>
+
+<!--引入本类中的js-->
+<div th:replace="client/index/indexJs :: indexJs"></div>
+</body>
+</html>
+

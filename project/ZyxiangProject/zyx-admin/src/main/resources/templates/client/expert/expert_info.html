@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||咨询师详情')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}">查学校</a>
+                <a th:href="@{/client/selectConsult}">查资讯</a>
+                <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}" class="active">找专家</a>
+                <a th:href="@{/client/personal/index}" onclick="personalIndex()">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="fl left" style="width: 1200px">
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href='#'>咨询师详情</a> >
+        </div>
+        <!--咨询师介绍-->
+        <div class="consultant-information">
+            <div style="height: 40px; margin: 20px 0;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="float: left; padding-top: 6px;padding-left: 5px;">咨询师风采</h2>
+            </div>
+            <div class="consultantinfo-box">
+                <div class="mt25">
+                    <div class="headerBox pull-left mr20"><img th:src="${SysExpert.expertAvatar}" width="82" height="82"></div>
+                    <div class="pull-left expertsDetailBox mt10 ">
+                        <div class="f18 fcolor212121" th:text="${SysExpert.expertName}" id="consultantName"></div>
+                        <div class="mb5 mt5">
+                            <span class="mr15">全球职业规划师、高考志愿填报师、大学生就业导师</span>
+                        </div>
+                        <div id="specialtys" data-type="1,2,5">
+                            <div class="expertTagsTitle">志愿填报</div>
+                            <div class="expertTagsTitle">高招政策</div>
+                            <div class="expertTagsTitle">升学规划</div>
+                        </div>
+                    </div>
+                    <div class="appointment_btn">
+                        <button class="button1" id="consults" onclick="consults()">咨询</button>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="mt30 mb10 fcolor4A4A4A" style="line-height: 1.5em;">
+                    咨询师简介：
+                    <span th:utext="${SysExpert.expertInfo}"></span>
+                </div>
+            </div>
+        </div>
+        <!--服务考生-->
+        <div class="serving_candidates">
+            <div style="height: 40px; margin: 20px 0;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="float: left; padding-top: 6px;padding-left: 5px;">服务考生</h2>
+            </div>
+            <div class="candidates">
+                <div>
+                    <a class="caseItem">
+                        <img src="http://img3.youzy.cn/content/media/thumbs/p00004253.jpeg">
+                        <div class="pull-right">
+                            <p>专业指导上到心仪学校</p>
+                            <span>徐同学，like </span>
+                        </div>
+                    </a>
+
+                    <a class="caseItem">
+                        <img src="http://img3.youzy.cn/content/media/thumbs/p00004253.jpeg">
+                        <div class="pull-right">
+                            <p>专业指导上到心仪学校</p>
+                            <span>徐同学，like </span>
+                        </div>
+                    </a>
+
+                    <a class="caseItem">
+                        <img src="http://img3.youzy.cn/content/media/thumbs/p00004253.jpeg">
+                        <div class="pull-right">
+                            <p>专业指导上到心仪学校</p>
+                            <span>徐同学，like </span>
+                        </div>
+                    </a>
+                    <a class="caseItem">
+                        <img src="http://img3.youzy.cn/content/media/thumbs/p00004253.jpeg">
+                        <div class="pull-right">
+                            <p>专业指导上到心仪学校</p>
+                            <span>徐同学，like </span>
+                        </div>
+                    </a>
+                    <a class="caseItem">
+                        <img src="http://img3.youzy.cn/content/media/thumbs/p00004253.jpeg">
+                        <div class="pull-right">
+                            <p>专业指导上到心仪学校</p>
+                            <span>徐同学，like </span>
+                        </div>
+                    </a>
+                    <a class="caseItem">
+                        <img src="http://img3.youzy.cn/content/media/thumbs/p00004253.jpeg">
+                        <div class="pull-right">
+                            <p>专业指导上到心仪学校</p>
+                            <span>徐同学，like </span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <div>
+                    <img src="">
+                </div>
+            </div>
+            <div></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+<!--数据隐藏区域-->
+<input id="expertId" name="expertId" th:value="${SysExpert.expertId}" type="hidden">
+<!--引入本类的js-->
+<div th:replace="client/expert/expertJs :: expertJs"></div>
+</body>
+</html>

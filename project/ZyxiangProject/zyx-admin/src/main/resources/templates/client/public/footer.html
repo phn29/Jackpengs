@@ -1,0 +1,66 @@
+<div class="footer_wrap" th:fragment="footer">
+    <div class="f_top">
+        <a href="#" class="cg">教育资讯</a>|<a href="#" class="cg">政策解读</a>|<a href="#">高考备考</a>|<a th:href="@{/client/about}">关于我们</a>|<a href="">服务内容</a>|<a href="">网站声明</a>|<a href="">联系我们</a>
+        <p>
+            <a th:href="@{/client/universityIndex}">
+                河北新高考志愿填报系统
+            </a><br/>
+            <a href="#">凝聚万千能量，不负三年时光！</a>
+
+        </p>
+    </div>
+    <div class="f_bottom">Copyright 2018 All Rights Reserved. <a href="#" style="color: #c9c9c9;">备案号：</a>
+    </div>
+
+    <script src="js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <script src="js/jquery.SuperSlide.2.1.1.js" th:src="@{/js/jquery.SuperSlide.2.1.1.js}"></script>
+    <script src="js/jquery.nicescroll.js" th:src="@{/js/jquery.nicescroll.js}"></script>
+    <script>
+        $('#rightSidebar').load("/client/rightSidebar");
+
+        //点击模拟志愿填报时，用户是否登录的校验
+        function aspiration() {
+            if($("#stuIdSession").val() == null && $("#expertIdSession").val() == null){
+                alert("您未登录，请用普通用户身份登录进行访问！")
+            }else if($("#stuIdSession").val() == null && $("#expertIdSession").val() != null){
+                alert("您没有权限访问，请用普通用户身份进行访问")
+            }
+        }
+        //点击个人中心时，用户是否登录的校验
+        function personalIndex(){
+            if($("#stuIdSession").val() == null && $("#expertIdSession").val() == null){
+                alert("您未登录，请登录之后访问");
+                window.location.href='/client/login';
+            }
+        }
+    </script>
+    <script src="js/pc_common.js" th:src="@{/js/pc_common.js}"></script>
+
+<!--    &lt;!&ndash;cnzz&ndash;&gt;-->
+<!--    <script type="text/javascript">-->
+<!--        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");-->
+<!--        document.write(unescape("%3Cspan id='cnzz_stat_icon_1275428281'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s5.cnzz.com/stat.php%3Fid%3D1275428281%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));-->
+<!--    </script>-->
+<!--    &lt;!&ndash;百度优化&ndash;&gt;-->
+<!--    <script type="text/javascript">-->
+<!--        (function(){-->
+<!--            var bp = document.createElement('script');-->
+<!--            var curProtocol = window.location.protocol.split(':')[0];-->
+<!--            if (curProtocol === 'https') {-->
+<!--                bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';-->
+<!--            }-->
+<!--            else {-->
+<!--                bp.src = 'http://push.zhanzhang.baidu.com/push.js';-->
+<!--            }-->
+<!--            var s = document.getElementsByTagName("script")[0];-->
+<!--            s.parentNode.insertBefore(bp, s);-->
+<!--        })();-->
+<!--    </script>-->
+<!--    &lt;!&ndash;360优化&ndash;&gt;-->
+<!--    <script>-->
+<!--        (function(){-->
+<!--            var src = (document.location.protocol == "http:") ? "http://js.passport.qihucdn.com/11.0.1.js?bc8203d13bbcbb48bd3029f315e5b949":"https://jspassport.ssl.qhimg.com/11.0.1.js?bc8203d13bbcbb48bd3029f315e5b949";-->
+<!--            document.write('<script src="' + src + '" id="sozz"><\/script>');-->
+<!--        })();-->
+<!--    </script>-->
+</div>

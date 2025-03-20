@@ -1,0 +1,167 @@
+<div th:fragment="indexJs">
+    <script type="text/javascript">
+        //高考倒计时
+        function getEndTime(myYear){
+            var myEndTime = new Date(''+myYear+'/06/07 00:00:00');
+            return myEndTime;
+        }
+        function countDown(){
+            var mydate = new Date();
+            var year = '2023';
+            var EndTime = getEndTime(year);
+            var NowTime = new Date();
+            if( (EndTime.getTime() - NowTime.getTime() ) < 0){
+                year = mydate.getFullYear() + 1;
+                EndTime = getEndTime(year);
+            }
+            var t = EndTime.getTime() - NowTime.getTime();
+            var d=Math.floor(t/1000/60/60/24);
+            var h=Math.floor(t/1000/60/60%24+9);
+            var m=Math.floor(t/1000/60%60);
+            var s=Math.floor(t/1000%60);
+            document.getElementById('day').innerText = d + '天';
+            document.getElementById('hour').innerText = h + '小时';
+            document.getElementById('minute').innerText = m + '分钟';
+            document.getElementById('second').innerText = s + '秒';
+        }
+        setInterval(countDown,1000);
+
+        //查询山东本科院校
+        function sdBkUiversity() {
+            document.getElementById("otherBk").style.color="black";
+            document.getElementById("sdBk").style.color="orangered";
+            document.getElementById("sdZk").style.color="black";
+            document.getElementById("otherZk").style.color="black";
+            var page = Math.round(Math.random()*50)+2;
+            $.ajax({
+                url: '/client/sdBkUniversity',
+                type: 'post',
+                dataType: 'json',
+                timeout: 1000,
+                data: {page:page, rows:10},
+                success:function (result) {
+                    var str = "";
+                    if(result){
+                        var universityName = result[0].universityName; //学校名
+                        var universityId = result[0].universityId; //学校id
+                        var universityType = result[0].universityType; //学校类型
+                        var universityBadge = result[0].universityBadge; //校徽
+                        var dualClassName = result[0].dualClassName; //是否双一流
+                        var f985 = result[0].f985; //是否985
+                        var f211 = result[0].f211; //是否211
+                        $("#leftUniversityName").text(universityName);
+                        $("#leftUniversityType").text(universityType);
+                        $("#leftUniversityBadge").attr('src', universityBadge);
+                        if(dualClassName == "双一流"){
+                            $("#leftDualClassName").text("双一流");
+                        }
+                        if(f985 == "1"){
+                            $("#leftF985").text(985);
+                        }
+                        if(f211 == "1"){
+                            $("#leftF211").text(211);
+                        }
+                        $("#leftUniversityId").attr('href', "/Vol/universityDetail/"+universityId);
+                        for(var i=1;i<result.length;i++){
+                            var universityId = result[i].universityId; //学校id
+                            var universityBadge = result[i].universityBadge; //校徽
+                            var universityName = result[i].universityName; //学校名
+                            var universityType = result[i].universityType; //学校类型
+                            var provinceName = result[i].provinceName; //所在省份
+                            var cityName = result[i].cityName; //所在城市
+                            var dan = "'" //单引号
+                            var img = dan+universityBadge+dan; //校徽地址拼接
+                            var href = dan+"/client/universityDetail/"+universityId+dan; //请求地址拼接
+
+                            str += "<div class='school_item'><a href="+href+"><img src="+img+"/><div class='school_msg'><h3>"+universityName+"</h3><div class='clearfix check_btn'>" +
+                                "<span class='school_class'>"+universityType+"</span>" +
+                                "<span class='school_class'>"+provinceName+"</span>" +
+                                "<span class='school_class'>"+cityName+"</span>" +
+                                "</div></div></a></div>";
+
+                            document.getElementById("rightUniversityList").innerHTML = str;
+                        }
+                    }
+                }
+            });
+
+        }
+
+        //查询山东专科院校
+        function sdZkUiversity() {
+            document.getElementById("otherBk").style.color="black";
+            document.getElementById("sdBk").style.color="black";
+            document.getElementById("sdZk").style.color="orangered";
+            document.getElementById("otherZk").style.color="black";
+            var page = Math.round(Math.random()*50)+2;
+            $.ajax({
+                url: '/client/sdZkUniversity',
+                type: 'post',
+                dataType: 'json',
+                timeout: 1000,
+                data: {page:page, rows:10},
+                success:function (result) {
+                    var str = "";
+                    if(result){
+                        var universityName = result[0].universityName; //学校名
+                        var universityId = result[0].universityId; //学校id
+                        var universityType = result[0].universityType; //学校类型
+                        var universityBadge = result[0].universityBadge; //校徽
+                        var dualClassName = result[0].dualClassName; //是否双一流
+                        var f985 = result[0].f985; //是否985
+                        var f211 = result[0].f211; //是否211
+                        $("#leftUniversityName").text(universityName);
+                        $("#leftUniversityType").text(universityType);
+                        $("#leftUniversityBadge").attr('src', universityBadge);
+                        if(dualClassName == "双一流"){
+                            $("#leftDualClassName").text("双一流");
+                        }
+                        if(f985 == "1"){
+                            $("#leftF985").text(985);
+                        }
+                        if(f211 == "1"){
+                            $("#leftF211").text(211);
+                        }
+                        $("#leftUniversityId").attr('href', "/Vol/universityDetail/"+universityId);
+                        for(var i=1;i<result.length;i++){
+                            var universityId = result[i].universityId; //学校id
+                            var universityBadge = result[i].universityBadge; //校徽
+                            var universityName = result[i].universityName; //学校名
+                            var universityType = result[i].universityType; //学校类型
+                            var provinceName = result[i].provinceName; //所在省份
+                            var cityName = result[i].cityName; //所在城市
+                            var dan = "'" //单引号
+                            var img = dan+universityBadge+dan; //校徽地址拼接
+                            var href = dan+"/client/universityDetail/"+universityId+dan; //请求地址拼接
+
+                            str += "<div class='school_item'><a href="+href+"><img src="+img+"/><div class='school_msg'><h3>"+universityName+"</h3><div class='clearfix check_btn'>" +
+                                "<span class='school_class'>"+universityType+"</span>" +
+                                "<span class='school_class'>"+provinceName+"</span>" +
+                                "<span class='school_class'>"+cityName+"</span>" +
+                                "</div></div></a></div>";
+
+                            document.getElementById("rightUniversityList").innerHTML = str;
+                        }
+                    }
+                }
+            });
+
+        }
+        //查询其他本科院校
+        function otherBkUiversity() {
+            document.getElementById("otherBk").style.color="#FF4B05";
+            document.getElementById("sdBk").style.color="black";
+            document.getElementById("sdZk").style.color="black";
+            document.getElementById("otherZk").style.color="black";
+
+        }
+        //查询其他专科院校
+        function otherZkUiversity() {
+            document.getElementById("otherBk").style.color="black";
+            document.getElementById("sdBk").style.color="black";
+            document.getElementById("sdZk").style.color="black";
+            document.getElementById("otherZk").style.color="#FF4B05";
+
+        }
+    </script>
+</div>

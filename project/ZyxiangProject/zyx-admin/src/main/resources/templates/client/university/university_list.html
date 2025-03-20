@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||查询院校')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}" class="active">查学校</a>
+                <a th:href="@{/client/selectConsult}" >查资讯</a>
+                <a th:href="@{/client/aspiration}">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}">找专家</a>
+                <a th:href="@{/client/personal/index}">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="fl left">
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href='#'>查学校</a> >
+        </div>
+        <!--查询学校表单-->
+        <div class="i_city l_city">
+            <div class="gkfunc-main-top">
+                <div class="gkfunc-filter-wrap">
+                    <div class="filter-banner">
+                        <h2 class="gkfunc-title gkfunc-1a">
+                            高校大全
+                        </h2>
+                        <div class="gkfunc-search-form">
+                            <div class="form-input">
+                                <input id="universityName" name="universityName" type="text" placeholder="输入高校名称" list="selectUniversityName">
+                                <datalist id="selectUniversityName">
+                                    <option th:each="university : ${universitys}" th:value="${university.universityName}" th:tex="${university.universityName}"></option>
+                                </datalist>
+                            </div>
+                            <button class="btn-red filter-btn search-btn" id="btn1">
+                                搜索
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-form expanded">
+                    <div class="filter-panel">
+                        <div class="row">
+                            <h5 class="filter-title">办学层次：</h5>
+                            <div class="filter-items" th:with="type=${@dict.getType('sys_university_level')}">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="universityLevel" th:value="''" id="universityLevel" style="display:none">
+                                    <label for="universityLevel">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group" th:each="dict : ${type}" >
+                                    <input type="radio" name="universityLevel" th:value="${dict.dictValue}"  th:id="universityType+(${dict.dictValue}+1)" style="display:none">
+                                    <label th:text="${dict.dictLabel}" th:for="universityType+(${dict.dictValue}+1)"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5 class="filter-title" style="width: 62px">院校类型：</h5>
+                            <div class="filter-items" th:with="type=${@dict.getType('sys_university_type')}">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="universityType" th:value="''" id="universityType" style="display:none">
+                                    <label for="universityType">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group" th:each="dict : ${type}">
+                                    <input type="radio" th:value="${dict.dictValue}" name="universityType" th:id="universityType+(${dict.dictValue}+1)" style="display:none">
+                                    <label th:text="${dict.dictLabel}" th:for="universityType+(${dict.dictValue}+1)"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5 class="filter-title">教育性质：</h5>
+                            <div class="filter-items" th:with="type=${@dict.getType('sys_university_nature')}">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="universityNature" th:value="''" id="universityNature" style="display:none">
+                                    <label for="universityNature">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group" th:each="dict : ${type}">
+                                    <input type="radio" th:value="${dict.dictValue}" name="universityNature" th:id="universityNature+(${dict.dictValue}+1)" style="display:none">
+                                    <label th:text="${dict.dictLabel}" th:for="universityNature+(${dict.dictValue}+1)"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h5 class="filter-title">高校属地：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="provinceName" th:value="''" id="provinceName" style="display:none">
+                                    <label for="provinceName">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group" th:each="sysUniversity : ${provinceName}">
+                                    <input type="radio" name="provinceName" th:id="provinceName+(${sysUniversity.provinceName})" th:value="${sysUniversity.provinceName}" style="display:none">
+                                    <label th:for="provinceName+(${sysUniversity.provinceName})" th:text="${sysUniversity.provinceName}">北京</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="beijing">
+                            <h5 class="filter-title">所在城区：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="townName" th:value="''" id="bjbuxian" style="display:none">
+                                    <label for="bjbuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="dongcheng" th:value="东城区" style="display:none">
+                                    <label th:for="dongcheng" th:text="东城区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="xicheng" th:value="西城区" style="display:none">
+                                    <label th:for="xicheng" th:text="西城区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="chaoyang" th:value="朝阳区" style="display:none">
+                                    <label th:for="chaoyang" th:text="朝阳区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="fengtai" th:value="丰台区" style="display:none">
+                                    <label th:for="fengtai" th:text="丰台区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="shijingshan" th:value="石景山区" style="display:none">
+                                    <label th:for="shijingshan" th:text="石景山区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="haidian" th:value="海淀区" style="display:none">
+                                    <label th:for="haidian" th:text="海淀区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="mentougou" th:value="门头沟区" style="display:none">
+                                    <label th:for="mentougou" th:text="门头沟区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="fangshan" th:value="房山区" style="display:none">
+                                    <label th:for="fangshan" th:text="房山区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="tongzhou" th:value="通州区" style="display:none">
+                                    <label th:for="tongzhou" th:text="通州区 "></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="shunyi" th:value="顺义区" style="display:none">
+                                    <label th:for="shunyi" th:text="顺义区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="changping" th:value="昌平区" style="display:none">
+                                    <label th:for="changping" th:text="昌平区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="daxing" th:value="大兴区" style="display:none">
+                                    <label th:for="daxing" th:text="大兴区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="huairou" th:value="怀柔区" style="display:none">
+                                    <label th:for="huairou" th:text="怀柔区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="pinggu" th:value="平谷区" style="display:none">
+                                    <label th:for="pinggu" th:text="平谷区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="miyun" th:value="密云区" style="display:none">
+                                    <label th:for="miyun" th:text="密云区"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="townName" id="yanqing" th:value="延庆区" style="display:none">
+                                    <label th:for="yanqing" th:text="延庆区"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="shandong">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="buxian" style="display:none">
+                                    <label for="buxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="jinan" th:value="济南市" style="display:none">
+                                    <label th:for="jinan" th:text="济南市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="qingdao" th:value="青岛市" style="display:none">
+                                    <label th:for="qingdao" th:text="青岛市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zibo" th:value="淄博市" style="display:none">
+                                    <label th:for="zibo" th:text="淄博市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zaozhuang" th:value="枣庄市" style="display:none">
+                                    <label th:for="zaozhuang" th:text="枣庄市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="dongying" th:value="东营市" style="display:none">
+                                    <label th:for="dongying" th:text="东营市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yantai" th:value="烟台市" style="display:none">
+                                    <label th:for="yantai" th:text="烟台市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="weifang" th:value="潍坊市" style="display:none">
+                                    <label th:for="weifang" th:text="潍坊市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="jining" th:value="济宁市" style="display:none">
+                                    <label th:for="jining" th:text="济宁市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="taian" th:value="泰安市" style="display:none">
+                                    <label th:for="taian" th:text="泰安市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="weihai" th:value="威海市" style="display:none">
+                                    <label th:for="weihai" th:text="威海市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="rizhao" th:value="日照市" style="display:none">
+                                    <label th:for="rizhao" th:text="日照市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="linyi" th:value="临沂市" style="display:none">
+                                    <label th:for="linyi" th:text="临沂市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="dezhou" th:value="德州市" style="display:none">
+                                    <label th:for="dezhou" th:text="德州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="liaocheng" th:value="聊城市" style="display:none">
+                                    <label th:for="liaocheng" th:text="聊城市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="binzhou" th:value="滨州市" style="display:none">
+                                    <label th:for="binzhou" th:text="滨州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="heze" th:value="菏泽市" style="display:none">
+                                    <label th:for="heze" th:text="菏泽市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="neimenggu">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="nmbuxian" style="display:none">
+                                    <label for="nmbuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hhht" th:value="呼和浩特市" style="display:none">
+                                    <label th:for="hhht" th:text="呼和浩特市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="baotou" th:value="包头市" style="display:none">
+                                    <label th:for="baotou" th:text="包头市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="wuhai" th:value="乌海市" style="display:none">
+                                    <label th:for="wuhai" th:text="乌海市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="chifeng" th:value="赤峰市" style="display:none">
+                                    <label th:for="chifeng" th:text="赤峰市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="tongliao" th:value="通辽市" style="display:none">
+                                    <label th:for="tongliao" th:text="通辽市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="eeds" th:value="鄂尔多斯市" style="display:none">
+                                    <label th:for="eeds" th:text="鄂尔多斯市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hlbe" th:value="呼伦贝尔市" style="display:none">
+                                    <label th:for="hlbe" th:text="呼伦贝尔市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="byne" th:value="巴彦淖尔市" style="display:none">
+                                    <label th:for="byne" th:text="巴彦淖尔市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="wlcb" th:value="乌兰察布市" style="display:none">
+                                    <label th:for="wlcb" th:text="乌兰察布市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="liaoning">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="lnbuxian" style="display:none">
+                                    <label for="lnbuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="shengyang" th:value="沈阳市" style="display:none">
+                                    <label th:for="shengyang" th:text="沈阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="dalian" th:value="大连市" style="display:none">
+                                    <label th:for="dalian" th:text="大连市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="anshan" th:value="鞍山市" style="display:none">
+                                    <label th:for="anshan" th:text="鞍山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="fushun" th:value="抚顺市" style="display:none">
+                                    <label th:for="fushun" th:text="抚顺市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="benxi" th:value="本溪市" style="display:none">
+                                    <label th:for="benxi" th:text="本溪市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="dandong" th:value="丹东市" style="display:none">
+                                    <label th:for="dandong" th:text="丹东市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="jinzhou" th:value="锦州市" style="display:none">
+                                    <label th:for="jinzhou" th:text="锦州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yingkou" th:value="营口市" style="display:none">
+                                    <label th:for="yingkou" th:text="营口市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="fuxin" th:value="阜新市" style="display:none">
+                                    <label th:for="fuxin" th:text="阜新市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="liaoyang" th:value="辽阳市" style="display:none">
+                                    <label th:for="liaoyang" th:text="辽阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="panjin" th:value="盘锦市" style="display:none">
+                                    <label th:for="panjin" th:text="盘锦市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="tieling" th:value="铁岭市" style="display:none">
+                                    <label th:for="tieling" th:text="铁岭市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="lnchaoyang" th:value="朝阳市" style="display:none">
+                                    <label th:for="lnchaoyang" th:text="朝阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="huludao" th:value="葫芦岛市" style="display:none">
+                                    <label th:for="huludao" th:text="葫芦岛市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="heilongjiang">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="hljbuxian" style="display:none">
+                                    <label for="hljbuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="heb" th:value="哈尔滨市" style="display:none">
+                                    <label th:for="heb" th:text="哈尔滨市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="qqhe" th:value="齐齐哈尔市" style="display:none">
+                                    <label th:for="qqhe" th:text="齐齐哈尔市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="jx" th:value="鸡西市" style="display:none">
+                                    <label th:for="jx" th:text="鸡西市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hegang" th:value="鹤岗市" style="display:none">
+                                    <label th:for="hegang" th:text="鹤岗市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="shuangyashan" th:value="双鸭山市" style="display:none">
+                                    <label th:for="shuangyashan" th:text="双鸭山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="daqing" th:value="大庆市" style="display:none">
+                                    <label th:for="daqing" th:text="大庆市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yichun" th:value="伊春市" style="display:none">
+                                    <label th:for="yichun" th:text="伊春市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="jms" th:value="佳木斯市" style="display:none">
+                                    <label th:for="jms" th:text="佳木斯市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="qitaihe" th:value="七台河市" style="display:none">
+                                    <label th:for="qitaihe" th:text="七台河市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="mudanjiang" th:value="牡丹江市" style="display:none">
+                                    <label th:for="mudanjiang" th:text="牡丹江市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="heihe" th:value="黑河市" style="display:none">
+                                    <label th:for="heihe" th:text="黑河市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="suihua" th:value="绥化市" style="display:none">
+                                    <label th:for="suihua" th:text="绥化市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="yunnan">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="ynbuxian" style="display:none">
+                                    <label for="ynbuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="kunming" th:value="昆明市" style="display:none">
+                                    <label th:for="kunming" th:text="昆明市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="qujing" th:value="曲靖市" style="display:none">
+                                    <label th:for="qujing" th:text="曲靖市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yuxi" th:value="玉溪市" style="display:none">
+                                    <label th:for="yuxi" th:text="玉溪市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="baoshan" th:value="保山市" style="display:none">
+                                    <label th:for="baoshan" th:text="保山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zhaotong" th:value="昭通市" style="display:none">
+                                    <label th:for="zhaotong" th:text="昭通市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="lijiang" th:value="丽江市" style="display:none">
+                                    <label th:for="lijiang" th:text="丽江市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="puer" th:value="普洱市" style="display:none">
+                                    <label th:for="puer" th:text="普洱市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="lincang" th:value="临沧市" style="display:none">
+                                    <label th:for="lincang" th:text="临沧市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="shanxi">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="shanxibuxian" style="display:none">
+                                    <label for="shanxibuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xian" th:value="西安市" style="display:none">
+                                    <label th:for="xian" th:text="西安市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="tongchuan" th:value="铜川市" style="display:none">
+                                    <label th:for="tongchuan" th:text="铜川市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="baoji" th:value="宝鸡市" style="display:none">
+                                    <label th:for="baoji" th:text="宝鸡市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xianyang" th:value="咸阳市" style="display:none">
+                                    <label th:for="xianyang" th:text="咸阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="weinan" th:value="渭南市" style="display:none">
+                                    <label th:for="weinan" th:text="渭南市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yanan" th:value="延安市" style="display:none">
+                                    <label th:for="yanan" th:text="延安市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hanzhong" th:value="汉中市" style="display:none">
+                                    <label th:for="hanzhong" th:text="汉中市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yulin" th:value="榆林市" style="display:none">
+                                    <label th:for="yulin" th:text="榆林市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="ankang" th:value="安康市" style="display:none">
+                                    <label th:for="ankang" th:text="安康市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="shangluo" th:value="商洛市" style="display:none">
+                                    <label th:for="shangluo" th:text="商洛市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="hubei">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="hubeibuxian" style="display:none">
+                                    <label for="hubeibuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="wuhan" th:value="武汉市" style="display:none">
+                                    <label th:for="wuhan" th:text="武汉市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="huangshi" th:value="黄石市" style="display:none">
+                                    <label th:for="huangshi" th:text="黄石市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="shiyan" th:value="十堰市" style="display:none">
+                                    <label th:for="shiyan" th:text="十堰市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yichang" th:value="宜昌市" style="display:none">
+                                    <label th:for="yichang" th:text="宜昌市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xiangyang" th:value="襄阳市" style="display:none">
+                                    <label th:for="xiangyang" th:text="襄阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="ezhou" th:value="鄂州市" style="display:none">
+                                    <label th:for="ezhou" th:text="鄂州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="jingmenshi" th:value="荆门市" style="display:none">
+                                    <label th:for="jingmenshi" th:text="荆门市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="huanggang" th:value="黄冈市" style="display:none">
+                                    <label th:for="huanggang" th:text="黄冈市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xianning" th:value="咸宁市" style="display:none">
+                                    <label th:for="xianning" th:text="咸宁市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="suizhou" th:value="随州市" style="display:none">
+                                    <label th:for="suizhou" th:text="随州市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="hunan">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="hunanibuxian" style="display:none">
+                                    <label for="hunanibuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="changsha" th:value="长沙市" style="display:none">
+                                    <label th:for="changsha" th:text="长沙市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zhuzhou" th:value="株洲市" style="display:none">
+                                    <label th:for="zhuzhou" th:text="株洲市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xiangtan" th:value="湘潭市" style="display:none">
+                                    <label th:for="xiangtan" th:text="湘潭市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hengyang" th:value="衡阳市" style="display:none">
+                                    <label th:for="hengyang" th:text="衡阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="shaoyang" th:value="邵阳市" style="display:none">
+                                    <label th:for="shaoyang" th:text="邵阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yueyang" th:value="岳阳市" style="display:none">
+                                    <label th:for="yueyang" th:text="岳阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="changde" th:value="常德市" style="display:none">
+                                    <label th:for="changde" th:text="常德市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zhangjiajie" th:value="张家界市" style="display:none">
+                                    <label th:for="zhangjiajie" th:text="张家界市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yiyang" th:value="益阳市" style="display:none">
+                                    <label th:for="yiyang" th:text="益阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hnbinzhou" th:value="彬州市" style="display:none">
+                                    <label th:for="hnbinzhou" th:text="彬州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yongzhou" th:value="永州市" style="display:none">
+                                    <label th:for="yongzhou" th:text="永州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="huaihua" th:value="怀化市" style="display:none">
+                                    <label th:for="huaihua" th:text="怀化市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="loudi" th:value="娄底市" style="display:none">
+                                    <label th:for="loudi" th:text="娄底市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="sichuan">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="sichuanbuxian" style="display:none">
+                                    <label for="sichuanbuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="chengdu" th:value="成都市" style="display:none">
+                                    <label th:for="chengdu" th:text="成都市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zigong" th:value="自贡市" style="display:none">
+                                    <label th:for="zigong" th:text="自贡市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="panzhihua" th:value="攀枝花市" style="display:none">
+                                    <label th:for="panzhihua" th:text="攀枝花市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="luzhou" th:value="泸州市" style="display:none">
+                                    <label th:for="luzhou" th:text="泸州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="deyang" th:value="德阳市" style="display:none">
+                                    <label th:for="deyang" th:text="德阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="mianyang" th:value="绵阳市" style="display:none">
+                                    <label th:for="mianyang" th:text="绵阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="guangyuan" th:value="广元市" style="display:none">
+                                    <label th:for="guangyuan" th:text="广元市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="suining" th:value="遂宁市" style="display:none">
+                                    <label th:for="suining" th:text="遂宁市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="neijiang" th:value="内江市" style="display:none">
+                                    <label th:for="neijiang" th:text="内江市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="leshan" th:value="乐山市" style="display:none">
+                                    <label th:for="leshan" th:text="乐山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="nanchong" th:value="南充市" style="display:none">
+                                    <label th:for="nanchong" th:text="南充市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="meishan" th:value="眉山市" style="display:none">
+                                    <label th:for="meishan" th:text="眉山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yibin" th:value="宜宾市" style="display:none">
+                                    <label th:for="yibin" th:text="宜宾市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="guangan" th:value="广安市" style="display:none">
+                                    <label th:for="guangan" th:text="广安市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="dazhou" th:value="达州市" style="display:none">
+                                    <label th:for="dazhou" th:text="达州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yaan" th:value="雅安市" style="display:none">
+                                    <label th:for="yaan" th:text="雅安市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="bazhong" th:value="巴中市" style="display:none">
+                                    <label th:for="bazhong" th:text="巴中市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="ziyang" th:value="资阳市" style="display:none">
+                                    <label th:for="ziyang" th:text="资阳市"></label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row" id="hebei">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="hebeibuxian" style="display:none">
+                                    <label for="hebeibuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="shijiazhuang" th:value="石家庄市" style="display:none">
+                                    <label th:for="shijiazhuang" th:text="石家庄市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="tangshan" th:value="唐山市" style="display:none">
+                                    <label th:for="tangshan" th:text="唐山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="qinhuangdao" th:value="秦皇岛市" style="display:none">
+                                    <label th:for="qinhuangdao" th:text="秦皇岛市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="handan" th:value="邯郸市" style="display:none">
+                                    <label th:for="handan" th:text="邯郸市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xingtai" th:value="邢台市" style="display:none">
+                                    <label th:for="xingtai" th:text="邢台市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="baoding" th:value="保定市" style="display:none">
+                                    <label th:for="baoding" th:text="保定市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zhangjiakou" th:value="张家口市" style="display:none">
+                                    <label th:for="zhangjiakou" th:text="张家口市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="chengde" th:value="承德市" style="display:none">
+                                    <label th:for="chengde" th:text="承德市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="cangzhou" th:value="沧州市" style="display:none">
+                                    <label th:for="cangzhou" th:text="沧州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="langfang" th:value="廊坊市" style="display:none">
+                                    <label th:for="langfang" th:text="廊坊市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hengshui" th:value="衡水市" style="display:none">
+                                    <label th:for="hengshui" th:text="衡水市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="henan">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="henanbuxian" style="display:none">
+                                    <label for="henanbuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zhengzhou" th:value="郑州市" style="display:none">
+                                    <label th:for="zhengzhou" th:text="郑州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="kaifeng" th:value="开封市" style="display:none">
+                                    <label th:for="kaifeng" th:text="开封市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="luoyang" th:value="洛阳市" style="display:none">
+                                    <label th:for="luoyang" th:text="洛阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="pds" th:value="平顶山市" style="display:none">
+                                    <label th:for="pds" th:text="平顶山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="anyang" th:value="安阳市" style="display:none">
+                                    <label th:for="anyang" th:text="安阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hebi" th:value="鹤壁市" style="display:none">
+                                    <label th:for="hebi" th:text="鹤壁市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xinxiang" th:value="新乡市" style="display:none">
+                                    <label th:for="xinxiang" th:text="新乡市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="jiaozuo" th:value="焦作市" style="display:none">
+                                    <label th:for="jiaozuo" th:text="焦作市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="puyang" th:value="濮阳市" style="display:none">
+                                    <label th:for="puyang" th:text="濮阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xuchang" th:value="许昌市" style="display:none">
+                                    <label th:for="xuchang" th:text="许昌市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="luohe" th:value="漯河市" style="display:none">
+                                    <label th:for="luohe" th:text="漯河市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="smx" th:value="三门峡市" style="display:none">
+                                    <label th:for="smx" th:text="三门峡市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="nanyang" th:value="南阳市" style="display:none">
+                                    <label th:for="nanyang" th:text="南阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="shangqiu" th:value="商丘市" style="display:none">
+                                    <label th:for="shangqiu" th:text="商丘市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="xinyang" th:value="信阳市" style="display:none">
+                                    <label th:for="xinyang" th:text="信阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zhoukou" th:value="周口市" style="display:none">
+                                    <label th:for="zhoukou" th:text="周口市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="zmd" th:value="驻马店市" style="display:none">
+                                    <label th:for="zmd" th:text="驻马店市"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="anhui">
+                            <h5 class="filter-title">所在城市：</h5>
+                            <div class="filter-items full-row locations">
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" checked name="cityName" th:value="''" id="anhuibuxian" style="display:none">
+                                    <label for="anhuibuxian">不限</label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="hefei" th:value="合肥市" style="display:none">
+                                    <label th:for="hefei" th:text="合肥市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="wuhu" th:value="芜湖市" style="display:none">
+                                    <label th:for="wuhu" th:text="芜湖市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="bengbu" th:value="蚌埠市" style="display:none">
+                                    <label th:for="bengbu" th:text="蚌埠市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="huainan" th:value="淮南市" style="display:none">
+                                    <label th:for="huainan" th:text="淮南市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="mas" th:value="马鞍山市" style="display:none">
+                                    <label th:for="mas" th:text="马鞍山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="huaibei" th:value="淮北市" style="display:none">
+                                    <label th:for="huaibei" th:text="淮北市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="tongling" th:value="铜陵市" style="display:none">
+                                    <label th:for="tongling" th:text="铜陵市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="anqing" th:value="安庆市" style="display:none">
+                                    <label th:for="anqing" th:text="安庆市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="huangshan" th:value="黄山市" style="display:none">
+                                    <label th:for="huangshan" th:text="黄山市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="chuzhou" th:value="滁州市" style="display:none">
+                                    <label th:for="chuzhou" th:text="滁州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="fuyang" th:value="阜阳市" style="display:none">
+                                    <label th:for="fuyang" th:text="阜阳市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="suzhou" th:value="宿州市" style="display:none">
+                                    <label th:for="suzhou" th:text="宿州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="liuan" th:value="六安市" style="display:none">
+                                    <label th:for="liuan" th:text="六安市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="bozhou" th:value="亳州市" style="display:none">
+                                    <label th:for="bozhou" th:text="亳州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="chizhou" th:value="池州市" style="display:none">
+                                    <label th:for="chizhou" th:text="池州市"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input type="radio" name="cityName" id="yicheng" th:value="宜城市" style="display:none">
+                                    <label th:for="yicheng" th:text="宜城市"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--学校列表-->
+        <div th:fragment="universityList" id="universityList" class="search-table01-l">
+            <div class="wiki-school-list"  th:each="SysUniversity : ${pageInfo.list}">
+                <div class="wiki-school">
+                    <a th:href="@{/client/universityDetail/{universityId}(universityId=${SysUniversity.universityId})}" class="school-detail">
+                        <div class="school-logo">
+                            <img th:src="${SysUniversity.universityBadge}" alt=""></div>
+                        <div>
+                            <div class="title">
+                                <h3 th:text="${SysUniversity.universityName}"></h3>
+                                <span th:text="${SysUniversity.universityNature}"></span>
+                                <span th:text="${SysUniversity.universityLevel}"></span>
+                                <span th:if="${SysUniversity.dualClassName} == 双一流">双一流</span>
+                                <span th:if="${SysUniversity.f985} == 1">985</span>
+                                <span th:if="${SysUniversity.f211} == 1">211</span>
+                            </div>
+                            <div class="info">
+                                <h5>隶属：
+                                    <span th:text="${SysUniversity.belong}"></span>
+                                </h5>
+                                <h5>类型：
+                                    <span th:text="${SysUniversity.universityType}"></span>
+                                </h5>
+                                <h5>城市：
+                                    <span th:text="${SysUniversity.cityName}"></span>
+                                </h5>
+                                <h5>全国排名：
+                                    <span class="blue" th:text="${SysUniversity.ranking}"></span>
+                                </h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!--分页-->
+            <div class="mpage">
+                <div class="qzPagination" th:each="SysUniversity, SysUniversityStat : ${pageInfo.list}" th:if="${SysUniversityStat.count}<=1">
+                    <a id="homePage" onclick="homePage()">首页</a>
+                    <a class="item" th:unless="${pageInfo.isFirstPage}" id="previousPage" onclick="previousPage()">上一页</a>
+                    <span class="pageinfo">第 <strong th:text="${pageInfo.pageNum}" id="nowPage"></strong> 页，共 <strong th:text="${pageInfo.pages}" id="countPage"></strong> 页，有 <strong th:text="${pageInfo.total}"></strong>个学校</span>
+                    <a th:unless="${pageInfo.isLastPage}" id="nextPage" onclick="nextPage()">下一页</a>
+                    <a onclick="lastPage()">尾页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+
+<script type="text/javascript">
+    //点击首页
+    function homePage(){
+        var pageNum = 1;
+        $.ajax({
+            url: "/client/selectUniversity",
+            type: "post",
+            data: {
+                "universityName": $("#universityName").val(),
+                "universityLevel": $('input[name="universityLevel"]:checked').val(),
+                "universityType": $('input[name="universityType"]:checked').val(),
+                "universityNature": $('input[name="universityNature"]:checked').val(),
+                "provinceName": $('input[name="provinceName"]:checked').val(),
+                "cityName": $('input[name="cityName"]:checked').val(),
+                "townName": $('input[name="townName"]:checked').val(),
+                "pageNum": pageNum
+            },
+            success: function (data) {
+                $("#universityList").html(data);
+            }
+        })
+    }
+    //点击上一页
+    function previousPage() {
+        var pageNum = parseInt($("#nowPage").text()) - 1;
+        $.ajax({
+            url: "/client/selectUniversity",
+            type: "post",
+            data: {
+                "universityName": $("#universityName").val(),
+                "universityLevel": $('input[name="universityLevel"]:checked').val(),
+                "universityType": $('input[name="universityType"]:checked').val(),
+                "universityNature": $('input[name="universityNature"]:checked').val(),
+                "provinceName": $('input[name="provinceName"]:checked').val(),
+                "cityName": $('input[name="cityName"]:checked').val(),
+                "townName": $('input[name="townName"]:checked').val(),
+                "pageNum": pageNum
+            },
+            success: function (data) {
+                $("#universityList").html(data);
+            }
+        })
+    }
+    //点击下一页
+    function nextPage() {
+        var pageNum = parseInt($("#nowPage").text()) + 1;
+        $.ajax({
+            url: "/client/selectUniversity",
+            type: "post",
+            data: {
+                "universityName": $("#universityName").val(),
+                "universityLevel": $('input[name="universityLevel"]:checked').val(),
+                "universityType": $('input[name="universityType"]:checked').val(),
+                "universityNature": $('input[name="universityNature"]:checked').val(),
+                "provinceName": $('input[name="provinceName"]:checked').val(),
+                "cityName": $('input[name="cityName"]:checked').val(),
+                "townName": $('input[name="townName"]:checked').val(),
+                "pageNum": pageNum
+            },
+            success: function (data) {
+                $("#universityList").html(data);
+            }
+        })
+    }
+    //点击尾页
+    function lastPage() {
+        var pageNum = parseInt($("#countPage").text());
+        $.ajax({
+            url: "/client/selectUniversity",
+            type: "post",
+            data: {
+                "universityName": $("#universityName").val(),
+                "universityLevel": $('input[name="universityLevel"]:checked').val(),
+                "universityType": $('input[name="universityType"]:checked').val(),
+                "universityNature": $('input[name="universityNature"]:checked').val(),
+                "provinceName": $('input[name="provinceName"]:checked').val(),
+                "cityName": $('input[name="cityName"]:checked').val(),
+                "townName": $('input[name="townName"]:checked').val(),
+                "pageNum": pageNum
+            },
+            success: function (data) {
+                $("#universityList").html(data);
+            }
+        })
+    }
+
+    //查询院校
+    $("#btn1,.row").click(function () {
+        $.ajax({
+            url: "/client/selectUniversity",
+            type:"post",
+            data:{
+                "universityName":$("#universityName").val(),
+                "universityLevel":$('input[name="universityLevel"]:checked').val(),
+                "universityType":$('input[name="universityType"]:checked').val(),
+                "universityNature":$('input[name="universityNature"]:checked').val(),
+                "provinceName":$('input[name="provinceName"]:checked').val(),
+                "cityName":$('input[name="cityName"]:checked').val(),
+                "townName":$('input[name="townName"]:checked').val()
+            },
+            success:function (data) {
+                $("#universityList").html(data);
+            }
+        })
+    });
+
+    $(document).ready(function () {
+        $("#shandong, #beijing, #neimenggu, #liaoning, #heilongjiang, #yunnan, #shanxi, #hubei, #hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        $("#provinceName").click(function () {
+            $("#shandong, #beijing, #neimenggu, #liaoning, #heilongjiang, #yunnan, #shanxi, #hubei, #hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName山东").click(function () {
+            $("#beijing, #neimenggu, #liaoning, #heilongjiang, #yunnan, #shanxi, #hubei, #hunan, #sichuan, #hebei, #henan, #anhui").hide();
+            $("#shandong").show();
+        })
+        $("#provinceName北京").click(function () {
+            $("#beijing").show();
+            $("#shandong,#neimenggu, #liaoning, #heilongjiang, #yunnan, #shanxi, #hubei, #hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName内蒙古").click(function () {
+            $("#neimenggu").show();
+            $("#shandong,#beijing, #liaoning, #heilongjiang, #yunnan, #shanxi, #hubei,#hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName辽宁").click(function () {
+            $("#liaoning").show();
+            $("#shandong,#beijing,#neimenggu,#heilongjiang, #yunnan, #shanxi, #hubei,#hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName黑龙江").click(function () {
+            $("#heilongjiang").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #yunnan, #shanxi, #hubei,#hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName云南").click(function () {
+            $("#yunnan").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #shanxi, #hubei,#hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName陕西").click(function () {
+            $("#shanxi").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #yunnan, #hubei,#hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName湖北").click(function () {
+            $("#hubei").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #yunnan, #shanxi,#hunan, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName湖南").click(function () {
+            $("#hunan").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #yunnan, #shanxi,#hubei, #sichuan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName四川").click(function () {
+            $("#sichuan").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #yunnan, #shanxi,#hubei, #hunan, #hebei, #henan, #anhui").hide();
+        })
+        $("#provinceName河北").click(function () {
+            $("#hebei").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #yunnan, #shanxi,#hubei, #hunan, #sichuan, #henan, #anhui").hide();
+        })
+        $("#provinceName河南").click(function () {
+            $("#henan").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #yunnan, #shanxi,#hubei, #hunan, #sichuan, #hebei, #anhui").hide();
+        })
+        $("#provinceName安徽").click(function () {
+            $("#anhui").show();
+            $("#shandong,#beijing,#neimenggu,#liaoning, #heilongjiang, #yunnan, #shanxi,#hubei, #hunan, #sichuan, #hebei, #henan").hide();
+        })
+    })
+
+</script>
+</body>
+</html>

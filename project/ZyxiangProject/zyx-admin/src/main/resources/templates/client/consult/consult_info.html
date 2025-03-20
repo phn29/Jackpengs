@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||咨询详情')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}">查学校</a>
+                <a th:href="@{/client/selectConsult}" class="active">查资讯</a>
+                <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}">找专家</a>
+                <a th:href="@{/client/personal/index}">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="fl left">
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href='#'>咨讯详情</a> >
+        </div>
+        <div class="c_parag">
+            <div class="parag">
+                <div class="p_title">
+                    <h1 th:text="${SysHost.hostTitle}"></h1>
+                    <p>
+                        <span th:text="${SysHost.hostSource}"></span>
+                        <span th:text="${SysHost.hostAuthor}"></span>
+                        <span th:text="${#dates.format(SysHost.hostTime, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        <span style="color: #fff;">阅读量：220次</span></p>
+                </div>
+                <p th:utext="${SysHost.hostContent}"></p>
+            </div>
+
+            <span class="l_title">相关视频</span>
+            <video class="video" controls autoplay>
+                <source  th:src="${SysHost.hostVideo}" type="video/ogg">
+            </video>
+
+        </div>
+    </div>
+    <div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+</body>
+</html>

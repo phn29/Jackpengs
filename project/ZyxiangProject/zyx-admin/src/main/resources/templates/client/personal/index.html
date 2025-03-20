@@ -1,0 +1,829 @@
+<!doctype html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="author" content="order by dede58.com"/>
+    <title>个人中心</title>
+    <link rel="stylesheet" type="text/css" href="/css/pc_common.css" th:href="@{/css/pc_common.css}"/>
+    <link rel="stylesheet" type="text/css" href="css/jiazaitoubu.css" th:herf="@{/css/jiazaitoubu.css}">
+    <link rel="stylesheet" type="text/css" href="css/css.css" th:href="@{/css/css.css}">
+    <script src="js/jquery-1.8.3.min.js" th:src="@{/js/jquery-1.8.3.min.js}"></script>
+    <script src="js/index2.js" th:src="@{/js/index2.js}"></script>
+    <link rel="stylesheet" type="text/css" href="css/center.css" th:href="@{/css/center.css}">
+    <!--城市联动-->
+    <link rel="stylesheet" type="text/css" href="city/city.css" th:href="@{/city/city.css}">
+    <script src="city/Popt.js" th:src="@{/city/Popt.js}"></script>
+    <script src="city/cityJson.js" th:src="@{/city/cityJson.js}"></script>
+    <script src="city/citySet.js" th:src="@{/city/citySet.js}"></script>
+    <style>
+        /* 标题 */
+        .header {
+            padding: 30px;
+            text-align: center;
+            background: #f2f8fe;
+        }
+
+        /* 标题字体加大 */
+        .header h1 {
+            font-size: 30px;
+        }
+
+
+        /* 鼠标移动到链接的颜色 */
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* 列容器 */
+        .row {
+            display: -ms-flexbox; /* IE10 */
+            display: flex;
+            -ms-flex-wrap: wrap; /* IE10 */
+            flex-wrap: wrap;
+        }
+
+
+        /* 主要的内容区域 */
+        .main {
+            -ms-flex: 70%; /* IE10 */
+            flex: 70%;
+            font-size:10px;
+            background-color:#f2f8fe;
+            padding: 20px;
+        }
+
+
+        /* 底部 */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background: #ddd;
+        }
+
+        /* 响应式布局 - 在屏幕设备宽度尺寸小于 700px 时, 让两栏上下堆叠显示 */
+        @media screen and (max-width: 700px) {
+            .row {
+                flex-direction: column;
+            }
+        }
+
+        /* 响应式布局 - 在屏幕设备宽度尺寸小于 400px 时, 让导航栏目上下堆叠显示 */
+        @media screen and (max-width: 400px) {
+            .navbar a {
+                float: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="bodyBackground">
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center; color: black">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}">查学校</a>
+                <a th:href="@{/client/selectConsult}">查资讯</a>
+                <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}" >找专家</a>
+                <a th:href="@{/client/personal/index}" onclick="personalIndex()" class="active">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <!--当前位置-->
+    <div class="fl left" style="width: 1200px">
+        <div class="adr">
+            <a th:href='@{/universityIndex}'>主页</a> >
+            <a href='#'>个人中心</a>
+        </div>
+        <div class="centers_m">
+            <!--清除浮动-->
+            <div class="clear_sm"></div>
+            <!--left-->
+            <div class="centers_ml">
+                <!--头像-->
+                <div class="center_header">
+                    <a href="#"><img src="/images/66f625e1ecfd7ad8244efabaa744aa73.png"/></a>
+                    <em>您好，<font th:text="${session.SysStudent.stuName}"></font></em>
+                </div>
+                <!--列表go-->
+                <div class="centers_listm">
+                    <!--个人中心-->
+                    <div class="centers_listm_one">
+                        <img src="/images/zshy.png"/>
+                        <em>个人中心</em>
+                    </div>
+                    <!--一条开始-->
+                    <div class="centers_listm_one_in">
+                        <img src="/images/shezhi.png"/>
+                        <em>资料管理</em>
+                        <b></b>
+                    </div>
+                    <span class="gjszmdm">
+                        <span class="center_in_self" onclick="showDiv('div0')">
+                            <font>基本资料设置</font>
+                        </span>
+                        <span class="center_in_self" onclick="showDiv('div1')">
+                            <font>意向填写</font>
+                        </span>
+						<span class="center_in_self" onclick="showDiv('div2')">
+						    <font>修改密码</font>
+						</span>
+
+                    </span>
+                    <!--一条开始-->
+                    <div class="centers_listm_one_in">
+                        <img src="/images/ddgl.png"/>
+                        <em>志愿管理</em>
+                        <b></b>
+                    </div>
+                    <span class="gjszmdm">
+                        <a class="center_in_self" onclick="showDiv('div3')" id="menu3">
+                            <font>我的志愿</font>
+                        </a>
+                     </span>
+                    <!--一条开始-->
+                    <div class="centers_listm_one_in">
+                        <img src="/images/suo.png"/>
+                        <em>我的专家</em>
+                        <b></b>
+                    </div>
+                    <span class="gjszmdm">
+						<a class="center_in_self" onclick="showDiv('div4')">
+                            <font>专家列表</font></a>
+					</span>
+                    <!--一条开始-->
+                    <div class="centers_listm_one_in">
+                        <img src="/images/wdssc.png"/>
+                        <em>收藏管理</em>
+                        <b></b>
+                    </div>
+                    <span class="gjszmdm">
+						<a class="center_in_self" onclick="showDiv('div5')"><font>院校收藏</font></a>
+						<a class="center_in_self" onclick="showDiv('div6')"><font>专业收藏</font></a>
+					</span>
+                    <!--一条开始-->
+                    <div class="centers_listm_one_in">
+                        <img src="/images/myfridend.png"/>
+                        <em>历史记录</em>
+                        <b></b>
+                    </div>
+                    <span class="gjszmdm">
+						<a class="center_in_self" onclick="showDiv('div7')"><font>访问记录</font></a>
+					</span>
+                    <!--一条开始-->
+                    <div class="centers_listm_one_in">
+                        <img src="/images/myfridend.png"/>
+                        <em>心理测试</em>
+                        <b></b>
+                    </div>
+                    <span class="gjszmdm">
+						<a class="center_in_self" onclick="showDiv('div8')"><font>心理测试结果</font></a>
+					</span>
+                    <span class="gjszmdm">
+						<a class="center_in_self" th:href="@{/client/nature}"><font>心理测试</font></a>
+					</span>
+                </div>
+            </div>
+            <!--right-->
+            <div class="centers_mr">
+                <h1 class="welcom_tm">欢迎您，<font th:text="${session.SysStudent.stuName}"></font></h1>
+
+                <!--信息修改-->
+                <div class="public_m1" id="div0">
+                    <div class="public_m2">信息修改</div>
+                    <!--照片和内容-->
+                    <div class="zp_nrm" th:each="SysStudent : ${SysStudent}">
+                        <!--left-->
+                        <div class="zp_nrm_l">
+                            <img src="/images/66f625e1ecfd7ad8244efabaa744aa73.png"/>
+                            <a href="#">更换头像</a>
+                        </div>
+                        <!--right-->
+                        <div class="zp_nrm_r">
+                            <p>
+                                <em>姓名：</em>
+                                <input type="text" name="stuName" id="stuName" th:value="${SysStudent.stuName}" style="height:23px; border:1px solid #eaeaea; width:140px">
+                            </p>
+                            <p>
+                                <em>账号：</em>
+                                <input type="text" name="stuNo" id="stuNo" th:value="${SysStudent.stuNo}" style=" height:23px; border:1px solid #eaeaea; width:140px">
+                            </p>
+                            <p>
+                                <em>密码：</em>
+                                <input type="password" name="stuPassword" id="stuPassword" th:value="${SysStudent.stuPassword}" style=" height:23px; border:1px solid #eaeaea; width:140px">
+                            </p>
+                            <p>
+                                <em>分数：</em>
+                                <input type="text" name="stuScore" id="stuScore" th:value="${SysStudent.stuScore}" style=" height:23px; border:1px solid #eaeaea; width:140px" onchange="selectRanking()" >
+                            </p>
+                            <p>
+                                <em>位次：</em>
+                                <input type="text" name="ranking" id="ranking" th:value="${SysStudent.ranking}" style=" height:23px; border:1px solid #eaeaea; width:140px">
+                                <span id="2021" style="padding-left: 140px; font-size: 16px; font-weight: 400" >已获取 2022年 对应排名，您也可以手动输入</span>
+                            </p>
+                            <p>
+                                <em>性别：</em>
+                                <input type="radio" name="sex" id="male" th:value="${SysStudent.stuSex}" class="sex_m"><i>男</i>
+                                <input type="radio" name="sex" id="female" th:value="${SysStudent.stuSex}" class="sex_m"><i>女</i>
+                            </p>
+                            <p>
+                                <em>邮箱：</em>
+                                <input type="text" name="stuEmail" id="stuEmail" th:value="${SysStudent.stuEmail}" style=" height:23px; border:1px solid #eaeaea; width:140px">
+                            </p>
+                            <p>
+                                <em>高考科目：</em>
+                                <input type="checkbox" name="physics" class="sex_m"><i>物理</i>
+                                <input type="checkbox" name="chemistry" class="sex_m"><i>化学</i>
+                                <input type="checkbox" name="biology" class="sex_m"><i>生物</i>
+                                <input type="checkbox" name="politics" class="sex_m"><i>政治</i>
+                                <input type="checkbox" name="history" class="sex_m"><i>历史</i>
+                                <input type="checkbox" name="geography" class="sex_m"><i>地理</i>
+                            </p>
+                            <button onclick="save()" class="public_m3">保存</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--个人意向填写-->
+                <div class="public_m1" id="div1" style="display: none;">
+                    <div class="public_m2">意向填写</div>
+                    <!--提示信息-->
+                    <div class="tip_notem">
+                        <ul>
+                            <li>1.请认真填写个人意向</li>
+                            <li>2.可通过个人意向快速推荐合适的志愿</li>
+                            <li>3.可通过个人意向进行志愿合理性分析</li>
+                        </ul>
+                    </div>
+                    <div class="public_m4">
+                        <p>
+                            <em>目标地区一：</em>
+                            <input type="text" th:value="${SysStudent.purposeAddressOne}" id="purposeAddressOne" name="purposeAddressOne" style="height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <p>
+                            <em>目标地区二：</em>
+                            <input type="text" th:value="${SysStudent.purposeAddressTwo}" id="purposeAddressTwo" name="purposeAddressTwo" style="height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <p>
+                            <em>目标地区三：</em>
+                            <input type="text" th:value="${SysStudent.purposeAddressThree}" id="purposeAddressThree" name="purposeAddressThree" style="height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <p>
+                            <em>目标专业一：</em>
+                            <input type="text" th:value="${SysStudent.purposeMajorOne}" id="purposeMajorOne" name="purposeMajorOne" style="height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <p>
+                            <em>目标专业二：</em>
+                            <input type="text" th:value="${SysStudent.purposeMajorTwo}" id="purposeMajorTwo" name="purposeMajorTwo" style="height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <p>
+                            <em>目标专业三：</em>
+                            <input type="text" th:value="${SysStudent.purposeMajorThree}" id="purposeMajorThree" name="purposeMajorThree" style="height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <a href="#" class="public_m3" onclick="save()">确认修改</a>
+                    </div>
+                </div>
+
+                <!--登录密码修改-->
+                <div class="public_m1" id="div2" style="display: none;">
+                    <div class="public_m2">登录密码修改</div>
+                    <!--提示信息-->
+                    <div class="tip_notem">
+                        <ul>
+                            <li>1.请牢记登录密码</li>
+                            <li>2.如果丢失密码，可以通过绑定的邮箱找到</li>
+                        </ul>
+                    </div>
+                    <div class="public_m4">
+                        <p>
+                            <em>原密码：</em>
+                            <input type="text" style=" height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <p>
+                            <em>新的密码：</em>
+                            <input type="text" style=" height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <p>
+                            <em>确认密码：</em>
+                            <input type="text" style=" height:23px; border:1px solid #eaeaea; width:140px">
+                        </p>
+                        <a href="#" class="public_m3">确认修改</a>
+                    </div>
+                </div>
+
+                <!--当前志愿-->
+                <div class="public_m1" id="div3" style="display: none;">
+                    <div class="public_m2">当前志愿</div>
+                    <div class="public_m5">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr style=" border-bottom:1px solid #000">
+                                    <th>志愿序号</th>
+                                    <th class="olist2">院校名称</th>
+                                    <th class="olist3">专业名称</th>
+                                    <th class="olist5">操作</th>
+                                </tr>
+                                <tr th:each="SysVolunteer : ${SysVolunteer}" th:id="${SysVolunteer.volunteerId}">
+                                    <td th:text="${SysVolunteer.volunteerNum}"></td>
+                                    <td>
+                                        <a th:href="@{/client/universityDetail/{universityId}(universityId=${SysVolunteer.university.universityId})}"
+                                           th:text="${SysVolunteer.universityName}"></a>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/client/majorDetail/{majorId}(majorId=${SysVolunteer.major.majorId})}" th:text="${SysVolunteer.majorName}"></a>
+                                    </td>
+                                    <td>
+                                        <button th:onclick="'javascript:analysis(this,'+${SysVolunteer.volunteerId}+')' "style="width: 65px; height: 33px; color: white; background: blue; border-radius: 4px">志愿分析</button>
+                                        <button th:onclick="'javascript:delVolunteer(this,'+${SysVolunteer.volunteerId}+')' " style="width: 45px; height: 33px; color: white; background: red; border-radius: 4px">删除</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!--翻页符号-->
+                        <div class="fanyefh_m">
+                            <a href="#">上一页</a>
+                            <a href="#"class="addclass_m">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">下一页</a>
+                        </div>
+                    </div>
+                    <!--当没有东西时的东西-->
+                    <div class="public_m6">
+                        <img src="/images/danmgydxm.png"/>
+                    </div>
+                </div>
+
+                <!--专家列表-->
+                <div class="public_m1" id="div4" style="display: none;">
+                    <div class="public_m2">我的专家列表</div>
+                    <div class="public_m5">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr style=" border-bottom:1px solid #000">
+                                <th class="olist1">专家姓名</th>
+                                <th class="olist2">头像</th>
+                                <th class="olist3">性别</th>
+                                <th class="olist3">预约状态</th>
+                                <th class="olist3">预约时间</th>
+                                <th class="olist5">操作</th>
+                            </tr>
+                            <tr th:each="SysChat : ${SysChat}" th:id="${SysChat.chatId}">
+                                <td th:text="${SysChat.expert.expertName}">
+                                    <a href="#">专家一</a>
+                                </td>
+                                <td >
+                                    <img th:src="${SysChat.expert.expertAvatar}" style="width: 50px; height: 50px; border-radius: 50%">
+                                </td>
+                                <td th:switch="${SysChat.expert.expertSex}">
+                                    <span th:case="0">男</span>
+                                    <span th:case="1">女</span>
+                                </td>
+                                <td th:switch="${SysChat.state}">
+                                    <span th:case="0" class="layui-btn layui-btn-normal layui-btn-mini" style="background: goldenrod">预约中</span>
+                                    <span th:case="1" class="layui-btn layui-btn-normal layui-btn-mini" style="background: greenyellow">预约成功</span>
+                                    <span th:case="2" class="layui-btn layui-btn-normal layui-btn-mini" style="background: red">预约失败</span>
+                                </td>
+
+                                <td>2020-12-05 12:65:00</td>
+                                <td>
+                                    <button th:onclick="'javascript:delChat(this,'+${SysChat.chatId}+')' " style="width: 45px; height: 33px; color: white; background: red; border-radius: 4px">删除</button>
+                                    <button style="width: 45px; height: 33px; color: white; background: blue; border-radius: 4px">聊天</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--翻页符号-->
+                        <div class="fanyefh_m">
+                            <a href="#">上一页</a>
+                            <a href="#"class="addclass_m">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">下一页</a>
+                        </div>
+                    </div>
+                    <!--当没有东西时的东西-->
+                    <div class="public_m6">
+                        <img src="/images/danmgydxm.png"/>
+                    </div>
+
+                </div>
+
+                <!--院校收藏-->
+                <div class="public_m1" id="div5" style="display: none;" >
+                    <div class="public_m2">院校收藏</div>
+                    <div class="public_m5">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr style=" border-bottom:1px solid #000">
+                                <th class="olist1">院校代码</th>
+                                <th class="olist2">院校名称</th>
+                                <th class="olist3">校徽</th>
+                                <th class="olist4">办学层次</th>
+                                <th class="olist4">所属省份</th>
+                                <th>收藏时间</th>
+                                <th class="olist5">操作</th>
+                            </tr>
+                            <tr th:each="SysUniversityCollection : ${SysUniversityCollection}" th:id="${SysUniversityCollection.id}">
+                                <td th:text="${SysUniversityCollection.collectionId}"></td>
+                                <td>
+                                    <a th:href="@{/client/universityDetail/{universityId}(universityId=${SysUniversityCollection.collectionId})}"
+                                       th:text="${SysUniversityCollection.collectionName}">
+                                    </a>
+                                </td>
+                                <td>
+                                    <img th:src="${SysUniversityCollection.university.universityBadge}" style="width: 50px; height: 50px; border-radius: 50%; margin: 15px 0;">
+                                </td>
+                                <td th:text="${SysUniversityCollection.university.universityLevel}"></td>
+                                <td th:text="${SysUniversityCollection.university.provinceName}"></td>
+                                <td th:text="${#dates.format(SysUniversityCollection.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td>
+                                    <button th:onclick="'javascript:delCollectionUniversity(this,'+${SysUniversityCollection.id}+')' " style="width: 45px; height: 33px; color: white; background: red; border-radius: 4px">删除</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--当没有东西时的东西-->
+                    <div class="public_m6">
+                        <img src="/images/danmgydxm.png"/>
+                    </div>
+                </div>
+
+                <!--专业收藏-->
+                <div class="public_m1" id="div6" style="display: none;">
+                    <div class="public_m2">专业收藏</div>
+                    <div class="public_m5">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr style=" border-bottom:1px solid #000">
+                                <th class="olist1">专业代码</th>
+                                <th class="olist2">专业名称</th>
+                                <th class="olist4">专业类型</th>
+                                <th class="olist3">专业门类</th>
+                                <th class="olist4">专业层次</th>
+                                <th>收藏时间</th>
+                                <th class="olist5">操作</th>
+                            </tr>
+                            <tr th:each="SysMajorCollection : ${SysMajorCollection}" th:id="${SysMajorCollection.id}">
+                                <td th:text="${SysMajorCollection.collectionId}"></td>
+                                <td>
+                                    <a th:href="@{/client/majorDetail/{majorId}(majorId=${SysMajorCollection.collectionId})}"
+                                       th:text="${SysMajorCollection.collectionName}"></a>
+                                </td>
+                                <td th:text="${SysMajorCollection.major.majorType}"></td>
+                                <td th:text="${SysMajorCollection.major.majorCategory}"></td>
+                                <td th:text="${SysMajorCollection.major.majorLevel}"></td>
+                                <td th:text="${#dates.format(SysMajorCollection.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td>
+                                    <button th:onclick="'javascript:delCollectionMajor(this,'+${SysMajorCollection.id}+')' " style="width: 45px; height: 33px; color: white; background: red; border-radius: 4px">删除</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--当没有东西时的东西-->
+                    <div class="public_m6">
+                        <img src="/images/danmgydxm.png"/>
+                    </div>
+                </div>
+
+                <!--历史访问记录-->
+                <div class="public_m1" id="div7" style="display: none;">
+                    <div class="public_m2">访问记录</div>
+                    <div class="public_m5">
+                        <table border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                            <tr style=" border-bottom:1px solid #000">
+                                <th class="olist1">访问名称</th>
+                                <th class="olist2">访问类型</th>
+                                <th class="olist3">访问次数</th>
+                                <th class="olist4">最近访问时间</th>
+                                <th class="olist5">操作</th>
+                            </tr>
+                            <tr>
+                            <tr th:each="SysHistory : ${SysHistory}" th:id="${SysHistory.historyId}">
+                                <td th:text="${SysHistory.historyName}"></td>
+                                <td th:switch="${SysHistory.historyType}">
+                                    <span th:case="0">专业</span>
+                                    <span th:case="1">院校</span>
+                                </td>
+                                <td th:text="${SysHistory.historyNumber}+次"></td>
+                                <td th:text="${#dates.format(SysHistory.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                <td>
+                                    <button th:onclick="'javascript:delHistory(this,'+${SysHistory.historyId}+')' " style="width: 45px; height: 33px; color: white; background: red; border-radius: 4px">删除</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!--当没有东西时的东西-->
+                    <div class="public_m6">
+                        <img src="/images/danmgydxm.png"/>
+                    </div>
+                </div>
+
+                <!--心理测试结果-->
+                <div class="public_m1" id="div8" style="display: none;">
+                    <div class="header">
+                        <h1>心理测试结果</h1>
+                    </div>
+                    <div class="main">
+                        <h2 th:text="'我的结果:'+${SysResult.resultId}">我的结果：ESTJ（管家型）</h2>
+                        <p th:text="${SysResult.natureInfo}">务实有条理，讲究纪律，喜欢监督他人</p>
+                        <br>
+                        <h2>适合我的院校类型有：</h2>
+                        <p th:text="${SysResult.universityType}"></p>
+                        <h2>适合我的专业类型有：</h2>
+                        <p th:text="${SysResult.majorType}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+<script type="text/javascript">
+    //点击菜单显示对应的区域
+    function showDiv(str) {
+        for(var i = 0;i < 9;i++) {
+            document.getElementById("div"+i).style.display = "none";
+        }
+        document.getElementById(str).style.display = "block";
+    }
+
+    //点击菜单按钮将改变对应的菜单按钮样式
+    function onMenu(str){
+        for (var i = 0; i < 7; i++) {
+            document.getElementById("menu"+i).style.color = "#333";
+            document.getElementById("menu"+i).style.background = "#fff;";
+        }
+        document.getElementById(str).style.color = "#fff";
+        document.getElementById(str).style.background = "#fa3b4a";
+    }
+
+    //将数据回显到性别单选框和科目复选框中
+    jQuery(document).ready(function($) {
+        //性别数据回显
+        if($('input[name="sex"]').val() == 0){
+            $("#male").prop('checked', true);
+            $("#female").prop('checked', false);
+        }
+        if($('input[name="sex"]').val() == 1){
+            $("#male").prop('checked', false);
+            $("#female").prop('checked', true);
+        }
+        //科目数据回显
+        if($("#physics").val() == 1){
+            $('input[name="physics"]').prop('checked', true);
+        }
+        if($("#chemistry").val() == 1){
+            $('input[name="chemistry"]').prop('checked', true);
+        }
+        if($("#politics").val() == 1){
+            $('input[name="politics"]').prop('checked', true);
+        }
+        if($("#history").val() == 1){
+            $('input[name="history"]').prop('checked', true);
+        }
+        if($("#geography").val() == 1){
+            $('input[name="geography"]').prop('checked', true);
+        }
+        if($("#biology").val() == 1){
+            $('input[name="biology"]').prop('checked', true);
+        }
+    })
+
+    //科目限制六选三
+    function countChoices(obj) {
+        var max = 3;
+        var count = 0;
+        if($('input[name="physics"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="chemistry"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="politics"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="history"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="geography"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="biology"]').prop('checked')){
+            ++count;
+        }
+        if (count > max) {
+            alert("对不起，只能六选三!");
+            obj.checked = false;
+        }
+    }
+
+    //通过高考分数动态获取对应排名
+    function selectRanking() {
+        $.ajax({
+            type: 'post',
+            url: '/client/personal/selectRanking',
+            data: {
+                grade: $("#stuScore").val(),
+                years: 2021
+            },
+            dataType: 'json',
+            success: function (result) {
+                $("#ranking").val(result[0].allRanking);
+                $("#2021").show();
+            },
+        })
+    }
+
+    //个人信息保存
+    function save() {
+        var physics, chemistry, biology, politics, history, geography;
+
+        if($('input[name="physics"]').prop('checked')){
+            physics = 1;
+        }else{
+            physics = 0;
+        }
+        if($('input[name="chemistry"]').prop('checked')){
+            chemistry = 1;
+        }else{
+            chemistry = 0;
+        }
+        if($('input[name="biology"]').prop('checked')){
+            biology = 1;
+        }else{
+            biology = 0;
+        }
+        if($('input[name="politics"]').prop('checked')){
+            politics = 1;
+        }else{
+            politics = 0;
+        }
+        if($('input[name="history"]').prop('checked')){
+            history = 1;
+        }else{
+            history = 0;
+        }
+        if($('input[name="geography"]').prop('checked')){
+            geography = 1;
+        }else{
+            geography = 0;
+        }
+        $.ajax({
+            url: "/client/personal/save",
+            type:"post",
+            data:{
+                stuId:$("#stuIdSession").val(),
+                stuNo:$("#stuNo").val(),
+                stuPassword:$("#stuPassword").val(),
+                stuName:$("#stuName").val(),
+                stuScore:$("#stuScore").val(),
+                stuEmail:$("#stuEmail").val(),
+                ranking:$("#ranking").val(),
+                // stuSex:$('input[name="sex"]').val(),
+                minScore:$("#minScore").val(),
+                physics : physics,
+                chemistry : chemistry,
+                biology : biology,
+                politics : politics,
+                history : history,
+                geography : geography,
+                purposeAddressOne:$("#purposeAddressOne").val(),
+                purposeAddressTwo:$("#purposeAddressTwo").val(),
+                purposeAddressThree:$("#purposeAddressThree").val(),
+                purposeMajorOne:$("#purposeMajorOne").val(),
+                purposeMajorTwo:$("#purposeMajorTwo").val(),
+                purposeMajorThree:$("#purposeMajorThree").val()
+
+            },
+            success:function () {
+                alert("个人信息保存修改成功！");
+            }
+        })
+    }
+
+    //修改密码
+    function editPassword(){
+
+    }
+
+    //志愿分析
+    function analysis(obj, id) {
+        window.open("/client/personal/analysis/"+id,
+            "志愿分析",
+            "height=400 width=800, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
+    }
+
+    //志愿删除
+    function delVolunteer(obj,id) {
+        var volunteerid = id;
+        var result = confirm("确定要删除该数据吗？");
+        if(result){
+            $.ajax({
+                url: "/client/personal/delVolunteer",
+                type: "post",
+                data: {
+                    "volunteerId": volunteerid
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    $("#"+volunteerid).remove();
+                }
+            })
+        }
+    }
+
+    //删除专家
+    function delChat(obj, id){
+        var chatId = id;
+        var result = confirm("确定要删除该数据吗？")
+        if(result){
+            $.ajax({
+                url: "/client/personal/delChat",
+                type: "post",
+                data: {
+                    "chatId": chatId
+                },
+                success: function (data) {
+                    alert(data.msg);
+                    $("#"+chatId).remove();
+                }
+            })
+        }
+    }
+    
+    //院校收藏删除
+    function delCollectionUniversity(obj,id) {
+        var ids = id;
+        var result = confirm("确定要删除该数据吗？");
+        if(result){
+            $.ajax({
+                url:"/client/personal/delCollectionUniversity",
+                type:"post",
+                data:{
+                    "id":ids
+                },
+                success:function (data){
+                    alert(data.msg);
+                    $("#"+ids).remove();
+                }
+            })
+        }
+    }
+
+    //专业收藏删除
+    function delCollectionMajor(obj,id) {
+        var ids = id;
+        var result = confirm("确定要删除该数据吗？");
+        if(result){
+            $.ajax({
+                url:"/client/personal/delCollectionMajor",
+                type:"post",
+                data:{
+                    "id":ids
+                },
+                success:function (data){
+                    alert(data.msg);
+                    $("#"+ids).remove();
+                }
+            })
+        }
+    }
+    
+    //历史记录删除
+    function delHistory(obj, id) {
+        console.log("我被点击了！");
+        var historyId = id;
+        var result = confirm("确定要删除该数据吗？");
+        if(result){
+            $.ajax({
+                url:"/client/personal/delHistory",
+                type:"post",
+                data:{
+                    "historyId":historyId
+                },
+                success:function (data){
+                    alert(data.msg);
+                    $("#"+historyId).remove();
+                }
+            })
+        }
+    }
+
+    
+</script>
+</body>
+</html>

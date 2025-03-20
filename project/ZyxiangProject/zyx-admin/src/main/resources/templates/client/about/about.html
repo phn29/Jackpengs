@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('关于我们')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--navigation-->
+    <div th:replace="client/public/navigation :: navigation"></div>
+    <div class="fl left">
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href='#'>关于我们</a> >
+        </div>
+        <div class="c_parag" style="margin-bottom: 50px;">
+            <div class="parag">
+                <div class="p_title">
+                    <h1 style="text-align: center;">河北新高考志愿填报系统</h1>
+                </div>
+                <p>
+                <p>
+                　       河北新高考志愿填报系统是HTML作品，该作品是程序运行都队小组成员
+                以及在指导老师的指导下共同努力完成。
+                    　　</p>
+                <p>
+                    　　本系统主要包含查专业，查学校，查咨询，模拟填报志愿，找专家功能其中还包含全国2925多所大学信息和
+                    1445 多个大学专业信息，以及上万条招生计划数据，为广大的高考生以及家长提供服务与帮助。</p>
+                <p>
+                        该系统采用了最新的技术：数据库：mysql，后台语言：java，SpringBoot框架，
+                    后台数据管理系统是采用若依框架，系统总体是mvc架构体系，采用响应式布局。
+                    前台使用HTML5语言，JQuery，js，以及常用的前端框架Bootstrap。
+                    　　</p>
+                <p>
+                        特别说明：该系统主要是为了服务与考生应对新高考而开发的，数据来源为省教育招生考试院（https://www.sdzk.cn/）。
+                    　　</p>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+</body>
+</html>

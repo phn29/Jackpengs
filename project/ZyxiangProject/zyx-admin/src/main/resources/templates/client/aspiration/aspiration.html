@@ -1,0 +1,1452 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>河北新高考志愿智能决策||志愿填报</title>
+    <link rel="stylesheet" type="text/css" href="../css/pc_common.css" th:href="@{/css/pc_common.css}"/>
+</head>
+<!--<link rel="stylesheet" type="text/css" th:href="@{/css/LoginAndRegister.css}" >-->
+<!--<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">-->
+<style type="text/css">
+
+    .main{
+        width: 1200px;
+        margin: 0 auto;
+        background: white;
+    }
+
+    .main .zt {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        padding-right: 160px;
+    }
+
+    .main .box-left {
+        width: 200px;
+        height: 600px;
+        border-radius: 10px;
+        border: 1px solid #c6c6c6;
+        margin-right: 15px;
+    }
+
+    .main .box-left .left-con {
+        background-color: #FF7E00;
+        height: 40px;
+        padding-top: 15px;
+        padding-left: 70px;
+        color: white;
+        border-radius: 10px 10px 0 0;
+    }
+
+    .main .box-left .left-con button {
+        background-color: #FFA300;
+        border: 1px solid white;
+        border-radius: 7px;
+        color: white;
+        padding: 6px;
+        width: 100px;
+    }
+
+    .main .right-top {
+        width: 100%;
+        height: 50px;
+        border: 1px solid red;
+    }
+
+    .main .box-left li {
+        margin-top: 12px;
+        list-style: none;
+        font-size: 16px;
+        color: gray;
+    }
+
+    .main .box-left ul {
+        padding-left: 20px;
+    }
+
+    .main .xm li:last-child {
+        width: 70px;
+        text-align: left;
+    }
+
+    .main .xiugai {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        padding-top: 15px;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .main .box-left button {
+        width: 80px;
+        text-align: center;
+        color: #ffffff;
+        border: 1px solid #FF7E00;
+        vertical-align: middle;
+        font-size: 12px;
+    }
+
+    .main .fenshuxian {
+        width: 200px;
+        height: 300px;
+        position: relative;
+        padding-top: 8px;
+        /* display: table-cell;
+                垂直居中 */
+        vertical-align: middle;
+        /*水平居中*/
+        text-align: center;
+    }
+
+    .main .fenshuxian li {
+        list-style: none;
+        color: #FFA300;
+        font-size: 16px;
+    }
+
+    .main .erduan {
+        width: 150px;
+        height: 70px;
+        background: #f8eedf;
+        vertical-align: middle;
+        border-radius: 7px;
+        margin-top: 20px;
+        margin-left: 25px;
+
+    }
+
+    .main .erduan li {
+        list-style: none;
+        color: #FFA300;
+        font-size: 16px;
+        margin-bottom: 10px;
+
+    }
+
+    .main .box {
+        width: 990px;
+        border: 1px solid #fff;
+        height: 600px;
+        list-style: none;
+
+    }
+
+    .main .box ul {
+        display: flex;
+    }
+
+    .main .box ul li {
+        width: 150px;
+        margin-right: 10px;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: 1px solid rgb(187, 185, 185);
+        border-radius: 10px 10px 0 0;
+        list-style: none
+    }
+
+    .main li.active {
+        border-bottom: #fff;
+        background-color: #FF7E00;
+
+
+    }
+
+    .main li.active1 {
+        border-bottom: #fff;
+        background-color: #fff;
+
+    }
+
+    .main .container div {
+
+        /*	height: 550px;*/
+        border: 1px solid rgb(231, 231, 231);
+        display: none;
+
+    }
+
+    .main .container div.active {
+        display: block;
+        border: 1px solid rgb(231, 231, 231);
+    }
+
+    .main .container div.active1 {
+        display: block;
+        border: 1px solid rgb(231, 231, 231);
+    }
+
+    .main .tbo tr{
+        height: 80px;
+        border: 3px solid rgb(231, 231, 231);
+
+    }
+    .main  td {
+        font-size: 13px;
+        text-align: center;
+        padding: 10px;
+        border-bottom: 1px solid #e8e8e8;
+    }
+
+    .main thead {
+        background-color: rgb(249, 249, 248);
+        color: gray;
+        border:1px solid #ccc;
+    }
+
+
+    .main th {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e8e8e8;
+
+    }
+
+    .main .c {
+        color: white;
+        height: 26px;
+        margin-left: 18px;
+        width: 30px;
+        font-size: 16px;
+        background-color: rgb(243,98,99);
+        border-radius: 3px;
+        padding: 4px;
+    }
+    .main .zt select{
+        width: 100px;
+        height: 36px;
+        text-align: center;
+        color: #FF7E00;
+        border-radius: 30px;
+        padding-top: 5px;
+        border: 1px solid #FF7E00;
+        margin-bottom: 5px;
+        cursor: pointer;
+    }
+    .main .wh{
+        background-color: #efefef;
+        padding: 2px;
+
+    }
+    .main select {
+        font-size: 14px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    .main pre {
+        color: #808080;
+    }
+    .main input{
+        cursor: pointer;
+    }
+    .main  body{
+        margin: 0;
+        padding: 0;
+    }
+    .main  ul{
+        margin: 0px;
+        list-style: none;
+        padding: 0px;
+        display: flex;
+        cursor: pointer;
+    }
+    .main #top ul>li{
+        padding: 12px;
+        width: 100px;
+        text-align: center;
+    }
+    .main #div>div{
+        width: 100%;
+        margin: 0 auto;
+        border: 1px solid #cdcdcd;
+        border-top: 0;
+        display: none;
+
+    }
+    .main .actives{
+        background-color: red;
+        color: white;
+        border: 1px solid white;
+    }
+    .main .pl{
+        display: flex;
+        /* border: 1px solid #FF7E00; */
+
+    }
+    .main .mbti{
+        width: 270px;
+        height: 120px;
+        border-radius: 10px;
+        background-color: rgba(255, 128, 0, 0.747);
+
+        /*居中*/
+        display: table-cell;
+        justify-content: center;/*垂直居中*/
+        align-items: center;/*水平居中*/
+        text-align: center;
+        margin-left: 50px;
+    }
+    .main .button{
+        background-color:rgb(253, 223, 184);
+        border-radius: 15px;
+        border: 0;
+        width: 120px;
+        padding: 8px;
+        margin-top: 8px;
+        cursor: pointer;
+    }
+    .main .button1{
+        background-color:cornflowerblue;
+        border-radius: 15px;
+        border: 0;
+        width: 90px;
+        padding: 8px;
+        color: white;
+        margin-top: 13px;
+        cursor: pointer;
+        /* display: inline-block; */
+    }
+
+    .theme-buy {
+        margin-top:10%;
+        text-align: center;
+    }
+    .theme-gobuy, .theme-signin {
+        font-size: 15px;
+    }
+    .theme-price {
+        position: relative;
+        bottom: -6px;
+        font-family: microsoft yahei, Arial, Helvetica, sans-serif;
+        margin-right: 20px;
+        font-weight: bold;
+        color: #f60;
+        line-height: 32px;
+        font-size: 24px;
+        display: inline-block;
+    }
+    .theme-price dfn {
+        font-style: normal;
+        font-size: 18px;
+        margin-right: 2px;
+    }
+    .theme-desc {
+        padding: 30px;
+    }
+    .theme-version {
+        padding: 30px;
+    }
+
+    .theme-popover-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:#000;
+        opacity:0.4;
+        filter:alpha(opacity=40);
+        display:none
+    }
+    .theme-popover {
+        z-index:9999;
+        position:fixed;
+        top:50%;
+        left:50%;
+        width: 492px;
+        /*height:360px;*/
+        height: 428px;
+        margin:-180px 0 0 -250px;
+        border-radius:5px;
+        border:solid 2px #666;
+        background-color:#fff;
+        display:none;
+        box-shadow: 0 0 10px #666;
+    }
+    .theme-popover1-mask {
+        z-index: 9998;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        background:#000;
+        opacity:0.4;
+        filter:alpha(opacity=40);
+        display:none
+    }
+    .theme-popover1 {
+        z-index:9999;
+        position:fixed;
+        top:50%;
+        left:50%;
+        width: 492px;
+        height: 458px;
+        margin:-180px 0 0 -250px;
+        border-radius:5px;
+        border:solid 2px #666;
+        background-color:#fff;
+        display:none;
+        box-shadow: 0 0 10px #666;
+    }
+    .theme-poptit {
+        /*border-bottom:1px solid #ddd;*/
+        padding:25px;
+        position: relative;
+    }
+    .theme-popbod {
+        padding: 15px 0px;
+        color:#444;
+        height: 148px;
+    }
+    .theme-popbom {
+        padding:15px;
+        background-color:#f6f6f6;
+        border-top:1px solid #ddd;
+        border-radius:0 0 5px 5px;
+        color:#666
+    }
+    .theme-popbom a {
+        margin-left:8px
+    }
+    .theme-poptit .close {
+        float:right;
+        color:#999;
+        padding:5px;
+        margin:-2px -5px -5px;
+        font:bold 14px/14px simsun;
+        text-shadow:0 1px 0 #ddd
+    }
+    .theme-poptit .close:hover {
+        color:#444;
+    }
+    .theme-signin li {
+        padding: 10px 35px;
+        margin-bottom: 15px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #333;
+    }
+    .theme-signin li strong {
+        float: left;
+        margin-left: -80px;
+        width: 80px;
+        text-align: right;
+        line-height: 32px;
+    }
+    .theme-signin .btn {
+        margin-bottom: 10px;
+    }
+    .select-option {
+        vertical-align: baseline;
+        width: 320px;
+        height: 40px;
+        background: #fff;
+        border: 1px solid #eaeaea;
+        border-radius: 20px;
+        padding: 0 14px;
+        font-size: 16px;
+        color: #000;
+    }
+    .select-option-mini {
+        width: 140px;
+        padding: 1px 3px;
+    }
+    .select-option:focus {
+        border-color: #95C8F1;
+        box-shadow: 0 0 4px #95C8F1;
+    }
+    .theme-signin p {
+        font-size: 12px;
+        color: #999;
+        margin: 5px 15px 0 15px;
+    }
+    .theme-desc, .theme-version {
+        padding-top: 0
+    }
+    .btn.theme-reg {
+        position: absolute;
+        top: 8px;
+        left: 43%;
+        display: none
+    }
+    .ipt {
+        vertical-align: baseline;
+        width: 320px;
+        height: 40px;
+        background: #fff;
+        border: 1px solid #eaeaea;
+        border-radius: 20px;
+        padding: 0 14px;
+        font-size: 16px;
+        color: #000;
+    }
+    .ipt-mini {
+        width: 140px;
+        padding: 1px 3px;
+    }
+    .ipt:focus {
+        border-color: #95C8F1;
+        box-shadow: 0 0 4px #95C8F1;
+    }
+    input.btn {
+        width: 90px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        background: #f60;
+        border-radius: 20px;
+        font-size: 18px;
+        font-weight: 500;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}" target="_blank">首页</a>
+                <a th:href="@{/client/selectMajor}" target="_blank">查专业</a>
+                <a th:href="@{/client/selectUniversity}" target="_blank">查学校</a>
+                <a th:href="@{/client/selectConsult}" target="_blank">查资讯</a>
+                <a th:href="@{/client/aspiration}" class="active" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}" target="_blank">找专家</a>
+                <a th:href="@{/client/personal/index}" target="_blank">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="fl left" style="width: 1200px">
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href='#'>志愿填报</a> >
+        </div>
+        <div class="main">
+            <!--志愿推荐及志愿查找搜索框-->
+            <div id="top">
+                <div style="display: flex;width: 100%;background-color: orange;justify-content: space-between; border: 1px solid #cdcdcd;">
+                    <ul id="ul">
+                        <li class="actives" style="border-right: 1px solid #c6c6c6;">组合推荐</li>
+                        <li style="border-right: 1px solid #c6c6c6;">志愿查找</li>
+                    </ul>
+                    <ul id="ul">
+                        <li style="width: 100%; border-left: 1px solid #c6c6c6;" id="editInformation">
+                            <font th:text="'姓名：'+${sysStudents.stuName}"></font>
+                            <font th:text="'所选科目：'+${sysStudents.optional}"></font>
+                            <font th:text="'当前总分：'+${sysStudents.stuScore}"></font>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="div">
+                    <div style="display:block;">
+                        <div class="pl" style="padding:20px 0 0 20px; line-height: 25px">
+                        <span style="padding-top:45px;">
+                            推荐方式：
+                        </span>
+                            <div class="mbti">
+                                <h2 style="color:#fff ;">MBTI职业性格测评</h2><br>
+                                <h5 style="color:#fff ;">职业性格推荐专业，MBIT来帮你</h5>
+                                <button type="button" class="button" onclick="mbtiRecommend()">MBTI心理测试</button>
+                            </div>
+                            <div class="mbti">
+                                <h2 style="color:#fff ;">优先意向推荐</h2><br>
+                                <h5 style="color:#fff ;">根据您的意向，系统来帮你</h5>
+                                <button type="button" class="button" onclick="purposeRecommend()">意向推荐</button>
+                            </div>
+                            <div class="mbti">
+                                <h2 style="color:#fff ;">优先个人喜好推荐</h2><br>
+                                <h5 style="color:#fff ;">根据您的历史记录和收藏记录，系统来帮你</h5>
+                                <button type="button" class="button" onclick="likeRecommend()">个人喜好推荐</button>
+                            </div>
+                        </div>
+                        <div style="margin: 20px 0px 20px 20px; line-height: 30px;">
+                            <font id="explain">说明：请选择推荐类型，系统将会根据您的选择为您推荐志愿</font>
+                            <font id="mbtiResult" hidden th:text="'说明：根据你的心理测试结果，优先为你推荐院校类型为：'+${sysResult.universityType}+'的志愿'"></font>
+                            <font id="purposeResult" hidden
+                                  th:text="'说明：根据你的意向结果，优先为你推荐地区为：'+${sysStudents.purposeAddressOne}+'，'
+                                  +${sysStudents.purposeAddressTwo}+'，'+${sysStudents.purposeAddressThree}+'||专业为：'
+                                  +${sysStudents.purposeMajorOne}+'，'+${sysStudents.purposeMajorTwo}+'，'
+                                  +${sysStudents.purposeMajorThree}+'的志愿'">
+
+                            </font>
+                            <font id="historyResult" hidden
+                                  th:text="'说明：根据你的历史访问记录，优先为你推荐：学校为：'+${universityName.historyName}
+                                  +'，专业为：'+${majorName.historyName}">
+
+                            </font><br>
+                            <font id="collectionResult" hidden
+                                  th:text="'说明：根据你的收藏记录，优先为你推荐：学校为：'+${collectionUniversity.collectionName}
+                                  +'，专业为：'+${collectionMajor.collectionName}">
+                            </font>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="padding:25px ;">
+                            是否根据分数：
+                            <select style="padding: 5px;" id="isGrade">
+                                <option value ="1">是</option>
+                                <option value ="0">否</option>
+                            </select>
+
+                            <span style="margin-left: 20px;">填报批次：</span>
+                            <select style="width: 150px;padding: 5px;" id="batch">
+                                <option value ="">所有</option>
+                                <option value ="普通一段">普通一段</option>
+                                <option value ="普通二段">普通二段</option>
+                            </select>
+                            <span style="margin-left: 20px;">意向地区：</span>
+                            <select name="P1" style="width: 74px;padding: 5px;font-size: 14px;">
+                                <option value="">省份</option>
+                            </select>
+                            <select name="C1" style="width: 74px;padding: 5px;font-size: 14px;">
+                                <option value="">城市</option>
+                            </select>
+                            <span style="margin-left: 20px;">层次：</span>
+                            <select style="width: 150px;padding: 5px;" id="majorLevel">
+                                <option value ="">所有</option>
+                                <option value ="专科">专科</option>
+                                <option value ="本科">本科</option>
+                            </select>
+                            <span style="margin-left: 20px;">院校类型：</span>
+                            <select name="universityType" id="universityType" th:with="type=${@dict.getType('sys_university_type')}" style="width: 150px;padding: 5px;">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                            </select>
+                        </div>
+                        <div style="margin: 10px;margin-top: 6px;margin-left: 25px;">
+                            专业门类：
+                            <select name="majorCategory" id="majorCategory" th:with="type=${@dict.getType('sys_bk_major_category')}" style="width: 150px;padding: 5px;">
+                                <option value="">所有</option>
+                                <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                            </select>
+                            <span style="margin-left: 20px;" >
+                        搜索院校：<input type="text"  style="width: 150px;padding: 5px;" placeholder="输入高校名称" id="universityName"/>
+                    </span>
+                            <span style="margin-left: 20px;" >
+                        搜索专业：<input type="text"  style="width: 150px;padding: 5px;" placeholder="输入专业名称" id="majorName" />
+                    </span>
+                            <button style="margin-left: 40px; background: #ff7800" type="button" class="button1" onclick="selectPlan()">搜索</button>
+                            <button style="margin-left: 40px; background: red" type="button" class="button1" >重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 左侧个人信息及数据列表 -->
+            <div class="zt">
+                <!--左侧个人信息-->
+                <div class="box-left">
+                    <div class="left-con">
+                        <span>当前成绩</span>
+                    </div>
+                    <ul class="xm">
+                        <li>高考地区：</li>
+                        <li>河北</li>
+                    </ul>
+                    <ul class="xm">
+                        <li>选考科目：</li>
+                        <li th:text="${sysStudents.optional}"></li>
+                    </ul>
+                    <ul class="xm">
+                        <li>高考分数：</li>
+                        <li th:text="${sysStudents.stuScore}+'分'"></li>
+                    </ul>
+                    <ul class="xm">
+                        <li>对应排名：</li>
+                        <li th:text="${sysStudents.ranking}+'位'"></li>
+                    </ul>
+                    <div class="xiugai">
+                        <button type="button" style="width:160px;
+                            height: 40px;padding: 5px;
+                    background-color: #ffffff;color: #FF7E00;border-radius: 7px; cursor: pointer;" id="editGrade"> 修改成绩</button>
+                    </div>
+                    <div class="fenshuxian">
+
+                        <li>———分数线———</li>
+                        <div class="erduan">
+                            <li>440分</li>
+                            <li>
+                                <hr style=" height:0px;border:none;border-top:2px dotted #FFA300;" />
+                            </li>
+                            <li>普通类一段</li>
+                        </div>
+                        <div class="erduan">
+                            <li>150分</li>
+                            <li>
+                                <hr style=" height:0px;border:none;border-top:2px dotted #FFA300;" />
+                            </li>
+                            <li>普通类二段</li>
+                        </div>
+
+                    </div>
+                </div>
+                <!--右侧数据列表-->
+                <div th:fragment="planList" class="planList">
+                    <div class="box">
+                        <ul onclick="tabChange()">
+                            <li class="active"  th:text="'全部（' + ${pageInfoAll.total} + ')'"></li>　 　
+                            <li th:text="'可冲击（' + ${pageInfoShock.total} + '）'"></li>　　　
+                            <li th:text="'较稳妥（' + ${pageInfoSafe.total} + '）'"></li>　　　
+                            <li th:text="'可保底（' + ${pageInfoGuaranteed.total} + '）'"></li>　　
+                        </ul>
+                        <div class="container">
+                            <!--全部-->
+                            <div class="active">
+                                <table style="width: 100%;" id="tableAll">
+                                    <thead class="the">
+                                        <th id="chance">录取概率</th>
+                                        <th>招生院校</th>
+                                        <th>招生计划2022</th>
+                                        <th>2022录取</th>
+                                        <th>2021录取</th>
+                                        <th>2020录取</th>
+                                        <th>操作</th>
+                                    </thead>
+                                    <tbody class="tbo">
+                                    <tr th:each="SysPlan : ${pageInfoAll.list}">
+                                        <td id="chanceData">
+                                            <span style="font-size: 18px;color: grey;"> 35%</span>
+                                            <br /><br>
+                                            <p class="c">冲</p>
+                                        </td>
+                                        <td width="200px">
+                                            <span style="font-weight: bold;font-size: 15px;">
+                                                <font th:text="${SysPlan.universityName}"></font>
+                                            </span><br><br/>
+                                            <p>
+                                                <font th:text="${SysPlan.university.provinceName}"></font>
+                                                <font th:text="${SysPlan.university.universityType}"></font>
+                                                <font th:text="${SysPlan.university.universityNature}"></font>
+                                            </p>
+                                            <br>
+                                            <span>
+                                                院校代码：<font class="wh" th:text="${SysPlan.university.universityId}"></font>
+                                            </span>
+                                        </td>
+                                        <td width="230px">
+                                            <p style="font-weight: bold;font-size: 15px;">
+                                                <font th:text="${SysPlan.majorName}"></font>
+                                            </p>
+                                            <br>
+                                            <p>
+                                                <font th:text="'层次：'+${SysPlan.major.majorLevel}"></font>
+                                                <font th:text="'学制：'+${SysPlan.major.studyYears}"></font>
+                                            </p>
+                                            <br>
+                                            <p>
+                                                <font th:text="'专业代码：'+${SysPlan.major.majorCode}"></font>
+                                                <font th:text="'招生人数：'+${SysPlan.annualTarget}"></font>
+
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <font th:text="${SysPlan.minScore+8}+分"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.minRanking+123}+名"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.forSeveral}+人"></font>
+                                        </td>
+                                        <td>
+                                            <font th:text="${SysPlan.minScore}+分"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.minRanking}+名"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.forSeveral}+人"></font>
+                                        </td>
+                                        <td>
+                                            <font th:text="${SysPlan.minScore-13}+分"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.minRanking-323}+名"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.forSeveral}+人"></font>
+                                        </td>
+                                        <td>
+                                            <button class="button1" onclick="fillIn()">填报为</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--可冲击-->
+                            <div>
+                                <table style="width: 100%;" id="tableShock">
+                                    <thead>
+                                        <th>录取概率</th>
+                                        <th>招生院校</th>
+                                        <th>招生计划2022</th>
+                                        <th>2022录取</th>
+                                        <th>2021录取</th>
+                                        <th>2020录取</th>
+                                        <th>操作</th>
+                                    </thead>
+                                    <tbody class="tbo">
+                                    <tr th:each="SysPlan : ${pageInfoShock.list}">
+                                        <td>
+                                            <span style="font-size: 18px;color: grey;">35%</span>
+                                            <br /><br>
+                                            <p class="c" style="background: rgb(255, 97, 97);">冲</p>
+                                        </td>
+                                        <td width="200px">
+                                            <span style="font-weight: bold;font-size: 15px;">
+                                                <font th:text="${SysPlan.universityName}"></font>
+                                            </span><br><br/>
+                                            <p>
+                                                <font th:text="${SysPlan.university.provinceName}"></font>
+                                                <font th:text="${SysPlan.university.universityType}"></font>
+                                                <font th:text="${SysPlan.university.universityNature}"></font>
+                                            </p>
+                                            <br>
+                                            <span>
+                                                院校代码：<font class="wh" th:text="${SysPlan.university.universityId}"></font>
+                                            </span>
+                                        </td>
+                                        <td width="230px">
+                                            <p style="font-weight: bold;font-size: 15px;">
+                                                <font th:text="${SysPlan.majorName}"></font>
+                                            </p>
+                                            <br>
+                                            <p>
+                                                <font th:text="'层次：'+${SysPlan.major.majorLevel}"></font>
+                                                <font th:text="'学制：'+${SysPlan.major.studyYears}"></font>
+                                            </p>
+                                            <br>
+                                            <p>
+                                                <font th:text="'专业代码：'+${SysPlan.major.majorCode}"></font>
+                                                <font th:text="'招生人数：'+${SysPlan.annualTarget}"></font>
+
+                                            </p>
+                                        </td>
+                                        <td>
+                                            <font th:text="${SysPlan.minScore+8}+分"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.minRanking+123}+名"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.forSeveral}+人"></font>
+                                        </td>
+                                        <td>
+                                            <font th:text="${SysPlan.minScore}+分"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.minRanking}+名"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.forSeveral}+人"></font>
+                                        </td>
+                                        <td>
+                                            <font th:text="${SysPlan.minScore-13}+分"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.minRanking-323}+名"></font>
+                                            <br /><br>
+                                            <font th:text="${SysPlan.forSeveral}+人"></font>
+                                        </td>
+                                        <td>
+                                            <button class="button1" onclick="fillIn()">填报为</button>
+                                        </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--较稳妥-->
+                            <div>
+                                <table style="width: 100%;" id="tableSafe">
+                                    <thead>
+                                        <th>录取概率</th>
+                                        <th>招生院校</th>
+                                        <th>招生计划2022</th>
+                                        <th>2022录取</th>
+                                        <th>2021录取</th>
+                                        <th>2020录取</th>
+                                        <th>操作</th>
+                                    </thead>
+                                    <tbody class="tbo">
+                                        <tr th:each="SysPlan : ${pageInfoSafe.list}">
+                                            <td>
+                                                <span style="font-size: 18px;color: grey;">60%</span>
+                                                <br /><br>
+                                                <p class="c" style="background: rgb(0, 182, 244);">稳</p>
+                                            </td>
+                                            <td width="200px">
+                                                <span style="font-weight: bold;font-size: 15px;">
+                                                    <font th:text="${SysPlan.universityName}"></font>
+                                                </span><br><br/>
+                                                <p>
+                                                    <font th:text="${SysPlan.university.provinceName}"></font>
+                                                    <font th:text="${SysPlan.university.universityType}"></font>
+                                                    <font th:text="${SysPlan.university.universityNature}"></font>
+                                                </p>
+                                                <br>
+                                                <span>
+                                                    院校代码：<font class="wh" th:text="${SysPlan.university.universityId}"></font>
+                                                </span>
+                                            </td>
+                                            <td width="230px">
+                                                <p style="font-weight: bold;font-size: 15px;">
+                                                    <font th:text="${SysPlan.majorName}"></font>
+                                                </p>
+                                                <br>
+                                                <p>
+                                                    <font th:text="'层次：'+${SysPlan.major.majorLevel}"></font>
+                                                    <font th:text="'学制：'+${SysPlan.major.studyYears}"></font>
+                                                </p>
+                                                <br>
+                                                <p>
+                                                    <font th:text="'专业代码：'+${SysPlan.major.majorCode}"></font>
+                                                    <font th:text="'招生人数：'+${SysPlan.annualTarget}"></font>
+                                                </p>
+                                            </td>
+
+                                            <td>
+                                                <font th:text="${SysPlan.minScore+8}+分"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.minRanking+123}+名"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.forSeveral}+人"></font>
+                                            </td>
+                                            <td>
+                                                <font th:text="${SysPlan.minScore}+分"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.minRanking}+名"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.forSeveral}+人"></font>
+                                            </td>
+                                            <td>
+                                                <font th:text="${SysPlan.minScore-13}+分"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.minRanking-323}+名"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.forSeveral}+人"></font>
+                                            </td>
+                                            <td>
+                                                <button class="button1" onclick="fillIn()">填报为</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--可保底-->
+                            <div>
+                                <table style="width: 100%;" id="tableGuaranteed">
+                                    <thead>
+                                        <th>录取概率</th>
+                                        <th>招生院校</th>
+                                        <th>招生计划2022</th>
+                                        <th>2022录取</th>
+                                        <th>2021录取</th>
+                                        <th>2020录取</th>
+                                        <th>操作</th>
+                                    </thead>
+                                    <tbody class="tbo">
+                                        <tr th:each="SysPlan : ${pageInfoGuaranteed.list}">
+                                            <td>
+                                                <span style="font-size: 18px;color: grey;">80%</span>
+                                                <br /><br>
+                                                <p class="c" style="background: rgb(33, 193, 51);">保</p>
+                                            </td>
+                                            <td width="200px">
+                                                <span style="font-weight: bold;font-size: 15px;">
+                                                    <font th:text="${SysPlan.universityName}"></font>
+                                                </span><br><br/>
+                                                <p>
+                                                    <font th:text="${SysPlan.university.provinceName}"></font>
+                                                    <font th:text="${SysPlan.university.universityType}"></font>
+                                                    <font th:text="${SysPlan.university.universityNature}"></font>
+                                                </p>
+                                                <br>
+                                                <span>
+                                                    院校代码：<font class="wh" th:text="${SysPlan.university.universityId}"></font>
+                                                </span>
+                                            </td>
+                                            <td width="230px">
+                                                <p style="font-weight: bold;font-size: 15px;">
+                                                    <font th:text="${SysPlan.majorName}"></font>
+                                                </p>
+                                                <br>
+                                                <p>
+                                                    <font th:text="'层次：'+${SysPlan.major.majorLevel}"></font>
+                                                    <font th:text="'学制：'+${SysPlan.major.studyYears}"></font>
+                                                </p>
+                                                <br>
+                                                <p>
+                                                    <font th:text="'专业代码：'+${SysPlan.major.majorCode}"></font>
+                                                    <font th:text="'招生人数：'+${SysPlan.annualTarget}"></font>
+                                                </p>
+                                            </td>
+
+                                            <td>
+                                                <font th:text="${SysPlan.minScore+8}+分"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.minRanking+123}+名"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.forSeveral}+人"></font>
+                                            </td>
+                                            <td>
+                                                <font th:text="${SysPlan.minScore}+分"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.minRanking}+名"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.forSeveral}+人"></font>
+                                            </td>
+                                            <td>
+                                                <font th:text="${SysPlan.minScore-13}+分"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.minRanking-323}+名"></font>
+                                                <br /><br>
+                                                <font th:text="${SysPlan.forSeveral}+人"></font>
+                                            </td>
+                                            <td>
+                                                <button class="button1" onclick="fillIn()">填报为</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--填写个人考高信息弹窗-->
+            <div class="theme-popover">
+                <div class="theme-poptit">
+                    <a href="javascript:;" title="关闭" class="close">×</a>
+                    <span style="margin: 0px 30%; font-size: 20px; font-weight: 700; color: #111;">个人高考信息录入</span>
+                </div>
+                <div class="theme-popbod dform">
+                    <form class="theme-signin" name="loginform" method="post">
+                        <ol >
+                            <li>
+                                <div style="width: 85px; float: left; margin-top: 6px">
+                                    <span>高考科目：</span>
+                                    <p>六选三</p>
+                                </div>
+                                <div>
+                                    <input style="margin: 10px 25px;" type="checkbox" name="physics" size="20" onclick="countChoices(this)" />物理
+                                    <input style="margin: 10px 25px;" type="checkbox" name="chemistry" size="20" onclick="countChoices(this)" />化学
+                                    <input style="margin: 10px 25px;" type="checkbox" name="biology" size="20" onclick="countChoices(this)" />生物
+                                    <input style="margin: 10px 25px;" type="checkbox" name="politics" size="20" onclick="countChoices(this)" />政治
+                                    <input style="margin: 10px 25px;" type="checkbox" name="history" size="20" onclick="countChoices(this)"/>历史
+                                    <input style="margin: 10px 25px;" type="checkbox" name="geography" size="20" onclick="countChoices(this)" />地理
+                                </div>
+                            </li>
+                            <li>
+                                <span>高考分数：</span>
+                                <input th:value="${sysStudents.stuScore}" placeholder="请输入100-750分区间的整数" class="ipt" type="text" name="stuScore" id="stuScore" size="20" onchange="selectRanking()"/>
+                                <span style="margin: 0 -36px">分</span>
+                            </li>
+                            <li>
+                                <span>对应排名：</span>
+                                <input th:value="${sysStudents.ranking}" placeholder="请输入对应排名" class="ipt" type="text" name="stuRanking" id="stuRanking" size="20" />
+                                <span style="margin: 0 -36px">名</span>
+                            </li>
+                            <span id="2021" style="padding-left: 90px; font-size: 16px; font-weight: 400" hidden>已获取 2022年 对应排名，您也可以手动输入</span>
+                            <li style="padding-left: 135px;">
+                                <input class="btn" onclick="cancel1()" value="取消" style="background: red; margin-right: 35px" />
+                                <input class="btn" onclick="editStu()" value="确定" />
+                            </li>
+                            <!--数据隐藏区域-->
+                            <input type="hidden" id="physics" th:value="${sysStudents.physics}">
+                            <input type="hidden" id="chemistry" th:value="${sysStudents.chemistry}">
+                            <input type="hidden" id="biology" th:value="${sysStudents.biology}">
+                            <input type="hidden" id="politics" th:value="${sysStudents.politics}">
+                            <input type="hidden" id="history" th:value="${sysStudents.history}">
+                            <input type="hidden" id="geography" th:value="${sysStudents.geography}">
+                        </ol>
+                    </form>
+                </div>
+            </div>
+            <div class="theme-popover-mask"></div>
+
+            <!--填写志愿信息弹窗-->
+            <div class="theme-popover1">
+                <div class="theme-poptit">
+                    <a href="javascript:;" title="关闭" class="close">×</a>
+                    <span style="margin: 0px 30%; font-size: 20px; font-weight: 700; color: #111;">填写个人志愿信息</span>
+                </div>
+                <div class="theme-popbod dform">
+                    <form class="theme-signin" name="loginform" method="post">
+                        <ol>
+                            <li>
+                                <span>志愿序号：</span>
+                                <select class="select-option" onchange="volunteerGroup(this.value)"
+                                        style="width: 155px;">
+                                    <option value="--请选择--">----请选择----</option>
+                                    <option value="志愿1-10">志愿1-10</option>
+                                    <option value="志愿11-20">志愿11-20</option>
+                                    <option value="志愿21-30">志愿21-30</option>
+                                    <option value="志愿31-40">志愿31-40</option>
+                                    <option value="志愿41-50">志愿41-50</option>
+                                    <option value="志愿51-60">志愿51-60</option>
+                                    <option value="志愿61-70">志愿61-70</option>
+                                    <option value="志愿71-80">志愿71-80</option>
+                                    <option value="志愿81-90">志愿81-90</option>
+                                    <option value="志愿91-96">志愿91-96</option>
+                                </select>
+                                <select class="select-option" name="volunteerNum" id="volunteerNum" style="width: 155px;">
+                                    <option value="">志愿序号</option>
+                                </select>
+                            </li>
+                            <li>
+                                <span>考生姓名：</span>
+                                <input th:value="${sysStudents.stuName}" class="ipt" type="text" name="stuId" size="20"  readonly />
+                                <span style="margin: 0 -116px; color:red; font-size:13px">该文本框不可编辑</span>
+                            </li>
+                            <li><span>报考学校：</span><input id="universityNameIpt" class="ipt" type="text" name="universityName" size="20"  readonly />
+                                <span style="margin: 0 -116px; color:red; font-size:13px">该文本框不可编辑</span>
+                            </li>
+                            <li><span>报考专业：</span><input id="majorNameIpt" class="ipt" type="text" name="majorName" size="20"  readonly />
+                                <span style="margin: 0 -116px; color:red; font-size:13px">该文本框不可编辑</span>
+                            </li>
+                            <li style="padding-left: 135px;">
+                                <input class="btn" onclick="cancel1()" value="取消" style="background: red; margin-right: 35px" />
+                                <input class="btn" value="确定" onclick="volInsert()" />
+                            </li>
+                        </ol>
+                    </form>
+                </div>
+            </div>
+            <div class="theme-popover1-mask"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script src="js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+<script>
+    //切换查询推荐选项卡
+    $(document).ready(function(){
+        $("#ul").children("li").each(function(index,element){
+            $(this).click(function(){
+                $($("#div").children()[index]).css("display","block")
+                $(this).addClass('actives')
+                $(this).siblings('li').removeClass('actives')
+                $($("#div").children()[index]).siblings().css("display","none")
+            })
+        })
+    })
+
+    //切换志愿列表选项卡
+    function tabChange() {
+        $(".box li").click(function () {
+            //获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+            $(this).addClass("active").siblings().removeClass("active");
+            //获取选中元素的下标
+            var index = $(this).index();
+            $(this).parent().siblings().children().eq(index).addClass("active")
+                .siblings().removeClass("active");
+        });
+    }
+
+    //通过mbti进行志愿推荐
+    function mbtiRecommend() {
+        $("#mbtiResult").show();
+        $("#purposeResult").hide();
+        $("#historyResult").hide();
+        $("#collectionResult").hide();
+        $("#explain").hide();
+        $.ajax({
+            type: 'post',
+            url: '/client/mbtiRecommend',
+            success:function (data) {
+                $(".planList").html(data);
+            }
+        })
+    }
+
+    //通过个人意向进行志愿推荐
+    function purposeRecommend() {
+        $("#purposeResult").show();
+        $("#mbtiResult").hide();
+        $("#historyResult").hide();
+        $("#collectionResult").hide();
+        $("#explain").hide();
+        $.ajax({
+            type: 'post',
+            url: '/client/purposeRecommend',
+            success:function (data) {
+                $(".planList").html(data);
+            }
+        })
+    }
+
+    //通过个人喜好进行志愿推荐
+    function likeRecommend() {
+        $("#historyResult").show();
+        $("#collectionResult").show();
+        $("#mbtiResult").hide();
+        $("#purposeResult").hide();
+        $("#explain").hide();
+        $.ajax({
+            type: 'post',
+            url: '/client/likeRecommend',
+            success:function (data) {
+                $(".planList").html(data);
+            }
+        })
+    }
+
+    //志愿查找
+    function selectPlan() {
+        $.ajax({
+            type: 'post',
+            url: '/client/selectPlan',
+            data: {
+                isGrade :$("#isGrade").val(),
+                batch :$("#batch").val(),
+                provinceName :$("#provinceName").val(),
+                cityName :$("#cityName").val(),
+                majorLevel :$("#majorLevel").val(),
+                universityType :$("#universityType").val(),
+                majorCategory :$("#majorCategory").val(),
+                universityName :$("#universityName").val(),
+                majorName :$("#majorName").val()
+            },
+            success:function (data) {
+                $(".planList").html(data);
+            }
+        })
+    }
+
+    //个人高考信息填写
+    function editStu() {
+        var physics, chemistry, biology, politics, history, geography;
+        if($('input[name="physics"]').prop('checked')){
+            physics = 1;
+        }else{
+            physics = 0;
+        }
+        if($('input[name="chemistry"]').prop('checked')){
+            chemistry = 1;
+        }else{
+            chemistry = 0;
+        }
+        if($('input[name="biology"]').prop('checked')){
+            biology = 1;
+        }else{
+            biology = 0;
+        }
+        if($('input[name="politics"]').prop('checked')){
+            politics = 1;
+        }else{
+            politics = 0;
+        }
+        if($('input[name="history"]').prop('checked')){
+            history = 1;
+        }else{
+            history = 0;
+        }
+        if($('input[name="geography"]').prop('checked')){
+            geography = 1;
+        }else{
+            geography = 0;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/client/editStu',
+            data: {
+                stuId: $("#stuIdSession").val(),
+                stuIntention: $("#provinceName").val() + $("#cityName").val(),
+                stuScore: $("#stuScore").val(),
+                ranking :$("#stuRanking").val(),
+                physics : physics,
+                chemistry : chemistry,
+                biology : biology,
+                politics : politics,
+                history : history,
+                geography : geography
+            },
+            dataType: 'json',
+            success: function () {
+                alert("高考信息填些完成！");
+                location.reload();
+            }
+        })
+    }
+
+    //志愿填报
+    function volInsert() {
+        $.ajax({
+            type : 'post',
+            url : '/client/insertVolunteer',
+            data : {
+                volunteerNum : $("#volunteerNum").val(),
+                universityName: $("#universityNameIpt").val(),
+                majorName : $("#majorNameIpt").val()
+            },
+            dataType: 'json',
+            success: function (result) {
+               alert(result.msg);
+                $('.theme-popover1-mask').fadeOut(100);
+                $('.theme-popover1').slideUp(200);
+            },
+        })
+    }
+
+    //将数据回显到六选三复选框中
+    jQuery(document).ready(function($) {
+        if($("#physics").val() == 1){
+            $('input[name="physics"]').prop('checked', true);
+        }
+        if($("#chemistry").val() == 1){
+            $('input[name="chemistry"]').prop('checked', true);
+        }
+        if($("#politics").val() == 1){
+            $('input[name="politics"]').prop('checked', true);
+        }
+        if($("#history").val() == 1){
+            $('input[name="history"]').prop('checked', true);
+        }
+        if($("#geography").val() == 1){
+            $('input[name="geography"]').prop('checked', true);
+        }
+        if($("#biology").val() == 1){
+            $('input[name="biology"]').prop('checked', true);
+        }
+    })
+
+    //科目限制六选三
+    function countChoices(obj) {
+        var max = 3;
+        var count = 0;
+        if($('input[name="physics"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="chemistry"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="politics"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="history"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="geography"]').prop('checked')){
+            ++count;
+        }
+        if($('input[name="biology"]').prop('checked')){
+            ++count;
+        }
+        if (count > max) {
+            alert("对不起，只能六选三!");
+            obj.checked = false;
+        }
+    }
+
+    //通过高考分数动态获取对应排名
+    function selectRanking() {
+        $.ajax({
+            type: 'post',
+            url: '/client/personal/selectRanking',
+            data: {
+                grade: $("#stuScore").val(),
+                years: 2021
+            },
+            dataType: 'json',
+            success: function (result) {
+                $("#stuRanking").val(result[0].allRanking);
+                $("#2021").show();
+            },
+        })
+    }
+
+    //填写个人信息弹窗
+    jQuery(document).ready(function($) {
+        $('#editInformation').click(function(){
+            $('.theme-popover-mask').fadeIn(100);
+            $('.theme-popover').slideDown(200);
+        })
+        $('#editGrade').click(function(){
+            $('.theme-popover-mask').fadeIn(100);
+            $('.theme-popover').slideDown(200);
+        })
+
+        //关闭个人信息弹窗
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+        })
+    })
+
+    //弹出填报志愿窗口
+    function fillIn() {
+        $('.theme-popover1-mask').fadeIn(100);
+        $('.theme-popover1').slideDown(200);
+        //关闭志愿信息弹窗
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover1-mask').fadeOut(100);
+            $('.theme-popover1').slideUp(200);
+        });
+        //将表格中的院校信息和专业添加到填报志愿信息弹窗中
+        $("#tableAll").on("click", ":button", function(event) {
+            $("#universityNameIpt").val( $(this).closest("tr").find("td>span>font").eq(0).text());
+            $("#majorNameIpt").val($(this).closest("tr").find("td>p>font").eq(3).text());
+        });
+        $("#tableShock").on("click", ":button", function(event) {
+            $("#universityNameIpt").val( $(this).closest("tr").find("td>span>font").eq(0).text());
+            $("#majorNameIpt").val($(this).closest("tr").find("td>p>font").eq(3).text());
+        });
+        $("#tableSafe").on("click", ":button", function(event) {
+            $("#universityNameIpt").val( $(this).closest("tr").find("td>span>font").eq(0).text());
+            $("#majorNameIpt").val($(this).closest("tr").find("td>p>font").eq(3).text());
+        });
+        $("#tableGuaranteed").on("click", ":button", function(event) {
+            $("#universityNameIpt").val( $(this).closest("tr").find("td>span>font").eq(0).text());
+            $("#majorNameIpt").val($(this).closest("tr").find("td>p>font").eq(3).text());
+        });
+    }
+
+    //关闭弹窗
+    function cancel1(){
+        $('.theme-popover-mask').fadeOut(100);
+        $('.theme-popover').slideUp(200);
+        $('.theme-popover1-mask').fadeOut(100);
+        $('.theme-popover1').slideUp(200);
+    }
+
+    //志愿序号
+    function volunteerGroup(value)
+    {
+        var arr= new Array(4);
+        arr[0]=["--请选择志愿序号--","--请选择志愿序号--"];
+        // 首项为志愿序号组,其他的是志愿序号
+        arr[1]=["志愿1-10","志愿1","志愿2","志愿3","志愿4","志愿5","志愿6","志愿7","志愿8","志愿9","志愿10"];
+        arr[2]=["志愿11-20","志愿11","志愿12","志愿13","志愿14","志愿15","志愿16","志愿17","志愿18","志愿19","志愿20"];
+        arr[3]=["志愿21-30","志愿21","志愿22","志愿23","志愿24","志愿25","志愿26","志愿27","志愿28","志愿29","志愿30"];
+        arr[4]=["志愿31-40","志愿31","志愿32","志愿33","志愿34","志愿35","志愿36","志愿37","志愿38","志愿39","志愿40"];
+        arr[5]=["志愿41-50","志愿41","志愿42","志愿43","志愿44","志愿45","志愿46","志愿47","志愿48","志愿49","志愿50"];
+        arr[6]=["志愿51-60","志愿51","志愿52","志愿53","志愿54","志愿55","志愿56","志愿57","志愿58","志愿59","志愿60"];
+        arr[7]=["志愿61-70","志愿61","志愿62","志愿63","志愿64","志愿65","志愿66","志愿67","志愿68","志愿69","志愿70"];
+        arr[8]=["志愿71-80","志愿71","志愿72","志愿73","志愿74","志愿75","志愿76","志愿77","志愿78","志愿79","志愿80"];
+        arr[9]=["志愿81-90","志愿81","志愿82","志愿83","志愿84","志愿85","志愿86","志愿87","志愿88","志愿89","志愿90"];
+        arr[10]=["志愿91-96","志愿91","志愿92","志愿93","志愿94","志愿95","志愿96"];
+        var volNum = document.getElementById("volunteerNum");
+        var opts = volNum.getElementsByTagName("option");
+        for (var a = 0 ;a<opts.length ;a++ )
+        {
+            var opt = opts[a];
+            volNum.removeChild(opt);
+            a--;
+        }
+        for (var i = 0;i<arr.length ;i++ )
+        {
+            var arr1=arr[i];
+            var fristvalue = arr1[0];
+            if (fristvalue==value)
+            {
+                for (var j=1;j<arr1.length ;j++ )
+                {
+                    var value1=arr1[j];
+                    var option1 = document.createElement("option");
+                    var text1 = document.createTextNode(value1);
+                    option1.appendChild(text1);
+                    volNum.appendChild(option1);
+                }
+            }
+        }
+    }
+</script>
+</html>

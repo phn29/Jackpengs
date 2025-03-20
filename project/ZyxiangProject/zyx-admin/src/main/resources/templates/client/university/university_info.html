@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||院校详情')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}" class="active">查学校</a>
+                <a th:href="@{/client/selectConsult}" >查资讯</a>
+                <a th:href="@{/client/aspiration}">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}">找专家</a>
+                <a th:href="@{/client/personal/index}">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <!--左边盒子-->
+    <div class="fl left">
+        <!--导航盒子-->
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href='#'>院校详情</a> >
+        </div>
+        <!--学校具体信息卡片-->
+        <div class="school_header_bg">
+            <div class="relative-for-liuyan" style="background: linear-gradient(131deg, rgb(255, 102, 0) 0%, rgb(255, 187, 72) 100%);">
+                <div class="relative_box">
+                    <div class="school clearfix">
+                        <div class="schoolLogo clearfix">
+                            <img th:src="${SysUniversity.universityBadge}" style="width: 125px; height: 125px;">
+                        </div>
+                        <div class="schoolName clearfix">
+                            <div class="line1">
+                                <span id="universityName" class="line1-schoolName" th:text="${SysUniversity.universityName}"></span>
+                                <span>
+                                    <button class="button2" onclick="collection()">收藏</button>
+                                </span>
+                            </div>
+                            <div class="l-city">
+                                <span th:text="${SysUniversity.universityAddress}"></span>
+                            </div>
+                            <div class="line2" style="margin-bottom: 12px;">
+                                <div class="line2_item" th:text="${SysUniversity.universityType}"></div>
+                            </div>
+                            <div class="line2" style="margin-bottom: 12px;">
+                                <div class="line2_item" th:text="${SysUniversity.universityLevel}"></div>
+                            </div>
+                            <div class="line2" style="margin-bottom: 12px;">
+                                <div class="line2_item" th:text="${SysUniversity.universityNature}"></div>
+                            </div>
+                            <div class="line2" style="margin-bottom: 12px;">
+                                <div class="line2_item" th:if="${SysUniversity.f985} == 1">985</div>
+                            </div>
+                            <div class="line2" style="margin-bottom: 12px;">
+                                <div class="line2_item" th:if="${SysUniversity.f211} == 1">211</div>
+                            </div>
+                            <div class="line2" style="margin-bottom: 12px;">
+                                <div class="line2_item" th:if="${SysUniversity.dualClassName} == 双一流">双一流</div>
+                            </div>
+                            <div class="line3">
+                                <div class="line3_item" style="color: white; font-size: 14px; margin-top: 70px;">
+
+									<span>官网地址：
+										<span class="marginRight25" th:text="${SysUniversity.universityWebsite}"></span>
+									</span>
+                                </div>
+                                <div class="line3_item" style="color: white; font-size: 14px;  margin-top: 20px;">
+									<span>官方电话：
+										<span th:text="${SysUniversity.universityPhone}"></span>
+									</span>
+                                </div>
+                                <div class="line3_item" style="color: white; font-size: 14px; margin-top: 20px;">
+									<span>官方邮箱：
+										<span th:text="${SysUniversity.universityEmail}"></span>
+									</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--学校基本信息-->
+        <div class="school-information">
+            <!--学校重点学科，硕士点等等-->
+            <div class="information">
+                <div style="height: 40px; margin-top: 20px;">
+                    <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                    <h2 style="float: left; padding-top: 6px;padding-left: 5px;">院校基本信息</h2>
+                </div>
+                <div class="card">
+					<span class="font">
+						<b>重点学科</b>
+					</span>
+                    <img class="img" src="https://www.tsinghua.edu.cn/__local/E/E2/0D/0D9988E43259D7BA8C62387A3B0_944008B4_1CCB.png">
+                    <span class="font1">
+						<b th:text="${SysUniversity.numSubject}+门"></b>
+					</span>
+                </div>
+                <div class="card-left">
+					<span class="font">
+						<b>硕士点数</b>
+					</span>
+                    <img class="img" src="https://www.tsinghua.edu.cn/__local/E/6A/DA/324E6A5CBDD6A29D24850B20F3E_21948123_1BCC.png">
+                    <span class="font1">
+						<b th:text="${SysUniversity.numMaster}+个"></b>
+					</span>
+                </div>
+                <div class="card-left">
+					<span class="font">
+						<b>博士点数</b>
+					</span>
+                    <img class="img" src="https://www.tsinghua.edu.cn/__local/B/BB/90/40DE2D0976D87A43DAFC29D9F0F_B7F73938_168F.png">
+                    <span class="font1">
+						<b th:text="${SysUniversity.numDoctor}+个"></b>
+					</span>
+                </div>
+                <div class="card-left">
+					<span class="font">
+						<b>院士人数</b>
+					</span>
+                    <img class="img" src="https://www.tsinghua.edu.cn/__local/E/6A/DA/324E6A5CBDD6A29D24850B20F3E_21948123_1BCC.png">
+                    <span class="font1">
+						<b th:text="${SysUniversity.numAcademician}+名"></b>
+					</span>
+                </div>
+            </div>
+            <!--学校信息-->
+            <div class="university-information">
+                <ul>
+                    <li>
+						<span>创办年份：
+							<b th:text="${SysUniversity.createDate}+年"></b>
+						</span>
+                        <span>占地面积：
+							<b th:text="${SysUniversity.area}+亩"></b>
+						</span>
+                    </li>
+                    <li>
+						<span>重点实验室数量：
+							<b th:text="${SysUniversity.numLab}+个"></b>
+						</span>
+                        <span>藏书数量：
+							<b th:text="${SysUniversity.numLibrary}"></b>
+						</span>
+                    </li>
+                    <li>
+						<span>隶属于：
+							<b th:text="${SysUniversity.belong}"></b>
+						</span>
+                        <span>全国排名：
+							<b th:text="${SysUniversity.ranking}"></b>
+						</span>
+                    </li>
+                    <li>
+						<span>院校地址：
+							<b th:text="${SysUniversity.universityAddress}"></b>
+						</span>
+                        <span>访问次数：
+							<b th:text="${SysUniversity.visitNumber}+'次'"></b>
+						</span>
+                    </li>
+                </ul>
+            </div>
+            <!--学校介绍-->
+            <div class="schoolintro-box">
+                <div class="introduce_box">
+                    <div class="introduce_head clearfix">
+                        <div class="introduce_img_box clearfix">
+                            <img th:src="${SysUniversity.universityPicture}" style="width: 300px; height: 295px;">
+                        </div>
+                        <div class="introduce_text_box" style="float: left; padding-left: 20px;">
+                            <div class="school_introduce_text">
+								<span class="school_introduce_text_item" style="width: 99%;" th:text="${#strings.abbreviate(SysUniversity.universityInformation, 400)}">
+								</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--招生计划-->
+        <div class="grade">
+            <div style="height: 40px; margin-bottom: 20px;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="float: left; padding-top: 6px;padding-left: 5px;">各专业历年招生计划及录取分数</h2>
+                <div style="margin-left: 281px">
+                    <ul>
+                        <li class="grade-li1">
+                            <label>年份：</label>
+                            <select class="select1" name="years" id="years">
+                                <option value="">所有</option>
+                                <option th:value="2021" th:text="2021"></option>
+                                <option th:value="2020" th:text="2020"></option>
+                                <option th:value="2019" th:text="2019"></option>
+                                <option th:value="2018" th:text="2018"></option>
+                            </select>
+                        </li>
+                        <li class="grade-li1">
+                            <label>层次：</label>
+                            <select class="select1" name="majorLevel" id="majorLevel">
+                                <option value="">所有</option>
+                                <option th:text="本科" th:value="本科"></option>
+                                <option th:text="专科" th:value="专科"></option>
+                            </select>
+                        </li>
+                        <li class="grade-li1">
+                            <label>专业名：</label>
+                            <input  class="select1" type="text" name="majorName" id="majorName">
+                        </li>
+                        <li class="grade-li1">
+                            <button class="button1" id="btn1">搜索</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <table class="bordered" th:fragment="planList" id="planList">
+                <thead>
+                <tr>
+                    <th>年份</th>
+                    <th>专业名称</th>
+                    <th>层次</th>
+                    <th>批次</th>
+                    <th>最低分数</th>
+                    <th>最低位次</th>
+                    <th>投出数</th>
+                    <th>预收学费</th>
+                    <th>河北全省计划</th>
+                </tr>
+                </thead>
+                <tr th:each="SysPlan : ${planListPageInfo.list}">
+                    <div hidden th:text="${SysPlan.universityId}"></div>
+                    <td th:text="${SysPlan.years}+年"></td>
+                    <td th:text="${SysPlan.majorName}"></td>
+                    <td th:text="${SysPlan.majorLevel}"></td>
+                    <td th:text="${SysPlan.batch}"></td>
+                    <td th:text="${SysPlan.minScore}"></td>
+                    <td th:text="${SysPlan.minRanking}"></td>
+                    <td th:text="${SysPlan.forSeveral}"></td>
+                    <td th:text="${SysPlan.tuition}"></td>
+                    <td th:text="${SysPlan.annualTarget}"></td>
+                </tr>
+            </table>
+            <div  th:each="SysPlan, SysPlanStat : ${planListPageInfo.list}" th:if="${SysPlanStat.count}<=1">
+                <div align="center">
+                    <a th:href="@{/universityDetail/{universityId}(universityId=${SysPlan.universityId},pageNum=${planListPageInfo.hasPreviousPage}?${planListPageInfo.prePage}:1)}" th:unless="${planListPageInfo.isFirstPage}">上一页</a>
+                </div>
+                <div align="center">
+                    <p>第 <span th:text="${planListPageInfo.pageNum}"></span> 页，共 <span th:text="${planListPageInfo.pages}"></span> 页，有 <span th:text="${planListPageInfo.total}"></span> 条数据</p>
+                </div>
+                <div align="center">
+                    <a th:href="@{/universityDetail/{universityId}(universityId=${SysPlan.universityId},pageNum=${planListPageInfo.hasNextPage}?${planListPageInfo.nextPage}:${planListPageInfo.pages})}" th:unless="${planListPageInfo.isLastPage}">下一页</a>
+                </div>
+            </div>
+            <div style="border: 1px solid #DDDDDD; margin-top: 15px">
+                <div id="container" style="height: 350px; padding-top: 15px;"></div>
+            </div>
+        </div>
+    </div>
+    <!--数据隐藏区域-->
+    <input hidden id="universityId" th:value="${SysUniversity.universityId}">
+    <div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+    <div class="clear"></div>
+    <!--footer-->
+    <div th:replace="client/public/footer :: footer"></div>
+</div>
+
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<!--引入招生计划可视化视图-->
+<div th:replace="client/university/universityEchartsJs :: universityEchartsJs"></div>
+<script type="text/javascript">
+
+    //记录用户访问学校的次数
+    $(function () {
+        //判断用户是否登录，当用户登录之后才进行记录
+        if($("#stuIdSession").val() != null && $("#stuIdSession").val() != ''){
+            //获取学校名称
+            var universityName = $("#universityName").text();
+            $.ajax({
+                type:'post',
+                url : '/client/universityHistory/add',
+                data: {
+                    "historyName":universityName,
+                    "userId":$("#stuIdSession").val(),
+                    "historyType":1
+                },
+                dataType: 'json',
+                // success: function (result) {
+                //     if (result && result.success) {
+                //         window.alert("院校记录添加成功！");
+                //     } else {
+                //         window.alert(result.msg || '院校记录添加失败！')
+                //     }
+                // }
+            });
+        }
+    });
+
+    //搜索该学校历年来的招生计划
+    $("#btn1").click(function () {
+        var universityId = $("#universityId").val();
+        $.ajax({
+            url: "/client/universityDetail/plan/"+universityId,
+            type:"post",
+            data:{
+                "years":$("#years").val(),
+                "majorLevel":$("#majorLevel").val(),
+                "majorName":$("#majorName").val()
+            },
+            success:function (data) {
+                $("#planList").html(data);
+            }
+        })
+    });
+
+    //收藏
+    function collection() {
+        if($("#stuIdSession").val() == null || $("#stuIdSession").val() == ''){
+            alert("请用普通身份登录后，进行收藏！");
+        }
+        $.ajax({
+            url: "/client/collection/add",
+            type:"post",
+            data:{
+                "stuId" : $("#stuIdSession").val(),
+                "collectionType" : "1",
+                "collectionName" :$("#universityName").text(),
+                "collectionId" :$("#universityId").val()
+            },
+            dataType:"json",
+            success:function(data){
+                alert(data.msg);
+            }
+        })
+    }
+
+
+</script>
+</body>
+</html>

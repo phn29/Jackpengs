@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策')"></head>
+
+<body>
+<div style="font-size: 36px; color: black; font-weight: bold; font-family: '楷体';">
+    河北新高考志愿填报辅助决策系统
+</div>
+<div class="container right-panel-active">
+    <!-- Sign In 登录-->
+    <div class="container__form container--signup">
+        <form th:action="@{/client/login}" method="post" class="form" name="login" id="form1">
+            <h2 class="form__title">登录</h2>
+            <input name="userName" type="text" placeholder="考号" class="input" />
+            <input name="password" type="password" placeholder="密码" class="input" />
+            <span style="margin-top: 15px" hidden>
+                <b>身份：</b>
+                <input name="role" type="radio" checked value="0"><label>普通用户</label>
+                <input name="role" type="radio" value="1" style="margin-left: 10px"><label>咨询师</label>
+            </span>
+            <a href="#" class="link red">找回密码</a>
+            <button class="btn" onclick="document.forms['login'].submit()">登录</button>
+        </form>
+    </div>
+    <!-- Sign Up 注册 -->
+    <div class="container__form container--signin">
+        <form th:action="@{/client/register}" method="post" name="register" class="form" id="form2">
+            <h2 class="form__title">注册</h2>
+            <input name="stuNo" type="text" placeholder="用户名" class="input" />
+            <input name="stuEmail" type="email" placeholder="邮箱" class="input" />
+            <input name="stuPassword" type="password" placeholder="密码" class="input" />
+            <button class="btn" onclick="document.forms['register'].submit()">注册</button>
+        </form>
+    </div>
+    <!-- Overlay -->
+    <div class="container__overlay">
+        <div class="overlay">
+            <div class="overlay__panel overlay--left">
+
+                <button class="btn" id="signIn">注册</button>
+            </div>
+            <div class="overlay__panel overlay--right">
+                <button class="btn" id="signUp">登录</button>
+            </div>
+        </div>
+    </div>
+</div>
+<span th:unless="${#strings.isEmpty(message)}" th:text="${message}" style="font-family: 华文宋体; color: red; font-weight: 600; font-size: 16px">登录失败！用户名或密码输入错误！</span>
+<!--<div style="font-size: 18px; color: black; font-weight: bold">-->
+<!--    普通用户-->
+<!--    账号：202010620410-->
+<!--    密码：123456-->
+<!--</div>-->
+<!--<div style="font-size: 18px; color: black; font-weight: bold">-->
+<!--    咨询师-->
+<!--    账号：huangli-->
+<!--    密码：123456-->
+<!--</div>-->
+<!-- partial -->
+<script th:src="@{/js/LoginAndRegister.js}"></script>
+
+
+</body>
+</html>

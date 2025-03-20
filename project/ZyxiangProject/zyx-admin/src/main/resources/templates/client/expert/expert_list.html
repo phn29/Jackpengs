@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||在线咨询')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}">查学校</a>
+                <a th:href="@{/client/selectConsult}">查资讯</a>
+                <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}" class="active">找专家</a>
+                <a th:href="@{/client/personal/index}" onclick="personalIndex()">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="fl left" style="width: 1200px">
+        <div class="adr">
+            <a th:href='@{/universityIndex}'>主页</a> >
+            <a href='#'>在线咨询</a> >
+        </div>
+        <div class="consultant_big_box">
+            <div class="consultant_small_box" th:each="SysExpert : ${sysExpertPageInfo.list}">
+                <a th:href="@{/client/selectExpertInfo/{expertId}(expertId=${SysExpert.expertId})}">
+                    <img class="imga" th:src="${SysExpert.expertAvatar}" >
+                    <p th:text="${SysExpert.expertName}"></p>
+                    <div class="boxBorde">
+                        <span class="border">志愿填报</span>
+                        <span class="border">高考政策解读</span>
+                        <span class="border">心理咨询</span>
+                        <span class="border">升学规划</span>
+                    </div>
+                    <div class="introduce">
+                        <b th:utext="${#strings.abbreviate(SysExpert.expertInfo, 52)}"></b>
+                    </div>
+                    <div class="subscribe_btn">
+                        <button class="button1">查看</button>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+</body>
+</html>

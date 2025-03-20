@@ -1,0 +1,318 @@
+<div th:fragment="aspriationJs">
+    <script src="js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+    <script type="text/javascript">
+        //控制选项卡
+        $(function () {
+            $(".tabbox li").click(function () {
+                //获取点击的元素给其添加样式，讲其兄弟元素的样式移除
+                $(this).addClass("active").siblings().removeClass("active");
+                //获取选中元素的下标
+                var index = $(this).index();
+                $(this).parent().siblings().children().eq(index).addClass("active")
+                    .siblings().removeClass("active");
+            });
+        });
+
+        //控制选项卡当点击第一个li时候显示学校列表数据，当点击非第一个li时候隐藏学校列表数据
+        $(function () {
+            $(".searchTabbox .tabbox li:first-child").click(function () {
+                // $("#volunteerList").remove(); //删除元素append
+                $("#planList").show();
+                $("#volunteerList").hide();
+                // $("#planList").css('visibility','visible');//元素显示
+                // $("#volunteerList").css('visibility','hidden');//元素隐藏
+            });
+            $(".searchTabbox .tabbox ul>li:eq(1)").click(function () {
+                console.log("我被点击了！li")
+                $("#volunteerList").show();
+                $("#planList").hide();
+            });
+        });
+
+        //填写个人信息单窗
+        // jQuery(document).ready(function($) {
+        //     $('.theme-login').click(function(){
+        //         $('.theme-popover-mask').fadeIn(100);
+        //         $('.theme-popover').slideDown(200);
+        //     })
+        //     $('.theme-poptit .close').click(function(){
+        //         $('.theme-popover-mask').fadeOut(100);
+        //         $('.theme-popover').slideUp(200);
+        //     })
+        // })
+        // jQuery(document).ready(function($) {
+        //     $('#PersonalInformation').click(function(){
+        //         $('.theme-popover-mask').fadeIn(100);
+        //         $('.theme-popover').slideDown(200);
+        //     })
+        //     $('.theme-poptit .close').click(function(){
+        //         $('.theme-popover-mask').fadeOut(100);
+        //         $('.theme-popover').slideUp(200);
+        //     })
+        // })
+
+        //填报志愿信息弹窗
+        // jQuery(document).ready(function($) {
+        //     $('.theme-login').click(function(){
+        //         $('.theme-popover1-mask').fadeIn(100);
+        //         $('.theme-popover1').slideDown(200);
+        //     })
+        //     $('.theme-poptit .close').click(function(){
+        //         $('.theme-popover1-mask').fadeOut(100);
+        //         $('.theme-popover1').slideUp(200);
+        //     })
+        //
+        // })
+        // jQuery(document).ready(function($) {
+        //     $('.button1').click(function(){
+        //         $('.theme-popover1-mask').fadeIn(100);
+        //         $('.theme-popover1').slideDown(200);
+        //     })
+        //     $('.theme-poptit .close').click(function(){
+        //         $('.theme-popover1-mask').fadeOut(100);
+        //         $('.theme-popover1').slideUp(200);
+        //     })
+        // })
+
+        //将表格中的院校信息和专业添加到填报志愿信息弹窗中
+        $(function() {
+            $("#bootstrap-table1").on("click", ":button", function(event) {
+                $("#universityName").val( $(this).closest("tr").find("td>div>span").eq(2).text());
+                $("#majorName").val($(this).closest("tr").find("td>div>span").eq(7).text());
+            });
+            $("#bootstrap-table2").on("click", ":button", function(event) {
+                $("#universityName").val( $(this).closest("tr").find("td>div>span").eq(2).text());
+                $("#majorName").val($(this).closest("tr").find("td>div>span").eq(7).text());
+            });
+            $("#bootstrap-table3").on("click", ":button", function(event) {
+                $("#universityName").val( $(this).closest("tr").find("td>div>span").eq(2).text());
+                $("#majorName").val($(this).closest("tr").find("td>div>span").eq(7).text());
+            });
+            $("#bootstrap-table4").on("click", ":button", function(event) {
+                $("#universityName").val( $(this).closest("tr").find("td>div>span").eq(2).text());
+                $("#majorName").val($(this).closest("tr").find("td>div>span").eq(7).text());
+            });
+        });
+
+        $(function() {
+            //省市下拉列表数据
+            var objprovince = document.getElementById("province");
+            var objcity = document.getElementById("city");
+
+            var objprovince1 = document.getElementById("province1");
+            var objcity1 = document.getElementById("city1");
+            var parray = Array(
+                "北京",
+                "上海",
+                "天津",
+                "重庆",
+                "河北",
+                "山西",
+                "内蒙古",
+                "辽宁",
+                "吉林",
+                "黑龙江",
+                "江苏",
+                "浙江",
+                "安徽",
+                "福建",
+                "江西",
+                "山东",
+                "河南",
+                "湖北",
+                "湖南",
+                "广东",
+                "广西",
+                "海南",
+                "四川",
+                "贵州",
+                "云南",
+                "西藏",
+                "陕西",
+                "甘肃",
+                "宁夏",
+                "青海",
+                "新疆",
+                "香港",
+                "澳门",
+                "台湾"
+            );
+            var carray = Array(
+                "北京,东城,西城,崇文,宣武,朝阳,丰台,石景山,海淀,门头沟,房山,通州,顺义,昌平,大兴,平谷,怀柔,密云,延庆",
+                "上海,黄浦,卢湾,徐汇,长宁,静安,普陀,闸北,虹口,杨浦,闵行,宝山,嘉定,浦东,金山,松江,青浦,南汇,奉贤,崇明",
+                "天津,和平,东丽,河东,西青,河西,津南,南开,北辰,河北,武清,红挢,塘沽,汉沽,大港,宁河,静海,宝坻,蓟县,大邱庄",
+                "重庆,万州,涪陵,渝中,大渡口,江北,沙坪坝,九龙坡,南岸,北碚,万盛,双挢,渝北,巴南,黔江,长寿,綦江,潼南,铜梁,大足,荣昌,壁山,梁平,城口,丰都,垫江,武隆,忠县,开县,云阳,奉节,巫山,巫溪,石柱,秀山,酉阳,彭水,江津,合川,永川,南川",
+                "石家庄,邯郸,邢台,保定,张家口,承德,廊坊,唐山,秦皇岛,沧州,衡水",
+                "太原,大同,阳泉,长治,晋城,朔州,吕梁,忻州,晋中,临汾,运城",
+                "呼和浩特,包头,乌海,赤峰,呼伦贝尔盟,阿拉善盟,哲里木盟,兴安盟,乌兰察布盟,锡林郭勒盟,巴彦淖尔盟,伊克昭盟",
+                "沈阳,大连,鞍山,抚顺,本溪,丹东,锦州,营口,阜新,辽阳,盘锦,铁岭,朝阳,葫芦岛",
+                "长春,吉林,四平,辽源,通化,白山,松原,白城,延边",
+                "哈尔滨,齐齐哈尔,牡丹江,佳木斯,大庆,绥化,鹤岗,鸡西,黑河,双鸭山,伊春,七台河,大兴安岭",
+                "南京,镇江,苏州,南通,扬州,盐城,徐州,连云港,常州,无锡,宿迁,泰州,淮安",
+                "杭州,宁波,温州,嘉兴,湖州,绍兴,金华,衢州,舟山,台州,丽水",
+                "合肥,芜湖,蚌埠,马鞍山,淮北,铜陵,安庆,黄山,滁州,宿州,池州,淮南,巢湖,阜阳,六安,宣城,亳州",
+                "福州,厦门,莆田,三明,泉州,漳州,南平,龙岩,宁德",
+                "南昌市,景德镇,九江,鹰潭,萍乡,新馀,赣州,吉安,宜春,抚州,上饶",
+                "济南,青岛,淄博,枣庄,东营,烟台,潍坊,济宁,泰安,威海,日照,临沂,德州,聊城,滨州,菏泽",
+                "郑州,开封,洛阳,平顶山,安阳,鹤壁,新乡,焦作,濮阳,许昌,漯河,三门峡,南阳,商丘,信阳,周口,驻马店,济源",
+                "武汉,宜昌,荆州,襄樊,黄石,荆门,黄冈,十堰,恩施,潜江,天门,仙桃,随州,咸宁,孝感,鄂州",
+                "长沙,常德,株洲,湘潭,衡阳,岳阳,邵阳,益阳,娄底,怀化,郴州,永州,湘西,张家界",
+                "广州,深圳,珠海,汕头,东莞,中山,佛山,韶关,江门,湛江,茂名,肇庆,惠州,梅州,汕尾,河源,阳江,清远,潮州,揭阳,云浮",
+                "南宁,柳州,桂林,梧州,北海,防城港,钦州,贵港,玉林,南宁地区,柳州地区,贺州,百色,河池",
+                "海口,三亚",
+                "成都,绵阳,德阳,自贡,攀枝花,广元,内江,乐山,南充,宜宾,广安,达川,雅安,眉山,甘孜,凉山,泸州",
+                "贵阳,六盘水,遵义,安顺,铜仁,黔西南,毕节,黔东南,黔南",
+                "昆明,大理,曲靖,玉溪,昭通,楚雄,红河,文山,思茅,西双版纳,保山,德宏,丽江,怒江,迪庆,临沧",
+                "拉萨,日喀则,山南,林芝,昌都,阿里,那曲",
+                "西安,宝鸡,咸阳,铜川,渭南,延安,榆林,汉中,安康,商洛",
+                "兰州,嘉峪关,金昌,白银,天水,酒泉,张掖,武威,定西,陇南,平凉,庆阳,临夏,甘南",
+                "银川,石嘴山,吴忠,固原",
+                "西宁市,海东,海南,海北,黄南,玉树,果洛,海西",
+                "乌鲁木齐,石河子,克拉玛依,伊犁,巴音郭勒,昌吉,克孜勒苏柯尔克孜,博 尔塔拉,吐鲁番,哈密,喀什,和田,阿克苏",
+                "香港",
+                "澳门",
+                "台北,高雄,台中,台南,屏东,南投,云林,新竹,彰化,苗栗,嘉义,花莲,桃园,宜兰,基隆,台东,金门,马祖,澎湖"
+            );
+            objprovince.onchange = function GetCity() {
+                var x = this.selectedIndex - 1;
+                for (i = 0; i < objcity.length; i++) {
+                    objcity.remove(i);
+                }
+
+                if (x >= 0) {
+                    var citylist = carray[x].split(',');
+
+                    for (i = 0; i < citylist.length; i++) {
+                        objcity.options[i] = new Option(citylist[i], citylist[i]);
+                    }
+                } else {
+                    objcity.options[0] = new Option("城市", "");
+                }
+            };
+
+            objprovince1.onchange = function GetCity() {
+                var x = this.selectedIndex - 1;
+                for (i = 0; i < objcity1.length; i++) {
+                    objcity1.remove(i);
+                }
+
+                if (x >= 0) {
+                    var citylist = carray[x].split(',');
+
+                    for (i = 0; i < citylist.length; i++) {
+                        objcity1.options[i] = new Option(citylist[i], citylist[i]);
+                    }
+                } else {
+                    objcity1.options[0] = new Option("城市", "");
+                }
+            };
+
+            function GetProvince() {
+                objprovince.options[0] = new Option("省份", "");
+                for (i = 0; i < parray.length; i++) {
+                    objprovince.options[i + 1] = new Option(parray[i], parray[i]);
+                }
+
+                objprovince1.options[0] = new Option("省份", "");
+                for (i = 0; i < parray.length; i++) {
+                    objprovince1.options[i + 1] = new Option(parray[i], parray[i]);
+                }
+            }
+
+            window.onload = GetProvince();
+        })
+
+        $(function() {
+            //志愿序号下拉框
+            var objprovince2=document.getElementById("volunteerGroup");
+            var objcity2=document.getElementById("volunteerNum");
+
+            var objprovince3=document.getElementById("volunteerGroup");
+            var objcity3=document.getElementById("volunteerNum");
+            var parray=Array(
+                "1-10",
+                "11-20",
+                "21-30",
+                "31-40",
+                "41-50",
+                "51-60",
+                "61-70",
+                "71-80",
+                "81-90",
+                "91-96"
+
+            );
+            var carray=Array(
+                "志愿1,志愿2,志愿3,志愿4,志愿5,志愿6,志愿7,志愿8,志愿9,志愿10" ,
+                "志愿11,志愿12,志愿13,志愿14,志愿15,志愿16,志愿17,志愿18,志愿19,志愿20" ,
+                "志愿31,志愿32,志愿33,志愿34,志愿35,志愿36,志愿37,志愿38,志愿39,志愿40" ,
+                "志愿41,志愿42,志愿43,志愿44,志愿45,志愿46,志愿47,志愿48,志愿49,志愿50" ,
+                "志愿51,志愿52,志愿53,志愿54,志愿55,志愿56,志愿57,志愿58,志愿59,志愿60" ,
+                "志愿61,志愿62,志愿63,志愿64,志愿65,志愿66,志愿67,志愿68,志愿69,志愿70" ,
+                "志愿71,志愿72,志愿73,志愿74,志愿75,志愿76,志愿77,志愿78,志愿79,志愿80" ,
+                "志愿81,志愿82,志愿83,志愿84,志愿85,志愿86,志愿87,志愿88,志愿89,志愿90" ,
+                "志愿91,志愿92,志愿93,志愿4,志愿95,志愿96"
+            );
+            objprovince2.onchange=function GetCity(){
+                var x=this.selectedIndex-1;
+                for(i=0;i<objcity2.length;i++)
+                {
+                    objcity2.remove(i);
+                }
+
+                if(x>=0)
+                {
+                    var citylist=carray[x].split(',');
+
+                    for(i=0;i<citylist.length;i++)
+                    {
+                        objcity2.options[i]=new Option(citylist[i],citylist[i]);
+                    }
+                }
+                else
+                {
+                    objcity2.options[0]=new Option("志愿序号","");
+                }
+            };
+
+            objprovince3.onchange=function GetCity(){
+                var x=this.selectedIndex-1;
+                for(i=0;i<objcity3.length;i++)
+                {
+                    objcity3.remove(i);
+                }
+
+                if(x>=0)
+                {
+                    var citylist=carray[x].split(',');
+
+                    for(i=0;i<citylist.length;i++)
+                    {
+                        objcity3.options[i]=new Option(citylist[i],citylist[i]);
+                    }
+                }
+                else
+                {
+                    objcity3.options[0]=new Option("志愿序号","");
+                }
+            };
+
+
+            function GetProvince()
+            {
+                objprovince2.options[0]=new Option("志愿序号","");
+                for(i=0;i<parray.length;i++)
+                {
+                    objprovince2.options[i+1]=new Option(parray[i],parray[i]);
+                }
+
+                objprovince3.options[0]=new Option("志愿序号","");
+                for(i=0;i<parray.length;i++)
+                {
+                    objprovince3.options[i+1]=new Option(parray[i],parray[i]);
+                }
+            }
+            window.onload=GetProvince();
+        });
+    </script>
+</div>

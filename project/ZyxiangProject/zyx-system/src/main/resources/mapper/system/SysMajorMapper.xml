@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysMajorMapper">
+
+    <resultMap type="SysMajor" id="SysMajorResult">
+        <result property="majorId"    column="major_id"    />
+        <result property="majorCode"    column="major_code"    />
+        <result property="majorCategory"    column="major_category"    />
+        <result property="majorType"    column="major_type"  />
+        <result property="studyYears"   column="study_years"     />
+        <result property="grantScholar"     column="grant_scholar"  />
+        <result property="majorName"    column="major_name"    />
+        <result property="majorLevel"    column="major_level"    />
+        <result property="majorIntroduce"    column="major_introduce"    />
+        <result property="sexRatio"    column="sex_ratio"    />
+        <result property="subjectProposal"    column="subject_proposal"    />
+        <result property="majorStudy"    column="major_study"    />
+        <result property="majorWhat"    column="major_what"    />
+        <result property="firstImpression"    column="first_impression"    />
+        <result property="employmentRate"    column="employment_rate"    />
+    </resultMap>
+
+    <sql id="selectSysMajorVo">
+        select major_id, major_code, major_category, major_type, study_years, grant_scholar, major_name, major_level,
+        major_introduce, sex_ratio, subject_proposal, major_study, major_what, first_impression, employment_rate
+        from sys_major
+    </sql>
+
+    <select id="selectSysMajorList" parameterType="SysMajor" resultMap="SysMajorResult">
+        <include refid="selectSysMajorVo"/>
+        <where>
+            <if test="majorCode != null  and majorCode != ''"> and major_code = #{majorCode}</if>
+            <if test="majorCategory != null  and majorCategory != ''"> and major_category = #{majorCategory}</if>
+            <if test="majorType != null  and majorType != ''"> and major_type = #{majorType}</if>
+            <if test="studyYears != null  and studyYears != ''"> and study_years = #{studyYears}</if>
+            <if test="grantScholar != null  and grantScholar != ''"> and grant_scholar = #{grantScholar}</if>
+            <if test="majorName != null  and majorName != ''"> and major_name like concat('%', #{majorName}, '%')</if>
+            <if test="majorLevel != null  and majorLevel != ''"> and major_level = #{majorLevel}</if>
+            <if test="majorIntroduce != null  and majorIntroduce != ''"> and major_introduce = #{majorIntroduce}</if>
+            <if test="sexRatio != null  and sexRatio != ''"> and sex_ratio = #{sexRatio}</if>
+            <if test="subjectProposal != null  and subjectProposal != ''"> and subject_proposal = #{subjectProposal}</if>
+            <if test="majorStudy != null  and majorStudy != ''"> and major_study = #{majorStudy}</if>
+            <if test="majorWhat != null  and majorWhat != ''"> and major_what = #{majorWhat}</if>
+            <if test="firstImpression != null  and firstImpression != ''"> and first_impression = #{firstImpression}</if>
+            <if test="employmentRate != null  and employmentRate != ''"> and employment_rate = #{employmentRate}</if>
+        </where>
+    </select>
+
+    <select id="selectSysMajorAll" resultMap="SysMajorResult">
+        <include refid="selectSysMajorVo"></include>
+    </select>
+
+    <!--查询本科专专业-->
+    <select id="selectUndergraduateMajorList" parameterType="SysMajor" resultMap="SysMajorResult">
+        <include refid="selectSysMajorVo"/>
+        where major_level = "本科"
+    </select>
+
+    <!--查询专科专专业-->
+    <select id="selectSpecialtyMajorList" parameterType="SysMajor" resultMap="SysMajorResult">
+        <include refid="selectSysMajorVo"/>
+        where major_level = "专科（高职）"
+    </select>
+
+    <select id="selectSysMajorById" parameterType="Long" resultMap="SysMajorResult">
+        <include refid="selectSysMajorVo"/>
+        where major_id = #{majorId}
+    </select>
+
+    <select id="selectSysMajorByMajorName" parameterType="String" resultMap="SysMajorResult">
+        <include refid="selectSysMajorVo"/>
+        where major_name = #{majorName}
+    </select>
+
+    <insert id="insertSysMajor" parameterType="SysMajor" useGeneratedKeys="true" keyProperty="majorId">
+        insert into sys_major
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="majorCode != null">major_code,</if>
+            <if test="majorCategory != null">major_category,</if>
+            <if test="majorType != null">major_Type,</if>
+            <if test="studyYears != null">study_years,</if>
+            <if test="grantScholar != null">grant_scholar,</if>
+            <if test="majorName != null">major_name,</if>
+            <if test="majorLevel != null">major_level,</if>
+            <if test="majorIntroduce != null">major_introduce,</if>
+            <if test="sexRatio != null">sex_ratio,</if>
+            <if test="subjectProposal != null">subject_proposal,</if>
+            <if test="majorStudy != null">major_study,</if>
+            <if test="majorWhat != null">major_what,</if>
+            <if test="firstImpression != null">first_impression,</if>
+            <if test="employmentRate != null">employment_rate,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="majorCode != null">#{majorCode},</if>
+            <if test="majorCategory != null">#{majorCategory},</if>
+            <if test="majorType != null">#{majorType},</if>
+            <if test="studyYears != null">#{studyYears},</if>
+            <if test="grantScholar != null">#{grantScholar},</if>
+            <if test="majorName != null">#{majorName},</if>
+            <if test="majorLevel != null">#{majorLevel},</if>
+            <if test="majorIntroduce != null">#{majorIntroduce},</if>
+            <if test="sexRatio != null">#{sexRatio},</if>
+            <if test="subjectProposal != null">#{subjectProposal},</if>
+            <if test="majorStudy != null">#{majorStudy},</if>
+            <if test="majorWhat != null">#{majorWhat},</if>
+            <if test="firstImpression != null">#{firstImpression},</if>
+            <if test="employmentRate != null">#{employmentRate},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysMajor" parameterType="SysMajor">
+        update sys_major
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="majorCode != null">major_code = #{majorCode},</if>
+            <if test="majorCategory != null">major_category = #{majorCategory},</if>
+            <if test="majorType != null">major_type = #{majorType},</if>
+            <if test="studyYears != null">study_years = #{studyYears},</if>
+            <if test="grantScholar != null">grant_scholar = #{grantScholar},</if>
+            <if test="majorName != null">major_name = #{majorName},</if>
+            <if test="majorLevel != null">major_level = #{majorLevel},</if>
+            <if test="majorIntroduce != null">major_introduce = #{majorIntroduce},</if>
+            <if test="sexRatio != null">sex_ratio = #{sexRatio},</if>
+            <if test="subjectProposal != null">subject_proposal = #{subjectProposal},</if>
+            <if test="majorStudy != null">major_study = #{majorStudy},</if>
+            <if test="majorWhat != null">major_what = #{majorWhat},</if>
+            <if test="firstImpression != null">first_impression = #{firstImpression},</if>
+            <if test="employmentRate != null">employment_rate = #{employmentRate},</if>
+        </trim>
+        where major_id = #{majorId}
+    </update>
+
+    <delete id="deleteSysMajorById" parameterType="Long">
+        delete from sys_major where major_id = #{majorId}
+    </delete>
+
+    <delete id="deleteSysMajorByIds" parameterType="String">
+        delete from sys_major where major_id in
+        <foreach item="majorId" collection="array" open="(" separator="," close=")">
+            #{majorId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysResultMapper">
+
+    <resultMap type="SysResult" id="SysResultResult">
+        <result property="resultId"    column="result_id"    />
+        <result property="resultType"    column="result_type"    />
+        <result property="resultNature"    column="result_nature"    />
+        <result property="natureInfo"    column="nature_info"    />
+        <result property="universityType"    column="university_type"    />
+        <result property="majorType"    column="major_type"    />
+    </resultMap>
+
+    <sql id="selectSysResultVo">
+        select result_id, result_type, result_nature, nature_info, university_type, major_type from sys_result
+    </sql>
+
+    <select id="selectSysResultList" parameterType="SysResult" resultMap="SysResultResult">
+        <include refid="selectSysResultVo"/>
+        <where>
+            <if test="resultType != null  and resultType != ''"> and result_type = #{resultType}</if>
+            <if test="resultNature != null  and resultNature != ''"> and result_nature = #{resultNature}</if>
+            <if test="natureInfo != null  and natureInfo != ''"> and nature_info = #{natureInfo}</if>
+            <if test="universityType != null  and universityType != ''"> and university_type = #{universityType}</if>
+            <if test="majorType != null  and majorType != ''"> and major_type = #{majorType}</if>
+        </where>
+    </select>
+
+    <select id="selectSysResultById" parameterType="String" resultMap="SysResultResult">
+        <include refid="selectSysResultVo"/>
+        where result_id = #{resultId}
+    </select>
+
+    <insert id="insertSysResult" parameterType="SysResult">
+        insert into sys_result
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="resultId != null">result_id,</if>
+            <if test="resultType != null">result_type,</if>
+            <if test="resultNature != null">result_nature,</if>
+            <if test="natureInfo != null">nature_info,</if>
+            <if test="universityType != null">university_type,</if>
+            <if test="majorType != null">major_type,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="resultId != null">#{resultId},</if>
+            <if test="resultType != null">#{resultType},</if>
+            <if test="resultNature != null">#{resultNature},</if>
+            <if test="natureInfo != null">#{natureInfo},</if>
+            <if test="universityType != null">#{universityType},</if>
+            <if test="majorType != null">#{majorType},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysResult" parameterType="SysResult">
+        update sys_result
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="resultType != null">result_type = #{resultType},</if>
+            <if test="resultNature != null">result_nature = #{resultNature},</if>
+            <if test="natureInfo != null">nature_info = #{natureInfo},</if>
+            <if test="universityType != null">university_type = #{universityType},</if>
+            <if test="majorType != null">major_type = #{majorType},</if>
+        </trim>
+        where result_id = #{resultId}
+    </update>
+
+    <delete id="deleteSysResultById" parameterType="String">
+        delete from sys_result where result_id = #{resultId}
+    </delete>
+
+    <delete id="deleteSysResultByIds" parameterType="String">
+        delete from sys_result where result_id in
+        <foreach item="resultId" collection="array" open="(" separator="," close=")">
+            #{resultId}
+        </foreach>
+    </delete>
+
+</mapper>

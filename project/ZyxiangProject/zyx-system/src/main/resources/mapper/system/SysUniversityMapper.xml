@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysUniversityMapper">
+
+    <resultMap type="SysPlan" id="SysPlanResult">
+        <result property="planId"    column="plan_id"    />
+        <result property="majorLevel"    column="major_level"    />
+        <result property="majorName"    column="major_name"    />
+        <result property="years"    column="years"    />
+        <result property="universityName"    column="university_name"    />
+        <result property="universityId"    column="university_id"    />
+        <result property="tuition"    column="tuition"    />
+        <result property="minScore"    column="min_score"    />
+        <result property="annualTarget"    column="annual_target"    />
+        <result property="minRanking"    column="min_ranking"    />
+        <result property="forSeveral"    column="for_several"    />
+        <result property="batch"    column="batch"    />
+    </resultMap>
+
+    <resultMap type="SysUniversity" id="SysUniversityResult">
+        <result property="universityId"    column="university_id"    />
+        <result property="universityName"    column="university_name"    />
+        <result property="universityIdCode"    column="university_id_code"    />
+        <result property="universityType"    column="university_type"    />
+        <result property="universityCode"    column="university_code"    />
+        <result property="universityAddress"    column="university_address"    />
+        <result property="universityInformation"    column="university_information"    />
+        <result property="universityLevel"    column="university_level"    />
+        <result property="universityNature"    column="university_nature"    />
+        <result property="universityBadge"    column="university_badge"    />
+        <result property="universityWebsite"    column="university_website"    />
+        <result property="universityPhone"    column="university_phone"    />
+        <result property="universityEmail"    column="university_email"    />
+        <result property="belong"    column="belong"    />
+        <result property="numSubject"    column="num_subject"    />
+        <result property="numMaster"    column="num_master"    />
+        <result property="numDoctor"    column="num_doctor"    />
+        <result property="numAcademician"    column="num_academician"    />
+        <result property="numLibrary"    column="num_library"    />
+        <result property="numLab"    column="num_lab"    />
+        <result property="provinceName"    column="province_name"    />
+        <result property="cityName"    column="city_name"    />
+        <result property="townName"    column="town_name"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="area"    column="area"    />
+        <result property="universityPicture"    column="university_picture"    />
+        <result property="ranking"    column="ranking"    />
+        <result property="f985"    column="f985"    />
+        <result property="f211"    column="f211"    />
+        <result property="shortName"    column="short_name"    />
+        <result property="oldName"    column="old_name"    />
+        <result property="site"    column="site"    />
+        <result property="dualClassName"    column="dual_class_name"    />
+        <result property="ranking"    column="ranking"    />
+        <result property="universityIdentification"    column="university_identification"    />
+        <result property="visitNumber"    column="visit_number"    />
+        <association property="plan" column="university_name" javaType="SysPlan" resultMap="SysPlanResult" />
+    </resultMap>
+
+    <sql id="selectSysUniversityVo">
+         select university_id, university_name, university_id_code, university_type, university_code,
+         university_address, university_information, university_level, university_nature, university_badge,
+         university_website, university_phone, university_email, belong, num_subject, num_master, num_doctor,
+         num_academician, num_library, num_lab, province_name, city_name, town_name, create_date, area,
+         university_picture, ranking, f985, f211, short_name, old_name, site, dual_class_name, university_identification,
+         visit_number
+         from sys_university
+    </sql>
+
+    <sql id="selectSysUniversityAndPlanVo">
+        select plan_id, p.major_level, p.major_name, p.years, p.university_name, tuition,
+         min_score, annual_target, min_ranking, for_several, batch
+         from sys_plan p
+            left join sys_university u on p.university_name = u.university_name
+       where u.university_id = #{universityId}
+    </sql>
+
+
+    <select id="selectSysUniversityList" parameterType="SysUniversity" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+        <where>
+            <if test="universityName != null  and universityName != ''"> and university_name like concat('%', #{universityName}, '%')</if>
+            <if test="universityIdCode != null  and universityIdCode != ''"> and university_id_code = #{universityIdCode}</if>
+            <if test="universityType != null  and universityType != ''"> and university_type = #{universityType}</if>
+            <if test="universityCode != null  and universityCode != ''"> and university_code = #{universityCode}</if>
+            <if test="universityAddress != null  and universityAddress != ''"> and university_address = #{universityAddress}</if>
+            <if test="universityInformation != null  and universityInformation != ''"> and university_information = #{universityInformation}</if>
+            <if test="universityLevel != null  and universityLevel != ''"> and university_level = #{universityLevel}</if>
+            <if test="universityNature != null  and universityNature != ''"> and university_nature = #{universityNature}</if>
+            <if test="universityBadge != null  and universityBadge != ''"> and university_badge = #{universityBadge}</if>
+            <if test="universityWebsite != null  and universityWebsite != ''"> and university_website = #{universityWebsite}</if>
+            <if test="universityPhone != null  and universityPhone != ''"> and university_phone = #{universityPhone}</if>
+            <if test="universityEmail != null  and universityEmail != ''"> and university_email = #{universityEmail}</if>
+            <if test="belong != null  and belong != ''"> and belong = #{belong}</if>
+            <if test="numSubject != null "> and num_subject = #{numSubject}</if>
+            <if test="numMaster != null "> and num_master = #{numMaster}</if>
+            <if test="numDoctor != null "> and num_doctor = #{numDoctor}</if>
+            <if test="numAcademician != null "> and num_academician = #{numAcademician}</if>
+            <if test="numLibrary != null  and numLibrary != ''"> and num_library = #{numLibrary}</if>
+            <if test="numLab != null "> and num_lab = #{numLab}</if>
+            <if test="provinceName != null  and provinceName != ''"> and province_name like concat('%', #{provinceName}, '%')</if>
+            <if test="cityName != null  and cityName != ''"> and city_name like concat('%', #{cityName}, '%')</if>
+            <if test="townName != null  and townName != ''"> and town_name like concat('%', #{townName}, '%')</if>
+            <if test="createDate != null  and createDate != ''"> and create_date = #{createDate}</if>
+            <if test="area != null "> and area = #{area}</if>
+            <if test="universityPicture != null  and universityPicture != ''"> and university_picture = #{universityPicture}</if>
+            <if test="ranking != null  and ranking != ''"> and ranking = #{ranking}</if>
+            <if test="f985 != null  and f985 != ''"> and f985 = #{f985}</if>
+            <if test="f211 != null  and f211 != ''"> and f211 = #{f211}</if>
+            <if test="shortName != null  and shortName != ''"> and short_name like concat('%', #{shortName}, '%')</if>
+            <if test="oldName != null  and oldName != ''"> and old_name like concat('%', #{oldName}, '%')</if>
+            <if test="site != null  and site != ''"> and site = #{site}</if>
+            <if test="dualClassName != null  and dualClassName != ''"> and dual_class_name like concat('%', #{dualClassName}, '%')</if>
+            <if test="universityIdentification != null  and universityIdentification != ''"> and university_identification = #{universityIdentification}</if>
+        </where>
+    </select>
+
+
+
+    <select id="selectSysUniversityAll" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+    </select>
+
+    <!--查询正规大学-->
+    <select id="selectUniversityZg" parameterType="SysUniversity" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+        <where>
+            university_identification = "正规大学"
+            <if test="universityName != null  and universityName != ''"> and university_name like concat('%', #{universityName}, '%')</if>
+            <if test="universityIdCode != null  and universityIdCode != ''"> and university_id_code = #{universityIdCode}</if>
+            <if test="universityType != null  and universityType != ''"> and university_type = #{universityType}</if>
+            <if test="universityCode != null  and universityCode != ''"> and university_code = #{universityCode}</if>
+            <if test="universityAddress != null  and universityAddress != ''"> and university_address = #{universityAddress}</if>
+            <if test="universityInformation != null  and universityInformation != ''"> and university_information = #{universityInformation}</if>
+            <if test="universityLevel != null  and universityLevel != ''"> and university_level = #{universityLevel}</if>
+            <if test="universityNature != null  and universityNature != ''"> and university_nature = #{universityNature}</if>
+            <if test="universityBadge != null  and universityBadge != ''"> and university_badge = #{universityBadge}</if>
+            <if test="universityWebsite != null  and universityWebsite != ''"> and university_website = #{universityWebsite}</if>
+            <if test="universityPhone != null  and universityPhone != ''"> and university_phone = #{universityPhone}</if>
+            <if test="universityEmail != null  and universityEmail != ''"> and university_email = #{universityEmail}</if>
+            <if test="belong != null  and belong != ''"> and belong = #{belong}</if>
+            <if test="numSubject != null "> and num_subject = #{numSubject}</if>
+            <if test="numMaster != null "> and num_master = #{numMaster}</if>
+            <if test="numDoctor != null "> and num_doctor = #{numDoctor}</if>
+            <if test="numAcademician != null "> and num_academician = #{numAcademician}</if>
+            <if test="numLibrary != null  and numLibrary != ''"> and num_library = #{numLibrary}</if>
+            <if test="numLab != null "> and num_lab = #{numLab}</if>
+            <if test="provinceName != null  and provinceName != ''"> and province_name like concat('%', #{provinceName}, '%')</if>
+            <if test="cityName != null  and cityName != ''"> and city_name like concat('%', #{cityName}, '%')</if>
+            <if test="townName != null  and townName != ''"> and town_name like concat('%', #{townName}, '%')</if>
+            <if test="createDate != null  and createDate != ''"> and create_date = #{createDate}</if>
+            <if test="area != null "> and area = #{area}</if>
+            <if test="universityPicture != null  and universityPicture != ''"> and university_picture = #{universityPicture}</if>
+            <if test="ranking != null  and ranking != ''"> and ranking = #{ranking}</if>
+            <if test="f985 != null  and f985 != ''"> and f985 = #{f985}</if>
+            <if test="f211 != null  and f211 != ''"> and f211 = #{f211}</if>
+            <if test="shortName != null  and shortName != ''"> and short_name like concat('%', #{shortName}, '%')</if>
+            <if test="oldName != null  and oldName != ''"> and old_name like concat('%', #{oldName}, '%')</if>
+            <if test="site != null  and site != ''"> and site = #{site}</if>
+            <if test="dualClassName != null  and dualClassName != ''"> and dual_class_name like concat('%', #{dualClassName}, '%')</if>
+        </where>
+    </select>
+
+    <!--查询野鸡大学-->
+    <select id="selectUniversityYj" parameterType="SysUniversity" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+        where university_identification = '野鸡大学'
+    </select>
+
+    <!--查询本科学校-->
+    <select id="selectUndergraduateList" parameterType="SysUniversity" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+        where university_level = '普通本科'
+        and ranking &lt;&gt; '暂无'
+        order by ranking+'1'
+    </select>
+
+    <!--查询专科学校-->
+    <select id="selectSpecialtyList" parameterType="SysUniversity" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+        where university_level &lt;&gt; '普通本科'
+        and ranking &lt;&gt; '暂无'
+        order by ranking+'1'
+    </select>
+
+    <!--查询学校所在省份-->
+    <select id="selectGroupByProvinceName" parameterType="SysUniversity" resultMap="SysUniversityResult">
+        select province_name from sys_university group by province_name
+    </select>
+
+    <!--查询历年学校录取分数线-->
+    <select id="selectSysUniversityById" parameterType="Long" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+        where university_id = #{universityId}
+    </select>
+
+    <select id="getSearchUniversity" resultMap="SysUniversityResult">
+        <include refid="selectSysUniversityVo"/>
+        <where>
+            <if test="universityName != null  and universityName != ''"> and university_name like concat('%', #{universityName}, '%')</if>
+        </where>
+    </select>
+    <select id="sdBkUniversity" resultMap="SysUniversityResult">
+        select * from sys_university
+        where province_name = '河北'
+        and university_level = '普通本科'
+        limit #{page}, #{rows}
+    </select>
+    <select id="sdZkUniversity" resultMap="SysUniversityResult">
+        select * from sys_university
+        where province_name = '河北'
+        and university_level &lt;&gt; '普通本科'
+        limit #{page}, #{rows}
+    </select>
+
+    <insert id="insertSysUniversity" parameterType="SysUniversity" useGeneratedKeys="true" keyProperty="universityId">
+        insert into sys_university
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="universityName != null">university_name,</if>
+            <if test="universityIdCode != null">university_id_code,</if>
+            <if test="universityType != null">university_type,</if>
+            <if test="universityCode != null">university_code,</if>
+            <if test="universityAddress != null">university_address,</if>
+            <if test="universityInformation != null">university_information,</if>
+            <if test="universityLevel != null">university_level,</if>
+            <if test="universityNature != null">university_nature,</if>
+            <if test="universityBadge != null">university_badge,</if>
+            <if test="universityWebsite != null">university_website,</if>
+            <if test="universityPhone != null">university_phone,</if>
+            <if test="universityEmail != null">university_email,</if>
+            <if test="belong != null">belong,</if>
+            <if test="numSubject != null">num_subject,</if>
+            <if test="numMaster != null">num_master,</if>
+            <if test="numDoctor != null">num_doctor,</if>
+            <if test="numAcademician != null">num_academician,</if>
+            <if test="numLibrary != null">num_library,</if>
+            <if test="numLab != null">num_lab,</if>
+            <if test="provinceName != null">province_name,</if>
+            <if test="cityName != null">city_name,</if>
+            <if test="townName != null">town_name,</if>
+            <if test="createDate != null">create_date,</if>
+            <if test="area != null">area,</if>
+            <if test="universityPicture != null">university_picture,</if>
+            <if test="ranking != null">ranking,</if>
+            <if test="f985 != null">f985,</if>
+            <if test="f211 != null">f211,</if>
+            <if test="shortName != null">short_name,</if>
+            <if test="oldName != null">old_name,</if>
+            <if test="site != null">site,</if>
+            <if test="dualClassName != null">dual_class_name,</if>
+            <if test="universityIdentification != null">university_identification,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="universityName != null">#{universityName},</if>
+            <if test="universityIdCode != null">#{universityIdCode},</if>
+            <if test="universityType != null">#{universityType},</if>
+            <if test="universityCode != null">#{universityCode},</if>
+            <if test="universityAddress != null">#{universityAddress},</if>
+            <if test="universityInformation != null">#{universityInformation},</if>
+            <if test="universityLevel != null">#{universityLevel},</if>
+            <if test="universityNature != null">#{universityNature},</if>
+            <if test="universityBadge != null">#{universityBadge},</if>
+            <if test="universityWebsite != null">#{universityWebsite},</if>
+            <if test="universityPhone != null">#{universityPhone},</if>
+            <if test="universityEmail != null">#{universityEmail},</if>
+            <if test="belong != null">#{belong},</if>
+            <if test="numSubject != null">#{numSubject},</if>
+            <if test="numMaster != null">#{numMaster},</if>
+            <if test="numDoctor != null">#{numDoctor},</if>
+            <if test="numAcademician != null">#{numAcademician},</if>
+            <if test="numLibrary != null">#{numLibrary},</if>
+            <if test="numLab != null">#{numLab},</if>
+            <if test="provinceName != null">#{provinceName},</if>
+            <if test="cityName != null">#{cityName},</if>
+            <if test="townName != null">#{townName},</if>
+            <if test="createDate != null">#{createDate},</if>
+            <if test="area != null">#{area},</if>
+            <if test="universityPicture != null">#{universityPicture},</if>
+            <if test="ranking != null">#{ranking},</if>
+            <if test="f985 != null">#{f985},</if>
+            <if test="f211 != null">#{f211},</if>
+            <if test="shortName != null">#{shortName},</if>
+            <if test="oldName != null">#{oldName},</if>
+            <if test="site != null">#{site},</if>
+            <if test="dualClassName != null">#{dualClassName},</if>
+            <if test="universityIdentification != null">#{universityIdentification},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysUniversity" parameterType="SysUniversity">
+        update sys_university
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="universityName != null">university_name = #{universityName},</if>
+            <if test="universityIdCode != null">university_id_code = #{universityIdCode},</if>
+            <if test="universityType != null">university_type = #{universityType},</if>
+            <if test="universityCode != null">university_code = #{universityCode},</if>
+            <if test="universityAddress != null">university_address = #{universityAddress},</if>
+            <if test="universityInformation != null">university_information = #{universityInformation},</if>
+            <if test="universityLevel != null">university_level = #{universityLevel},</if>
+            <if test="universityNature != null">university_nature = #{universityNature},</if>
+            <if test="universityBadge != null">university_badge = #{universityBadge},</if>
+            <if test="universityWebsite != null">university_website = #{universityWebsite},</if>
+            <if test="universityPhone != null">university_phone = #{universityPhone},</if>
+            <if test="universityEmail != null">university_email = #{universityEmail},</if>
+            <if test="belong != null">belong = #{belong},</if>
+            <if test="numSubject != null">num_subject = #{numSubject},</if>
+            <if test="numMaster != null">num_master = #{numMaster},</if>
+            <if test="numDoctor != null">num_doctor = #{numDoctor},</if>
+            <if test="numAcademician != null">num_academician = #{numAcademician},</if>
+            <if test="numLibrary != null">num_library = #{numLibrary},</if>
+            <if test="numLab != null">num_lab = #{numLab},</if>
+            <if test="provinceName != null">province_name = #{provinceName},</if>
+            <if test="cityName != null">city_name = #{cityName},</if>
+            <if test="townName != null">town_name = #{townName},</if>
+            <if test="createDate != null">create_date = #{createDate},</if>
+            <if test="area != null">area = #{area},</if>
+            <if test="universityPicture != null">university_picture = #{universityPicture},</if>
+            <if test="ranking != null">ranking = #{ranking},</if>
+            <if test="f985 != null">f985 = #{f985},</if>
+            <if test="f211 != null">f211 = #{f211},</if>
+            <if test="shortName != null">short_name = #{shortName},</if>
+            <if test="oldName != null">old_name = #{oldName},</if>
+            <if test="site != null">site = #{site},</if>
+            <if test="dualClassName != null">dual_class_name = #{dualClassName},</if>
+            <if test="universityIdentification != null">university_identification = #{universityIdentification},</if>
+            <if test="visitNumber != null">visit_number = #{visitNumber},</if>
+        </trim>
+        where university_id = #{universityId}
+    </update>
+
+    <delete id="deleteSysUniversityById" parameterType="Long">
+        delete from sys_university where university_id = #{universityId}
+    </delete>
+
+    <delete id="deleteSysUniversityByIds" parameterType="String">
+        delete from sys_university where university_id in
+        <foreach item="universityId" collection="array" open="(" separator="," close=")">
+            #{universityId}
+        </foreach>
+    </delete>
+
+</mapper>

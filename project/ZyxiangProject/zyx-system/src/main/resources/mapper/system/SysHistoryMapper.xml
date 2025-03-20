@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysHistoryMapper">
+
+    <resultMap type="SysHistory" id="SysHistoryResult">
+        <result property="historyId"    column="history_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="historyType"    column="history_type"    />
+        <result property="historyName"    column="history_name"    />
+        <result property="historyNumber"    column="history_number"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectSysHistoryVo">
+        select history_id, user_id, history_type, history_name, history_number, create_time from sys_history
+    </sql>
+
+    <select id="selectSysHistoryList" parameterType="SysHistory" resultMap="SysHistoryResult">
+        <include refid="selectSysHistoryVo"/>
+        <where>
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="historyType != null  and historyType != ''"> and history_type = #{historyType}</if>
+            <if test="historyName != null  and historyName != ''"> and history_name = #{historyName}</if>
+            <if test="historyNumber != null "> and history_number = #{historyNumber}</if>
+        </where>
+        order by history_number desc
+    </select>
+
+    <select id="selectSysHistoryById" parameterType="Long" resultMap="SysHistoryResult">
+        <include refid="selectSysHistoryVo"/>
+        where history_id = #{historyId}
+    </select>
+    <select id="selectSysHistoryMajor" resultMap="SysHistoryResult">
+        select * from sys_history
+        where history_type = 0 and user_id = #{userId} order by history_number desc;
+    </select>
+    <select id="selectSysHistoryUniversity" resultMap="SysHistoryResult">
+        select * from sys_history
+        where history_type = 1 and user_id = #{userId} order by history_number desc;
+    </select>
+
+    <insert id="insertSysHistory" parameterType="SysHistory" useGeneratedKeys="true" keyProperty="historyId">
+        insert into sys_history
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="historyType != null">history_type,</if>
+            <if test="historyName != null">history_name,</if>
+            <if test="historyNumber != null">history_number,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="historyType != null">#{historyType},</if>
+            <if test="historyName != null">#{historyName},</if>
+            <if test="historyNumber != null">#{historyNumber},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysHistory" parameterType="SysHistory">
+        update sys_history
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="historyType != null">history_type = #{historyType},</if>
+            <if test="historyName != null">history_name = #{historyName},</if>
+            <if test="historyNumber != null">history_number = #{historyNumber},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where user_id = #{userId} and history_type = #{historyType} and history_name = #{historyName}
+    </update>
+
+    <delete id="deleteSysHistoryById" parameterType="Long">
+        delete from sys_history where history_id = #{historyId}
+    </delete>
+
+    <delete id="deleteSysHistoryByIds" parameterType="String">
+        delete from sys_history where history_id in
+        <foreach item="historyId" collection="array" open="(" separator="," close=")">
+            #{historyId}
+        </foreach>
+    </delete>
+
+</mapper>

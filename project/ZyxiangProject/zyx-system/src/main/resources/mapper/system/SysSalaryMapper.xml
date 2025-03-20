@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysSalaryMapper">
+
+    <resultMap type="SysSalary" id="SysSalaryResult">
+        <result property="salaryId"    column="salary_id"    />
+        <result property="majorId"    column="major_id"    />
+        <result property="years"    column="years"    />
+        <result property="salary"    column="salary"    />
+        <result property="averageSalary"    column="averageSalary"    />
+        <association property="major" column="major_id" javaType="SysMajor" resultMap="SysMajorResult" />
+    </resultMap>
+
+    <resultMap type="SysMajor" id="SysMajorResult">
+        <result property="majorId"    column="major_id"    />
+        <result property="majorCode"    column="major_code"    />
+        <result property="majorCategory"    column="major_category"    />
+        <result property="majorType"    column="major_type"  />
+        <result property="studyYears"   column="study_years"     />
+        <result property="grantScholar"     column="grant_scholar"  />
+        <result property="majorName"    column="major_name"    />
+        <result property="majorLevel"    column="major_level"    />
+        <result property="majorIntroduce"    column="major_introduce"    />
+        <result property="majorUrl"    column="major_url"    />
+    </resultMap>
+
+    <sql id="selectSysSalaryVo">
+        select s.salary_id, s.major_id,s.years, s.salary, m.major_name
+            from sys_salary s
+            left join sys_major m on s.major_id = m.major_id
+    </sql>
+
+    <select id="selectSysSalaryList" parameterType="SysSalary" resultMap="SysSalaryResult">
+        <include refid="selectSysSalaryVo"/>
+        <where>
+            <if test="majorId != null "> and s.major_id = #{majorId}</if>
+            <if test="years != null  and years != ''"> and s.years = #{years}</if>
+            <if test="salary != null "> and s.salary = #{salary}</if>
+        </where>
+        order by s.major_id, years desc
+    </select>
+
+    <select id="selectSysSalaryById" parameterType="Long" resultMap="SysSalaryResult">
+        <include refid="selectSysSalaryVo"/>
+        where salary_id = #{salaryId}
+    </select>
+
+    <select id="selectSysSalaryByMajorId" parameterType="Long" resultMap="SysSalaryResult">
+        <include refid="selectSysSalaryVo" />
+        where m.major_id = #{majorId} order by s.years
+    </select>
+
+    <insert id="insertSysSalary" parameterType="SysSalary" useGeneratedKeys="true" keyProperty="salaryId">
+        insert into sys_salary
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="majorId != null">major_id,</if>
+            <if test="years != null">years,</if>
+            <if test="salary != null">salary,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="majorId != null">#{majorId},</if>
+            <if test="years != null">#{years},</if>
+            <if test="salary != null">#{salary},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysSalary" parameterType="SysSalary">
+        update sys_salary
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="majorId != null">major_id = #{majorId},</if>
+            <if test="years != null">years = #{years},</if>
+            <if test="salary != null">salary = #{salary},</if>
+        </trim>
+        where salary_id = #{salaryId}
+    </update>
+
+    <delete id="deleteSysSalaryById" parameterType="Long">
+        delete from sys_salary where salary_id = #{salaryId}
+    </delete>
+
+    <delete id="deleteSysSalaryByIds" parameterType="String">
+        delete from sys_salary where salary_id in
+        <foreach item="salaryId" collection="array" open="(" separator="," close=")">
+            #{salaryId}
+        </foreach>
+    </delete>
+
+    <!--查询平均工资-->
+    <select id="selectAverageSalary" parameterType="SysSalary" resultMap="SysSalaryResult">
+        select AVG(salary)as averageSalary from sys_salary
+        <where>
+            <if test="majorId != null "> and major_id = #{majorId}</if>
+        </where>
+        group by major_id;
+    </select>
+
+</mapper>

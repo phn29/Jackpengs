@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||首页')"></head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<div class="content">
+    <!--navigation-->
+    <div th:replace="client/public/navigation :: navigation"></div>
+    <!--hot-->
+    <div class="i_top_wrap">
+        <!--news and nav-->
+        <div class="h_news_nav fl">
+            <div class="h_news">
+                <ul class="pic">
+                    <li th:each="SysHost : ${pageInfoHost.list}">
+                        <a th:href="@{/client/consultDetail/{hostId}(hostId=${SysHost.hostId})}">
+                            <img th:src="${SysHost.hostImg}"/>
+                            <div class="bg">
+                                <p th:text="${SysHost.hostTitle}"></p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <a class="prev" href="javascript:void(0)"></a>
+                <a class="next" href="javascript:void(0)"></a>
+                <ul class="hd"><li>1</li><li>2</li><li>3</li><li>4</li></ul>
+            </div>
+            <div class="quick_nav">
+                <a th:href="@{/client/onlineChat}" class="cg"><span class="a"></span>在线咨询</a>
+                <a th:href="@{/client/selectRanking}" class="cg"><span class="b"></span>一分一段表</a>
+                <a href="" class="cg"><span class="c"></span>高中介绍</a>
+                <a th:href="@{/client/selectUniversity}" class="cg"><span class="d"></span>高校名单</a>
+                <a th:href="@{/client/aspiration}" class="cg"><span class="e"></span>志愿填报</a>
+                <a th:href="@{/client/universityIdentification}" class="cg"><span class="f"></span>院校识别</a>
+            </div>
+        </div>
+        <!--h_img-->
+        <div class="h_img fr">
+            <div class="fr wrap" style="width: 364px;">
+                <div class="timeline fr" style="width: 364px;">
+                    <h2>高考时间轴</h2>
+                    <div class="count_down">
+                        <div style="float: left">目前距离2023年高考还有：</div>
+                        <div id="day" style="float: left"></div>
+                        <div id="hour" style="float: left"></div>
+                        <div id="minute" style="float: left"></div>
+                        <div id="second" style="float: left"></div>
+                    </div>
+                    <div class="tl_box">
+                        <div id="tl_box" style="width: 344px">
+                            <ul>
+                                <li th:each="SysTimeaxis : ${pageInfoTimeAxis.list}">
+									<span>
+										<h5 th:text="${SysTimeaxis.month}"></h5>
+										<p th:text="${SysTimeaxis.content}"></p>
+									</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 1200px; margin-top: 5px">
+        <!--查询专业表单-->
+        <div class="i_city l_city">
+            <div class="gkfunc-main-top" style="margin-left: 599px; width: 1200px;">
+                <div class="gkfunc-filter-wrap">
+                    <div class="filter-banner">
+                        <h2 class="gkfunc-title gkfunc-1c">
+                            位次查询
+                        </h2>
+                        <div class="gkfunc-search-form">
+                            <div class="form-input">
+                                <input id="grade" name="grade" type="text" placeholder="请输入分数段150-685之间的整数">
+
+                            </div>
+                            <button class="btn-red filter-btn search-btn" id="btn1">
+                                搜索
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-form expanded">
+                    <div class="filter-panel">
+                        <div class="row">
+                            <h5 class="filter-title">年份：</h5>
+                            <div class="filter-items" name="years">
+                                <div class="filter-checkbox-group">
+                                    <input th:value="2021" type="checkbox" name="years" id="years1" onclick="document.forms['selectMajor'].submit()">
+                                    <label th:text="2021" for="years1"></label>
+                                </div>
+                                <div class="filter-checkbox-group">
+                                    <input th:value="2020" type="checkbox" name="years" id="years2" onclick="document.forms['selectMajor'].submit()">
+                                    <label th:text="2020" for="years2"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        <div style="border: 1px solid #DDDDDD; margin-top: 15px">-->
+<!--            <div id="container" style="height: 350px; padding-top: 15px;"></div>-->
+<!--        </div>-->
+        <!--一分一段（位次表）-->
+        <div th:fragment="rankingList" class="rankingList" id="rankingList" style="margin-top: 21px" >
+            <table id="bootstrap-table5" class="table table-bordered table-hover" style="margin-top: -21px">
+                <thead style="background: #F8F8F8;">
+                <tr>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuNo">
+                        <div class="th-inner ">分数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuName">
+                        <div class="th-inner ">本段人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="stuSex">
+                        <div class="th-inner ">累计人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuName">
+                        <div class="th-inner ">选考物理本段人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="stuSex">
+                        <div class="th-inner ">选考物理累计人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuName">
+                        <div class="th-inner ">选考化学本段人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="stuSex">
+                        <div class="th-inner ">选考化学累计人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuName">
+                        <div class="th-inner ">选考生物本段人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="stuSex">
+                        <div class="th-inner ">选考生物累计人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuName">
+                        <div class="th-inner ">选考政治本段人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="stuSex">
+                        <div class="th-inner ">选考政治累计人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuName">
+                        <div class="th-inner ">选考历史本段人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="stuSex">
+                        <div class="th-inner ">选考历史累计人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="stuName">
+                        <div class="th-inner ">选考地理本段人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="stuSex">
+                        <div class="th-inner ">选考地理累计人数</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-index="0" th:each="SysRanking : ${pageInfoRanking.list}">
+                    <td style="text-align: center; vertical-align: middle;">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.grade}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.allPeopleNumber}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.allRanking}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.physicsPeopleNumber}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.physicsTotalPeople}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.chemicalPeopleNumber}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.chemicalTotalPeople}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.biologyPeopleNumber}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.biologyTotalPeople}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.politicsPeopleNumber}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.politicsTotalPeople}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.historyPeopleNumber}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.historyTotalPeople}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.geographyPeopleNumber}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysRanking.geographyTotalPeople}"></span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--分页-->
+        <div class="mpage">
+            <div class="qzPagination" th:each="SysRanking, SysRankingStat : ${pageInfoRanking.list}" th:if="${SysRankingStat.count}<=1">
+                <a th:href="@{/selectRanking(pageNum=0)}" >首页</a>
+                <a class="item" th:href="@{/selectRanking(pageNum=${pageInfoRanking.hasPreviousPage}?${pageInfoRanking.prePage}:1)}" th:unless="${pageInfoRanking.isFirstPage}">上一页</a>
+                <span class="pageinfo">第 <strong th:text="${pageInfoRanking.pageNum}"></strong> 页，共 <strong th:text="${pageInfoRanking.pages}"></strong> 页，有 <strong th:text="${pageInfoRanking.total}"></strong>条数据</span>
+                <a th:href="@{/selectRanking(pageNum=${pageInfoRanking.hasNextPage}?${pageInfoRanking.nextPage}:${pageInfoRanking.pages})}" th:unless="${pageInfoRanking.isLastPage}">下一页</a>
+                <a th:href="@{/selectRanking(pageNum=${pageInfoRanking.pages})}" >尾页</a>
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="volSystem/public/footer :: footer"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+
+
+    // function selectRanking1(){
+    //
+    // }
+    $("#btn1").click(function () {
+        console.log("我被点击了！");
+        $.ajax({
+            data:{
+                "grade":$('#grade').val()
+            },
+            url: "/client/selectRanking",
+            type:"post",
+            success:function (data) {
+                $("#rankingList").html(data);
+            }
+        })
+    });
+
+    function loadData(option){
+        // var universityId = document.getElementById("universityId").innerText;
+        // console.log(universityId);
+        $.ajax({
+            type:"GET",
+            async:false,
+            url:"/client/showRankingData",
+            data:{},
+            dataType:'json',
+            success:function(result){
+                if(result){
+                    //初始化x轴数据
+                    option.xAxis.data=[];
+                    for(var i=0;i<result.length;i++){
+                        option.xAxis.data.push(result[i].grade);
+                    }
+                    //初始化y轴数据
+                    option.series[0].data=[];
+                    for(var i=0;i<result.length;i++){
+                        option.series[0].data.push(result[i].allRanking);
+                    }
+                    // option.series[1].data=[];
+                    // for(var i=0;i<result.length;i++){
+                    //     option.series[1].data.push(result[i].allPeopleNumber);
+                    // }
+                    // option.series[2].data=[];
+                    // for(var i=0;i<result.length;i++){
+                    //     option.series[2].data.push(result[i].forSeveral);
+                    // }
+                    // option.series[3].data=[];
+                    // for(var i=0;i<result.length;i++){
+                    // 	option.series[3].data.push(result[i].forSeveral);
+                    // }
+                    // option.series[4].data=[];
+                    // for(var i=0;i<result.length;i++){
+                    // 	option.series[4].data.push(result[i].peopleNumber);
+                    // }
+                }
+            },
+            error:function(errorMsg){
+                alert("获取后台数据失败，请联系工作开发人员！！");
+            }
+        });
+    }
+    var myChart = echarts.init(document.getElementById('container'));
+    var option = {
+        title: {
+            text: '位次折线图'
+        },
+        tooltip: {
+            trigger: 'axis'
+        },
+        legend: {
+            data: ['对应位次', '本段人数']
+        },
+        toolbox: {
+            show: true,
+            feature: {
+                dataZoom: {
+                    yAxisIndex: 'none'
+                },
+                dataView: {readOnly: false},
+                magicType: {type: ['line', 'bar']},
+                restore: {},
+                saveAsImage: {}
+            }
+        },
+        grid: {
+            left: '3%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true
+        },
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: []
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [
+            // {
+            //     name: '对应位次',
+            //     type: 'line',
+            //     data: []
+            // },
+            {
+                name: '本段人数',
+                type: 'line',
+                data: []
+            }
+        ]
+    };
+    // 3. 加载数据到option
+    loadData(option);
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    // 5. 让图表跟随屏幕自动的去适应
+    window.addEventListener("resize", function() {
+        myChart.resize();
+    });
+
+    // function loadData(option){
+    //     // var universityId = document.getElementById("universityId").innerText;
+    //     // console.log(universityId);
+    //     $.ajax({
+    //         type:"GET",
+    //         async:false,
+    //         url:"/showRankingData",
+    //         data:{},
+    //         dataType:'json',
+    //         success:function(result){
+    //             if(result){
+    //                 //初始化x轴数据
+    //                 option.xAxis.data=[];
+    //                 for(var i=0;i<result.length;i++){
+    //                     option.xAxis.data.push(result[i].grade);
+    //                 }
+    //                 //初始化y轴数据
+    //                 option.series[0].data=[];
+    //                 for(var i=0;i<result.length;i++){
+    //                     option.series[0].data.push(result[i].allRanking);
+    //                 }
+    //                 // 初始化y轴数据
+    //                 option.series[1].data=[];
+    //                 for(var i=0;i<result.length;i++){
+    //                     option.series[1].data.push(result[i].allPeopleNumber);
+    //                 }
+    //             }
+    //         },
+    //         error:function(errorMsg){
+    //             alert("获取后台数据失败，请联系工作开发人员！！");
+    //         }
+    //     });
+    // }
+
+    // var myChart = echarts.init(document.getElementById('container'));
+    // option = {
+    //     title: {
+    //         text: '位次折线图'
+    //     },
+    //     tooltip: {
+    //         trigger: 'axis'
+    //     },
+    //     legend: {
+    //         data: ['对应位次', '本段人数']
+    //     },
+    //     grid: {
+    //         left: '3%',
+    //         right: '4%',
+    //         bottom: '3%',
+    //         containLabel: true
+    //     },
+    //     toolbox: {
+    //         feature: {
+    //             saveAsImage: {}
+    //         }
+    //     },
+    //     xAxis: {
+    //         type: 'category',
+    //         boundaryGap: false,
+    //         data: []
+    //     },
+    //     yAxis: {
+    //         type: 'value'
+    //     },
+    //     series: [
+    //         {
+    //             name: '对应位次',
+    //             type: 'line',
+    //             stack: '总量',
+    //             data: []
+    //         },
+    //         {
+    //             name: '本段人数',
+    //             type: 'line',
+    //             stack: '总量',
+    //             data: []
+    //         },
+    //     ]
+    // };
+    // // 3. 加载数据到option
+    // loadData(option);
+    // // 使用刚指定的配置项和数据显示图表。
+    // myChart.setOption(option);
+    // // 5. 让图表跟随屏幕自动的去适应
+    // window.addEventListener("resize", function() {
+    //     myChart.resize();
+    // });
+
+    //高考倒计时
+    function getEndTime(myYear){
+        var myEndTime = new Date(''+myYear+'/06/07 00:00:00');
+        return myEndTime;
+    }
+    function countDown(){
+        var mydate = new Date();
+        var year = '2022';
+        var EndTime = getEndTime(year);
+        var NowTime = new Date();
+        if( (EndTime.getTime() - NowTime.getTime() ) < 0){
+            year = mydate.getFullYear() + 1;
+            EndTime = getEndTime(year);
+        }
+        var t = EndTime.getTime() - NowTime.getTime();
+        var d=Math.floor(t/1000/60/60/24);
+        var h=Math.floor(t/1000/60/60%24+9);
+        var m=Math.floor(t/1000/60%60);
+        var s=Math.floor(t/1000%60);
+        document.getElementById('day').innerText = d + '天';
+        document.getElementById('hour').innerText = h + '小时';
+        document.getElementById('minute').innerText = m + '分钟';
+        document.getElementById('second').innerText = s + '秒';
+    }
+    setInterval(countDown,1000);
+
+</script>
+</html>

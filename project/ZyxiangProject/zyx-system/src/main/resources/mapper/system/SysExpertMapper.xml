@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysExpertMapper">
+
+    <resultMap type="SysExpert" id="SysExpertResult">
+        <result property="expertId"    column="expert_id"    />
+        <result property="expertName"    column="expert_name"    />
+        <result property="expertUser"    column="expert_user"    />
+        <result property="expertPassword"    column="expert_password"    />
+        <result property="expertAge"    column="expert_age"    />
+        <result property="expertSex"    column="expert_sex"    />
+        <result property="expertAvatar"    column="expert_avatar"    />
+        <result property="expertFlag"    column="expert_flag"    />
+        <result property="expertInfo"    column="expert_info"    />
+    </resultMap>
+
+    <sql id="selectSysExpertVo">
+        select expert_id, expert_name, expert_user, expert_password, expert_age, expert_sex, expert_avatar, expert_flag, expert_info from sys_expert
+    </sql>
+
+    <select id="selectSysExpertList" parameterType="SysExpert" resultMap="SysExpertResult">
+        <include refid="selectSysExpertVo"/>
+        <where>
+            <if test="expertName != null  and expertName != ''"> and expert_name like concat('%', #{expertName}, '%')</if>
+            <if test="expertUser != null  and expertUser != ''"> and expert_user = #{expertUser}</if>
+            <if test="expertPassword != null  and expertPassword != ''"> and expert_password = #{expertPassword}</if>
+            <if test="expertAge != null  and expertAge != ''"> and expert_age = #{expertAge}</if>
+            <if test="expertSex != null  and expertSex != ''"> and expert_sex = #{expertSex}</if>
+            <if test="expertAvatar != null  and expertAvatar != ''"> and expert_avatar = #{expertAvatar}</if>
+            <if test="expertFlag != null "> and expert_flag = #{expertFlag}</if>
+            <if test="expertInfo != null  and expertInfo != ''"> and expert_info = #{expertInfo}</if>
+        </where>
+    </select>
+
+    <select id="selectSysExpertById" parameterType="Long" resultMap="SysExpertResult">
+        <include refid="selectSysExpertVo"/>
+        where expert_id = #{expertId}
+    </select>
+    <select id="checkUser" resultMap="SysExpertResult">
+        select * from sys_expert where expert_user = #{expertUser} and expert_password = #{expertPassword}
+    </select>
+
+    <insert id="insertSysExpert" parameterType="SysExpert" useGeneratedKeys="true" keyProperty="expertId">
+        insert into sys_expert
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="expertName != null">expert_name,</if>
+            <if test="expertUser != null">expert_user,</if>
+            <if test="expertPassword != null">expert_password,</if>
+            <if test="expertAge != null">expert_age,</if>
+            <if test="expertSex != null">expert_sex,</if>
+            <if test="expertAvatar != null">expert_avatar,</if>
+            <if test="expertFlag != null">expert_flag,</if>
+            <if test="expertInfo != null">expert_info,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="expertName != null">#{expertName},</if>
+            <if test="expertUser != null">#{expertUser},</if>
+            <if test="expertPassword != null">#{expertPassword},</if>
+            <if test="expertAge != null">#{expertAge},</if>
+            <if test="expertSex != null">#{expertSex},</if>
+            <if test="expertAvatar != null">#{expertAvatar},</if>
+            <if test="expertFlag != null">#{expertFlag},</if>
+            <if test="expertInfo != null">#{expertInfo},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysExpert" parameterType="SysExpert">
+        update sys_expert
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="expertName != null">expert_name = #{expertName},</if>
+            <if test="expertUser != null">expert_user = #{expertUser},</if>
+            <if test="expertPassword != null">expert_password = #{expertPassword},</if>
+            <if test="expertAge != null">expert_age = #{expertAge},</if>
+            <if test="expertSex != null">expert_sex = #{expertSex},</if>
+            <if test="expertAvatar != null">expert_avatar = #{expertAvatar},</if>
+            <if test="expertFlag != null">expert_flag = #{expertFlag},</if>
+            <if test="expertInfo != null">expert_info = #{expertInfo},</if>
+        </trim>
+        where expert_id = #{expertId}
+    </update>
+
+    <delete id="deleteSysExpertById" parameterType="Long">
+        delete from sys_expert where expert_id = #{expertId}
+    </delete>
+
+    <delete id="deleteSysExpertByIds" parameterType="String">
+        delete from sys_expert where expert_id in
+        <foreach item="expertId" collection="array" open="(" separator="," close=")">
+            #{expertId}
+        </foreach>
+    </delete>
+
+</mapper>

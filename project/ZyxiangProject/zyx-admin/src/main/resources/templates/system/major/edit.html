@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改专业表')" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-major-edit" th:object="${sysMajor}">
+        <input name="majorId" th:field="*{majorId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专业代码：</label>
+            <div class="col-sm-8">
+                <input name="majorCode" th:field="*{majorCode}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专业名称：</label>
+            <div class="col-sm-8">
+                <input name="majorName" th:field="*{majorName}" class="form-control" type="text">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专业类别：</label>
+            <div class="col-sm-8">
+                <select name="majorCategory" class="form-control m-b" th:with="type=${@dict.getType('sys_major_category')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{majorCategory}" required>所有</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">修学年限：</label>
+            <div class="col-sm-8">
+                <select name="studyYears" class="form-control m-b" th:with="type=${@dict.getType('sys_study_years')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{studyYears}" required>所有</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">专业层次：</label>
+            <div class="col-sm-8">
+                <select name="majorLevel" class="form-control m-b" th:with="type=${@dict.getType('sys_major_Level')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{majorLevel}" required>所有</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专业介绍：</label>
+            <div class="col-sm-8">
+                <textarea name="majorIntroduce" class="form-control">[[*{majorIntroduce}]]</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专业图片：</label>
+            <div class="col-sm-8">
+                <textarea name="majorUrl" class="form-control">[[*{majorUrl}]]</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var prefix = ctx + "system/major";
+    $("#form-major-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-major-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

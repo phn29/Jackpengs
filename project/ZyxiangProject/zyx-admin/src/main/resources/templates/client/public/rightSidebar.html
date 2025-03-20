@@ -1,0 +1,61 @@
+<div th:fragment="rightSidebar" class="fr right">
+    <!--news-->
+    <div class="news i_shiti">
+        <h1>院校排名</h1>
+        <div class="hd">
+            <ul class="clearbox">
+                <li><a href="" class="cg">本科院校</a></li>
+                <li><a href="" class="cg">专科院校</a></li>
+            </ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li th:each="SysUniversity,iterStat : ${pageInfoUndergraduate.list}" >
+                    <span th:text="${iterStat.count}"></span>
+                    <a th:href="@{/client/universityDetail/{universityId}(universityId=${SysUniversity.universityId})}" th:text="${SysUniversity.universityName}"></a>
+                </li>
+            </ul>
+            <ul>
+                <li th:each="SysUniversity,iterStat : ${pageInfoSpecialty.list}">
+                    <span th:text="${iterStat.count}"></span>
+                    <a th:href="@{/client/universityDetail/{universityId}(universityId=${SysUniversity.universityId})}" th:text="${SysUniversity.universityName}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--mingdan-->
+    <div class="q_nav">
+        <ul class="clearbox">
+            <li class="a"><a th:href="@{/selectUniversity}" class="cg"><span></span>高校名单</a></li>
+            <li class="b"><a th:href="@{/aspiration}" class="cg"><span></span>志愿填报</a></li>
+            <li class="c"><a href=""><span></span>知识点</a></li>
+            <li class="d"><a th:href="@{/selectRanking}" class="cg"><span></span>一分一段表</a></li>
+            <li class="e"><a href="" class="cg"><span></span>试题库</a></li>
+            <li class="f"><a th:href="@{/universityIdentification}" class="cg"><span></span>院校识别</a></li>
+        </ul>
+    </div>
+    <!--luqu-->
+    <div class="news i_shiti">
+        <h1>热门专业</h1>
+        <div class="hd">
+            <ul class="clearbox">
+                <li><a href="#" class="cg">本科专业</a></li>
+                <li><a href="#" class="cg">专科专业</a></li>
+            </ul>
+        </div>
+        <div class="bd">
+            <ul>
+                <li th:each="SysMajor,iterStat : ${pageInfoUndergraduateMajor.list}" >
+                    <span th:text="${iterStat.count}"></span>
+                    <a th:href="@{/client//majorDetail/{majorId}(majorId=${SysMajor.majorId})}" th:text="${SysMajor.majorName}"></a>
+                </li>
+            </ul>
+            <ul>
+                <li th:each="SysMajor,iterStat : ${pageInfoSpecialtyMajor.list}">
+                    <span th:text="${iterStat.count}"></span>
+                    <a th:href="@{/client//majorDetail/{majorId}(majorId=${SysMajor.majorId})}" th:text="${SysMajor.majorName}"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('考生表列表')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="formId">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            <label>考生姓名：</label>
+                            <input type="text" name="stuName"/>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="btn-group-sm" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:student:add">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="system:student:edit">
+                <i class="fa fa-edit"></i> 修改
+            </a>
+            <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:student:remove">
+                <i class="fa fa-remove"></i> 删除
+            </a>
+            <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:student:export">
+                <i class="fa fa-download"></i> 导出
+            </a>
+        </div>
+        <div class="col-sm-12 select-table table-bordered">
+            <table id="bootstrap-table"></table>
+        </div>
+    </div>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var editFlag = [[${@permission.hasPermi('system:student:edit')}]];
+    var removeFlag = [[${@permission.hasPermi('system:student:remove')}]];
+    var prefix = ctx + "system/student";
+
+    $(function() {
+        var options = {
+            url: prefix + "/list",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
+            exportUrl: prefix + "/export",
+            modalName: "考生表",
+            columns: [{
+                checkbox: true
+            },
+                {
+                    field: 'stuId',
+                    title: '考生id主键',
+                    visible: false
+                },
+                {
+                    field: 'stuName',
+                    title: '考生姓名'
+                },
+                {
+                    field: 'stuSex',
+                    title: '考生性别'
+                },
+                {
+                    field: 'stuNo',
+                    title: '登录账号'
+                },
+                {
+                    field: 'stuPassword',
+                    title: '考生密码'
+                },
+                {
+                    field: 'stuAddress',
+                    title: '考生家庭地址'
+                },
+                {
+                    field: 'stuAge',
+                    title: '考生年龄'
+                },
+                {
+                    field: 'stuScore',
+                    title: '考生成绩'
+                },
+                {
+                    field: 'stuEmail',
+                    title: '考生邮箱'
+                },
+                {
+                    field: 'stuPhone',
+                    title: '考生电话'
+                },
+                {
+                    field: 'stuPostcode',
+                    title: '考生邮编'
+                },
+                {
+                    field: 'provinceName',
+                    title: '意向省份'
+                },
+                {
+                    field: 'cityName',
+                    title: '意向城市'
+                },
+                {
+                    field: 'ranking',
+                    title: '排名'
+                },
+                {
+                    field: 'physics',
+                    title: '物理'
+                },
+                {
+                    field: 'chemistry',
+                    title: '化学'
+                },
+                {
+                    field: 'politics',
+                    title: '政治'
+                },
+                {
+                    field: 'biology',
+                    title: '生物'
+                },
+                {
+                    field: 'history',
+                    title: '历史'
+                },
+                {
+                    field: 'geography',
+                    title: '地理'
+                },
+                {
+                    field: 'optional',
+                    title: '最终选科'
+                },
+                {
+                    field: 'mbtiResult',
+                    title: '心理测试结果'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.stuId + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.stuId + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+        };
+        $.table.init(options);
+    });
+</script>
+</body>
+</html>

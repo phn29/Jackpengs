@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head></head>
+<link rel="stylesheet" type="text/css" href="../css/main.css" th:href="@{/css/main.css}">
+<link rel="stylesheet" type="text/css" href="../css/iconfont.css" th:href="@{/css/iconfont.css}">
+<link rel="stylesheet" type="text/css" href="../css/tetest_timest.css" th:href="@{/css/test.css}">
+
+<body>
+<div class="main">
+    <!--nr start-->
+    <div class="test_main">
+        <!--试题-->
+        <div class="nr_left">
+            <div class="test">
+                <div class="tite">
+                    <h1>MBTI职业性格测试题</h1>
+                    <h2>迈尔斯-布里格斯类型指标</h2>
+                    <span>
+							<h2>MBTI测试前须知 </h2>
+							<h3>1、参加测试的人员请务必诚实、独立地回答问题，只有如此，才能得到有效的结果。  </h3>
+							<h3>2、《性格分析报告》展示的是你的性格倾向，而不是你的知识、技能、经验。 </h3>
+							<h3>3、MBTI提供的性格类型描述仅供测试者确定自己的性格类型之用，性格类型没有好坏，只有不同。
+								每一种性格特征都有其价值和优点，也有缺点和需要注意的地方。清楚地了解自己的性格优劣势，
+								有利于更好地发挥自己的特长，而尽可能的在为人处事中避免自己性格中的劣势，更好地和他人相处，更好地作重要的决策。
+							</h3>
+							<h3>
+									4、本测试分为四部分，共93题；需时约18分钟。所有题目没有对错之分，请根据自己的实际情况选择。将你选择的A或B所在的单选框，
+							</h3>
+							<h3>
+									5、只要你是认真、真实地填写了测试问卷，那么通常情况下你都能得到一个确实和你的性格相匹配的类型。
+								希望你能从中或多或少地获得一些有益的信息。
+							</h3>
+                    </span>
+                </div>
+                <form action="" method="post" id="fm">
+                    <div class="test_title">
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:18</b>
+                        </p>
+                        <font>
+                            <input type="button" name="test_jiaojuan" value="提交" onclick="sendMsg()">
+
+                        </font>
+                    </div>
+                    <!--试题第一部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>一、下列那个答案最能贴切的描绘你一般的感受或行为，请选出。</h2>
+                        </div>
+                    </div>
+
+                    <div class="test_content_nr">
+                        <ul class="single" th:each="SysNature,SysNatureCount : ${sysNatures}"
+                            th:if="${SysNatureCount.count} <= 26 ">
+                            <li th:id="qu_0_+(${SysNature.natureId})">
+                                <div class="test_content_nr_tt">
+                                    <i th:text="${SysNature.natureId}"></i>
+                                    <font th:text="${SysNature.problem}"></font>
+                                    <b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                   th:value="${SysNature.valueA}"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;" th:text="${SysNature.optionsA}"></p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                    th:value="${SysNature.valueB}"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;" th:text="${SysNature.optionsB}"></p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--试题第二部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>二、在下列每一对词语中，哪一个词语更合你心意？请仔细想想这些词语的含义，而不要理会他们的字行或读音。</h2>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul class="single" th:each="SysNature,SysNatureCount : ${sysNatures}"
+                            th:if="${SysNatureCount.count} >= 27 and ${SysNatureCount.count} <= 58">
+                            <li th:id="qu_0_+(${SysNature.natureId})">
+                                <div class="test_content_nr_tt">
+                                    <i th:text="${SysNature.natureId}">27</i><font>在下列每一对词语中，哪一个词语更合你心意？请仔细想想这些词语的含义，
+                                    而不要理会他们的字行或读音。</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                   th:value="${SysNature.valueA}"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;"  th:text="${SysNature.optionsA}"></p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                   th:value="${SysNature.valueA}"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;"  th:text="${SysNature.optionsB}">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--试题第三部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>三、哪一个答案最能贴切的描绘你一般的感受或行为。</h2>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul class="single" th:each="SysNature,SysNatureCount : ${sysNatures}"
+                            th:if="${SysNatureCount.count} >= 59 and ${SysNatureCount.count} <= 78">
+                            <li th:id="qu_0_+(${SysNature.natureId})">
+                                <div class="test_content_nr_tt">
+                                    <i th:text="${SysNatureCount.count}"></i>
+<!--                                    <i th:text="${SysNature.natureId}"></i>-->
+                                    <font th:text="${SysNature.problem}"></font>
+                                    <b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                   th:value="${SysNature.valueA}"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;"  th:text="${SysNature.optionsA}"></p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                   th:value="${SysNature.valueA}"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;"  th:text="${SysNature.optionsB}"></p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--试题第四部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>四、在下列每一对词语中，哪一个更合你的心意？</h2>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul class="single" th:each="SysNature,SysNatureCount : ${sysNatures}"
+                            th:if="${SysNatureCount.count} >= 79 and ${SysNatureCount.count} <= 93">
+                            <li th:id="qu_0_+(${SysNature.natureId})">
+                                <div class="test_content_nr_tt">
+                                    <i th:text="${SysNature.natureId}">27</i><font>在下列每一对词语中，哪一个词语更合你心意？请仔细想想这些词语的含义，
+                                    而不要理会他们的字行或读音。</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                   th:value="${SysNature.valueA}"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;"  th:text="${SysNature.optionsA}"></p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" th:name="answer+(${SysNature.natureId})"
+                                                   th:value="${SysNature.valueA}"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;"  th:text="${SysNature.optionsB}"></p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--答题卡-->
+        <div class="nr_right">
+            <div class="nr_rt_main">
+                <div class="rt_nr1">
+                    <div class="rt_nr1_title">
+                        <h1>
+                            <i class="icon iconfont">&#xe692;</i>答题卡
+                        </h1>
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:18</b>
+                        </p>
+                    </div>
+
+                    <!--答题卡第一部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第一部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">26</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li th:each="SysNature,SysNatureCount : ${sysNatures}"
+                                     th:if="${SysNatureCount.count} <= 26 ">
+                                    <a th:href="@{'#qu_0_' + ${SysNature.natureId}}"
+                                       th:id="qu+${SysNature.natureId}"
+                                       th:text="${SysNature.natureId}">1</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--答题卡第二部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第二部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">32</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li th:each="SysNature, SysNatureCount : ${sysNatures}"
+                                    th:if="${SysNatureCount.count} >= 27 and ${SysNatureCount.count} <= 58">
+                                    <a th:href="@{'#qu_0_' + ${SysNature.natureId}}"
+                                       th:id="qu+${SysNature.natureId}"
+                                       th:text="${SysNature.natureId}">1</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--答题卡第三部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第三部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">20</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li th:each="SysNature, SysNatureCount : ${sysNatures}"
+                                    th:if="${SysNatureCount.count} >= 59 and ${SysNatureCount.count} <= 78">
+                                    <a th:href="@{'#qu_0_' + ${SysNature.natureId}}"
+                                       th:id="qu+${SysNature.natureId}"
+                                       th:text="${SysNature.natureId}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--答题卡第四部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第四部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">15</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li th:each="SysNature, SysNatureCount : ${sysNatures}"
+                                    th:if="${SysNatureCount.count} >= 79 and ${SysNatureCount.count} <= 93">
+                                    <a th:href="@{'#qu_0_' + ${SysNature.natureId}}"
+                                       th:id="qu+${SysNature.natureId}"
+                                       th:text="${SysNature.natureId}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--nr end-->
+    <div class="foot"></div>
+    <!-- 隐藏数据 -->
+    <input type="hidden" id="stuIdSession" name="stuIdSession" th:value="${session.SysStudent.stuId}">
+</div>
+
+<script src="/js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+<script src="/js/jquery.easy-pie-chart.js" th:src="@{/js/jquery.easy-pie-chart.js}"></script>
+<!--时间js-->
+<script src="/js/time/jquery.countdown.js" th:src="@{/js/time/jquery.countdown.js}"></script>
+<script>
+    window.jQuery(function($) {
+        "use strict";
+
+        $('time').countDown({
+            with_separators : false
+        });
+        $('.alt-1').countDown({
+            css_class : 'countdown-alt-1'
+        });
+        $('.alt-2').countDown({
+            css_class : 'countdown-alt-2'
+        });
+
+    });
+
+
+    $(function() {
+        $('li.option label').click(function() {
+            debugger;
+            var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+            var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+            // 设置已答题
+            if(!cardLi.hasClass('hasBeenAnswer')){
+                cardLi.addClass('hasBeenAnswer');
+            }
+        });
+
+        //当试题已做时，答题卡对应的题号变成绿色
+        $(".single > li").each(function(index){
+            $("input[name='answer"+(index+1)+"']").on("click", function () {
+                document.getElementById("qu"+(index+1)).style.background="#07d107";
+            });
+        })
+    });
+
+
+    //通过答题获取结果数据，将结果数据进行处理得到最终测试结果
+    function sendMsg() {
+        //题目数
+        var singleSize = $(".single1 > li").length;
+        //生成答案数组
+        var answerArr = new Array(singleSize);
+        //单选答案
+        $(".single > li").each(function(index){
+            //放入答案
+            var answer = $("input[name='answer"+(index+1)+"']:checked").val();
+            answerArr[index] = answer;
+        })
+        //在调试模式下的console中查看结果
+        // console.log("选项对应的结果："+answerArr);
+        //获取每个元素出现的次数
+        var numE = 0, numI = 0, numS = 0, numN = 0, numT = 0, numF = 0, numJ = 0, numP = 0; //初始化每个元素
+        for(var i = 0; i < answerArr.length; i++) {
+            if (answerArr[i] === undefined) {
+                alert("你还有未完成的题目，请完成所有题目在进行提交！");
+                return false;
+            }
+            if(answerArr[i] == 'E'){
+                numE++;
+            }else if(answerArr[i] == 'I'){
+                numI++;
+            }else if(answerArr[i] == 'S'){
+                numS++;
+            }else if(answerArr[i] == 'N'){
+                numN++;
+            }else if(answerArr[i] == 'T'){
+                numT++;
+            }else if(answerArr[i] == 'F'){
+                numF++;
+            }else if(answerArr[i] == 'J'){
+                numJ++;
+            }else if(answerArr[i] == 'P'){
+                numP++;
+            }
+        }
+        //进行数据整理的得到最终结果
+        var result = "";
+        //比较取值
+        if(numE > numI){
+            result += "E";
+        }else if(numE < numI){
+            result += "I";
+        }
+        if(numS > numN){
+            result += "S";
+        }else if(numS < numN){
+            result += "N";
+        }
+        if(numT > numF){
+            result += "T";
+        }else if(numT < numF){
+            result += "F";
+        }
+        if(numJ > numP){
+            result += "J";
+        }else if(numJ < numP){
+            result += "P"
+        }
+        //同分处理原则
+        if(numE == numI){
+            result += "I";
+        }
+        if(numS == numN){
+            result += "N";
+        }
+        if(numT == numF){
+            result += "F";
+        }
+        if(numJ == numP){
+            result += "P";
+        }
+        if(confirm("确定提交吗？")){
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/system/student/edit",
+                data: {
+                    stuId : $("#stuIdSession").val(),
+                    mbtiResult : result
+                },
+                success: function () {
+                    if(confirm("点击确定，可跳转个人中心查看心理测试结果")){
+                        window.location.href="/client/personal/index";
+                    }
+                }
+            })
+        }
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>

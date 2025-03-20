@@ -1,0 +1,13 @@
+<div style="float: left;" th:fragment="navigation">
+    <div class="fr wrap" style="width: 1200px;" >
+        <div class="nav" style="text-align: center;">
+            <a class="active" th:href="@{/client/universityIndex}">首页</a>
+            <a th:href="@{/client/selectMajor}" >查专业</a>
+            <a th:href="@{/client/selectUniversity}">查学校</a>
+            <a th:href="@{/client/selectConsult}" >查资讯</a>
+            <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+            <a th:href="@{/client/selectExpert}">找专家</a>
+            <a th:href="@{/client/personal/index}" onclick="personalIndex()">个人中心</a>
+        </div>
+    </div>
+</div>

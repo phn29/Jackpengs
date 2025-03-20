@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <title>志愿分析</title>
+</head>
+<body>
+<div class="conton">
+    <ul>
+        <li>录取率分析:</li>
+        <li>你的得分为560，被本志愿录取的概率62.5%属于稳定型志愿</li>
+    </ul>
+    <ul>
+        <li>目标地域分析:</li>
+        <li th:text="${sysAnalysis.addressInfo}"></li>
+    </ul>
+    <ul>
+        <li>目标专业分析:</li>
+        <li th:text="${sysAnalysis.majorInfo}"></li>
+    </ul>
+    <ul>
+        <li>院校分析:</li>
+        <li th:text="${sysAnalysis.mbtiInfo}"></li>
+    </ul>
+    <ul>
+        <li>院校级别:</li>
+        <li th:text="${sysAnalysis.universityLevel}"></li>
+    </ul>
+    <ul>
+        <li>专业年限:</li>
+        <li th:text="${sysAnalysis.majorLevel}">/年</li>
+    </ul>
+    <ul>
+        <li>综合评定:</li>
+        <li>综合得分为77.5分，符合您的部分要求</li>
+    </ul>
+</div>
+<div class="btn">
+
+    <button type="button">返回</button>
+    <button type="button">详情信息</button>
+
+</div>
+<style>
+    .conton{
+        border: 1px solid black;
+    }
+    ul li {
+        list-style: none;
+    }
+    ul{
+        display: flex;
+
+    }
+    ul li:first-child{
+        /* font-weight: 1000; */
+        font-weight: bold;
+        text-align: right;
+        width: 120px;
+
+
+    }
+    ul li:last-child{
+        color: #c50062;
+        margin-left: 10px;
+
+    }
+    .btn{
+        text-align: center;
+        margin-top:40px;
+    }
+    .btn button{
+        width: 80px;
+        background-color: #00aaff;
+        color: white;
+        border: 0;
+        border-radius: 3px;
+        padding: 4px;
+    }
+</style>
+</body>
+</html>

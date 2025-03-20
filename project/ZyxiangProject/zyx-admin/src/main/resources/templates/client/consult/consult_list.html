@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||查询咨询')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" >查专业</a>
+                <a th:href="@{/client/selectUniversity}">查学校</a>
+                <a th:href="@{/client/selectConsult}" class="active">查资讯</a>
+                <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}">找专家</a>
+                <a th:href="@{/client/personal/index}">个人中心</a>
+            </div>
+        </div>
+    </div>
+    <div class="fl left">
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href='#'>查资讯</a> >
+        </div>
+        <!--查询专业表单-->
+        <div class="i_city l_city">
+            <div class="gkfunc-main-top">
+                <div class="gkfunc-filter-wrap">
+                    <div class="filter-banner">
+                        <h2 class="gkfunc-title gkfunc-1c">
+                            咨讯查询
+                        </h2>
+                        <div class="gkfunc-search-form">
+                            <div class="form-input">
+                                <input name="hostTitle" id="hostTitle" type="text" placeholder="请输入标题名模糊查询">
+                            </div>
+                            <button class="btn-red filter-btn search-btn" id="btn1">
+                                搜索
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-form expanded">
+                    <div class="filter-panel">
+                        <input type="hidden" name="page" >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--热点新闻列表-->
+        <div th:fragment="hostList" id="hostList">
+            <div class="news_tab i_news">
+                <div class="n_list">
+                    <ul>
+                        <li th:each="SysHost,SysHostStat : ${pageInfoHost.list}">
+                            <a th:href="@{/client/consultDetail/{hostId}(hostId=${SysHost.hostId})}" class="fl">
+                                <img th:src="${SysHost.hostImg}"/>
+                            </a>
+                            <div class="fr">
+                                <a th:href="@{/client/consultDetail/{hostId}(hostId=${SysHost.hostId})}" th:text="${SysHost.hostTitle}"></a>
+                                <p class="time" th:text="${SysHost.hostSource}"></p>
+                                <p class="time" th:text="${#dates.format(SysHost.hostTime,'yyyy-MM-dd HH:mm:ss')}"></p>
+                                <p th:utext="${#strings.abbreviate(SysHost.hostContent,105)}"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--分页-->
+            <div class="mpage">
+                <div class="qzPagination">
+                    <a th:href="@{/selectConsult(pageNum=0)}" >首页</a>
+                    <a class="item" th:href="@{/selectConsult(pageNum=${pageInfoHost.hasPreviousPage}?${pageInfoHost.prePage}:1)}" th:unless="${pageInfoHost.isFirstPage}">上一页</a>
+                    <span class="pageinfo">第 <strong th:text="${pageInfoHost.pageNum}"></strong> 页，共 <strong th:text="${pageInfoHost.pages}"></strong> 页，有 <strong th:text="${pageInfoHost.total}"></strong>条数据</span>
+                    <a th:href="@{/selectConsult(pageNum=${pageInfoHost.hasNextPage}?${pageInfoHost.nextPage}:${pageInfoHost.pages})}" th:unless="${pageInfoHost.isLastPage}">下一页</a>
+                    <a th:href="@{/selectConsult(pageNum=${pageInfoHost.pages})}" >尾页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+</body>
+<script type="text/javascript">
+    $("#btn1").click(function () {
+        $.ajax({
+            url: "/client/selectConsult",
+            type:"post",
+            data:{
+                "hostTitle":$("#hostTitle").val(),
+                "page" : $("[name='page']").val()
+            },
+            success:function (data) {
+                $("#hostList").html(data);
+                // console.log(data)
+            }
+        })
+    });
+</script>
+</html>

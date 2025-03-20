@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增专业薪资列表')" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-salary-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">专业代码1：</label>
+            <div class="col-sm-8">
+                <input name="majorId" class="form-control" type="text" list="selectMajorName">
+                <datalist id="selectMajorName">
+                    <option th:each="major:${majors}" th:value="${major.majorId}" th:text="${major.majorName}"></option>
+                </datalist>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">年份：</label>
+            <div class="col-sm-8">
+                <input name="years" class="form-control" type="text" list="selectYears">
+                <datalist id="selectYears">
+                    <option th:value="2020" th:text="2020"></option>
+                    <option th:value="2019" th:text="2019"></option>
+                    <option th:value="2018" th:text="2018"></option>
+                    <option th:value="2017" th:text="2017"></option>
+                    <option th:value="2016" th:text="2016"></option>
+                    <option th:value="2015" th:text="2015"></option>
+                    <option th:value="2014" th:text="2014"></option>
+                    <option th:value="2013" th:text="2013"></option>
+                    <option th:value="2012" th:text="2012"></option>
+                    <option th:value="2011" th:text="2011"></option>
+                </datalist>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">薪资：</label>
+            <div class="col-sm-8">
+                <input name="salary" class="form-control" type="text">
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var prefix = ctx + "system/salary"
+    $("#form-salary-add").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-salary-add').serialize());
+        }
+    }
+</script>
+</body>
+</html>

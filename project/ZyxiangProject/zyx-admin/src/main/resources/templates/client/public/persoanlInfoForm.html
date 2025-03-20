@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--填写志愿信息弹窗-->
+<div class="theme-popover1">
+    <div class="theme-poptit">
+        <a href="javascript:;" title="关闭" class="close">×</a>
+        <span style="margin: 0px 30%; font-size: 20px; font-weight: 700; color: #111;">填写个人志愿信息</span>
+    </div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin" name="loginform" th:action="@{/insert/Volunteer}" method="post">
+            <ol>
+                <li><span>志愿序号：</span>
+                    <select class="select-option" name="volunteerGroup" id="volunteerGroup" style="width: 155px;">
+
+                    </select>
+                    <select class="select-option" name="volunteerNum" id="volunteerNum" style="width: 155px;">
+                        <option value="">志愿序号</option>
+                    </select>
+                </li>
+                <li><span>考生学号：</span><input th:value="${session.SysStudent.stuNo}" class="ipt" type="text" name="stuNo" size="20"  readonly />
+                    <span style="margin: 0 -116px; color:red; font-size:13px">该文本框不可编辑</span>
+                </li>
+                <li><span>报考学校：</span><input id="universityName" class="ipt" type="text" name="universityName" size="20"  readonly />
+                    <span style="margin: 0 -116px; color:red; font-size:13px">该文本框不可编辑</span>
+                </li>
+                <li><span>报考专业：</span><input id="majorName" class="ipt" type="text" name="majorName" size="20"  readonly />
+                    <span style="margin: 0 -116px; color:red; font-size:13px">该文本框不可编辑</span>
+                </li>
+                <li style="padding-left: 190px;">
+                    <input class="btn" style="color:#000; background: #ffffff"
+                           type="button" name="submit" value="取消" onclick="javascript:window.history.back(-1);" />
+                    <input class="btn" type="submit" name="submit" value="确定" />
+                </li>
+                <li style="padding-left: 210px;">
+                    <p>
+                        <a href="/universityLogin">已有账号，直接登录！</a>
+                    </p>
+                </li>
+            </ol>
+        </form>
+    </div>
+</div>
+<div class="theme-popover1-mask"></div>
+<script src="js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+<script>
+    //填写个人信息单窗
+    jQuery(document).ready(function($) {
+        $('.theme-login').click(function(){
+            $('.theme-popover-mask').fadeIn(100);
+            $('.theme-popover').slideDown(200);
+        })
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+        })
+
+    })
+    jQuery(document).ready(function($) {
+        $('#PersonalInformation').click(function(){
+            $('.theme-popover-mask').fadeIn(100);
+            $('.theme-popover').slideDown(200);
+        })
+        $('.theme-poptit .close').click(function(){
+            $('.theme-popover-mask').fadeOut(100);
+            $('.theme-popover').slideUp(200);
+        })
+
+    })
+</script>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||专业详情')"></head>
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+
+<!--inner content-->
+<div class="content">
+    <!--导航条-->
+    <div style="float: left;">
+        <div class="fr wrap" style="width: 1200px;" >
+            <div class="nav" style="text-align: center;">
+                <a th:href="@{/client/universityIndex}">首页</a>
+                <a th:href="@{/client/selectMajor}" class="active">查专业</a>
+                <a th:href="@{/client/selectUniversity}">查学校</a>
+                <a th:href="@{/client/selectConsult}" >查资讯</a>
+                <a th:href="@{/client/aspiration}" onclick="aspiration()">模拟填报志愿</a>
+                <a th:href="@{/client/selectExpert}">找专家</a>
+                <a th:href="@{/client/personal/index}">个人中心</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="fl left">
+        <div class="adr"><a th:href='@{/client/universityIndex}'>主页</a> > <a href='#'>专业详情</a> > </div>
+        <!--专业名称和专业代码-->
+        <div class="major_name_code">
+            <div class="major_name">
+                <h1 id="majorName" th:text="'专业名称:'+${SysMajor.majorName}"></h1>
+                <span style="padding: 5px 16px; font-size: 18px; font-weight: 400;" th:text="'专业代码:'+${SysMajor.majorCode}"></span>
+                <span style="padding: 5px 16px; font-size: 18px; font-weight: 400;" th:text="'专业门类:'+${SysMajor.majorCategory}"></span>
+                <span style="padding: 5px 16px; font-size: 18px; font-weight: 400;" th:text="'专业类型:'+${SysMajor.majorType}"></span>
+                <span>
+                    <button class="button2" onclick="collection()">收藏</button>
+                 </span>
+            </div>
+        </div>
+        <div></div>
+        <!--专业基本信息-->
+        <div class="major-information">
+            <div style="height: 40px; margin: 20px 0;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="float: left; padding-top: 6px;padding-left: 5px;">专业基本信息</h2>
+            </div>
+            <div class="info-box">
+                <div class="info-item" style="width: 200px; float: left; margin-right: 15px;">
+                    <div class="el-image" style="width: 50px; height: 50px; float: left;">
+                        <img src="data:image/png;base64,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" class="el-image__inner" style="object-fit: contain;">
+                    </div>
+                    <div class="info-text" style="float: left;">
+                        <div class="f18" th:text="${SysMajor.majorLevel}"></div>
+                        <div class="f14 info-color">学历层次</div>
+                    </div>
+                </div>
+                <div class="info-item" style="width: 200px; float: left;">
+                    <div class="el-image" style="width: 50px; height: 50px; float: left;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAABX1BMVEUAAAD/mZn/iXb/jnH/hnn/hW//iXb/iW3/hHP/h3H/g23/g2//hmz/hXD/hnD/hm3/hG7/gm7/gmz/gm3/hG3/gm3/gm7/g27/gm3/g2z/hG3/g2z/gmz/gm3/g23/gmz/gmz/g23/gm3/g2z/g23/g23/gm3/g2z/gmz/g23/gmz/g23/g2z/g2z/gm3/g23/gm3/g2z/gmz/gm3/hG//hXD/hnH/iHP/iHT/inb/kX3/kX7/k4D/lIH/lYL/l4T/moj/m4n/nIv/oI//opL/o5P/qJn/q53/rJ3/rJ7/rZ7/rZ//rp//taj/tqr/t6v/uKv/vrP/v7T/wbb/wrf/wrj/zsX/z8f/08v/1c7/1s//19D/2NL/2dP/2tP/4tz/5N//5uH/5uL/5+P/6eb/6ub/6+f/7er/7uv/9PL/9fP/9vX/+Pb/+Pf/+fj/+vn/+/r//Pv//f3//v7///+1d7KrAAAAMnRSTlMABQ0SExcaHB8iIycoMDk9T1hcYGyFh46PkpuerrzFxsjJytLY3N/g5ebn6Ozu8fb5/L7UkpgAAAPiSURBVGjezVrrXxJBFF3wrYnK+yWgCCaB4qhEbyxIzEoMrISgIijCAsr5/3+tixrq3NmZ3XHrfL0798DO7J1zH5LEiCGLzekPhKPxZDIeDQf8TptlSBKJUasvigiI+qyjYhimHEuIgiXHlF6GYfsCUsWCfVgHxZhnDTFhzTOmkWLSm0TMSHonNVCY3euIC+tuMy/H3Arixu05LorxeaQJ8+PsHLMJpBGJWUYKkwvpgMvEwjESQroQGlHnmIggnYhMqHFMx5BuxKbpHDOrSABWZ6j/QwiHzEL5LxMxJAgxcF9GIkgYIsAZM4WQQITI34sbCYWLGEuQYBAizHhCNEnierRkjbsb6fQGa0y+dn+or0nlSpVmB8voNMrFbEp9xZX7xax2R23laz18Cb1qfktl0YqZ52RtFtqYgHZhk77OfUkz0O/zvRYG0Nqj3/uD6sJLe3K7jimoZ2hrvQP6iqZ9druYiu4uTSn91WMeymMlrIoSZbnnQovCOjFVwQyowMd57VzB2uEfwsQhs8Ae7Gcki+ATh5gR8BtbOMsN4D3HzIB3v59ZOMCz22Un6W5DXhwKCZjj1DEH6mCWpORqkPUl5gL47Z9mfFYoXrX4SFpQHLPKJD7AVsCcKACOfDLJMhDb27wkbSDyR+X8HODPY27kAVdDkgWw1EhuTl6nHn0ESWqAK4tkA4LWL5KbI9nyACTpASHMJjnJhhzRzZtTUwdkyZF9OSU/T4Q/ODX94I1gfinIE35VSIBgHJTCZENTC0mT7CssRcmGjhaSDvShxMk6EWshwWRtGZfIGiKtjSRNVhPGkBjyuvg3/ph/44Ej3IBJnn2HSBrQEQ6QDWWil7eK7f4XgKRM9hWAwkqRHAKf9qPnEZmkCIUVIEBmAVFydmccnJCsWShAQqG+B7ySw779+U+eUA9dWlVodz/cVexPvl2zVMFLC7p+d+Aw+FB54N4n9utXg5A47l9Oj9mFBCiJ9uEP+7eifrY4JJEmcfdO/tWvOMQdKFP3aPLna+n9CYdMhQX3Z3GCG04dMjypQ4aeOsBJEIeKVEuCJLhFUhSWztES07KwxJSWYjOxsKTY1GJBUc+7GigW0MseeUFlD3oBJ0P9XurbjAUctVLUCyGlKNWi2r6AohpDeXCnerU8WOMtDzIVOrPFcqNf6GxWSjn+QqcxJVtjis+GlNElySWWw/XvWhuGNGnkdtOdm283GdM4M6YFaEwz05i2rDENZvl70dWmc5v+n6a/QeMLGgcxVvgGMQwaKTFmOMagMZ/+wNKiOsWiroElBbdufPTqYoiMmCMvCxsiGxyHC56PwwW5xuH+ACYtKgffVlsuAAAAAElFTkSuQmCC" class="el-image__inner" style="object-fit: contain;">
+                    </div>
+                    <div class="info-text" style="float: left;">
+                        <div class="f18" th:text="${SysMajor.studyYears}"></div>
+                        <div class="f14 info-color">修业年限</div>
+                    </div>
+                </div>
+                <div class="info-item" style="width: 200px; float: left;" th:if="${SysMajor.majorLevel} == 本科" >
+                    <div class="el-image" style="width: 50px; height: 50px; float: left;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAACPVBMVEUAAACZ/5mJ64mO8Y6G5JSF6ZCJ64mJ7ZKE5oyH6Y+D6YqD5YmG5oyF5IqG5IuG5oqE5YuC5YuC5ouC5IqE5YuC5IqC5YqD5IqC5ImD5YqE5YqD5YmC5YqC5YqD5YmC5YqC5IqD5ImC5IqD5ImD5YqD5IqC5YmD5YqC5IqD5ImC5YqD5YmD5YmD5ImC5YqD5IqC5ImD5YqC5ImD5IqE5IuF5IyG5I2G5Y2H5Y6I5Y+J5Y+J5ZCK5ZCK5ZGL5pGL5pKM5pKM5pON5pSO5pSO5pWP5pWQ55aR55eS55iT55mU55qU6JqV6JuW6JuX6J2Y6J2Y6J6Z6J6Z6Z+a6Z+a6aCb6aCb6aGc6aGd6qOe6qSf6qSg6qWh6qai6qei66ij66ik66ml66qn7Kyo7K2p7K6q7K6q7K+r7K+r7bCs7bGu7bOw7bSw7rSx7rWy7raz7re07ri277q577258L268L678L+88MC98MHA8cPC8cXC8cbD8sbD8sfE8sfF8sjG8snH8srI88vJ88zK883L887M887M9M/N9M/N9NDO9NHP9NLQ9NPR9dPR9dTS9dTS9dXT9dXT9dbU9dbX9tnZ9tva99zb993c997d99/f+OHh+OLh+OPi+OPi+OTj+OTj+eXl+ebm+ejn+ejn+uno+uno+urp+urq+uvr+uzs+u3s++3t++7u++/w+/Hx/PLy/PPz/PPz/PT1/Pb2/fb3/ff3/fj4/fj5/fn6/fr6/vr7/vv8/vz9/v3+/v7///+oLZ6mAAAAMnRSTlMABQ0SExcaHB8iIycoMDk9T1hcYGyFh46PkpuerrzFxsjJytLY3N/g5ebn6Ozu8fb5/L7UkpgAAASTSURBVGjezZr3X9NAGMbDFBxVW7rLkEIRBCkHCE5cgAO34sa9FRRx4N574d4LxcFUQQHb+9uMSdN5K2mIPr9xuQ/fT5O7933e947jGBWnM5gcaU5Xvtud73KmOUwGXRynphL1dhdAyGXXJ6pDGGHMAgRlGUdES4hPGQeoGpcSHwVimLUQMKnQOkwhYrjNDZjltg1XgIi1FAFZKrLEymWMzQWyNX6sLERSKlCk1CR2xpgCoFAFYxgRMWYQhcwxLIyEDBCVMhLojORsEKWyk2mMUXkgauWNIjNGTwQqaOJo4u9QhcFTCL8lOQ+opDzsd0nIBqopG7PGYjKAispA7xcLUFVmZCwBKgsRYZIK1IYUREbLVKC6UiPyBxgCheWXWLYcNfdqT8sCdkhurPyVNfXUAITQc3kOM8US4hkY8nlp0w8oqv/EZNa8H+wubNTpxQc6YUDfG0vZKLYgf0X1Pts+wVB17mdzSgE/ZqVMXfcKRqptKwvF6veiZJ+4+CFE6/kaBm8pOdgU0qyqG16I1YNFVEqKD5KJnzLj7CAkyXO9kubGfbUBdkLZsT5I0+CZaWSKWFkYcav2YDdkUe/RSSSIUYBgapxdXyCruhqKCVWSUKshH218C+Xo83Y85W/Fp0eML38C5erNehxEz0PsEaPz7nqhAj1aiobYeUhO+OCKfqhMns1IiIuvzyMGD0GlOo3+KXGcLjJtPFPIaMVsTB1nQK3eDiWMZtyXN3Am1HBJU598CDYqmzgH+kHFRY+M/++9+44AcXDpuEc1j5gZL1eDJwRIOufEb9VNH5gQHbv4uSSIk3ORgltDDxXR11QCKBAXl0+M0+UnBsj772KFOJEEyedoHqLqNiHGPKyRppEgbo7epKl9gdt8dYFJZAjxde0VX8bOdgSip158ofUMr4v44R/7PmtJU28YYqC53Lc02gD9wzuJEN8C5R3FheDN6b1V6V/kdIiTS6NAhK0mbM6A/XpeK4wsErYrHZKGCytBEOi9UyWm5Fbhz/YdIYGHDnGgA2QohPc9J0UfX98New8LX6n0iBRC6RATMtRHQCD8JhqSsg1ThAe7A8mADjEgkhYSAuHHTf7h1cEGnA7RIdIvBsI7BdH5VoX6DDokDmEksBDouVQDqk+FuWMqxIW0RFgIr5+RdQoNYseYO0nXGdLJUxpEj7WpombTs+PrGhokkWC4RS27T8z1z+qoUTiLWDr4NP/abxzi8VqGUG+kFEFSH+LcL5RDebAKsOQT3/EK/Yhk+vHv4YiWJSEzbkC4klTOkQtTKdk3dgVvmJsLw57PPLOPXJjGMx3FlDR89SF+X6lm7q74S2xqs0DSnvd/c+L5SsAuq4y2h6Qt95pnyel4BbU9GBo4CmWT2YpSopBWlNrtWmRTjbU9KFNh7UFNGp3atGy1aT5r0kbnOLO6DPO/O9rQ5JCGP26aMPTHTdocnGlzBKjNYaY2x7LaHDDz+yWquG+J+X8O/TW6vqDwIkauvIsYGl0p0eZyjEbXfMQLS5l0RGZUF5YEjRzyq1f+S2TIGjlHtUtkwdfh0qXrcOmyrsP9AWuDNdqdCUqXAAAAAElFTkSuQmCC" class="el-image__inner" style="object-fit: contain;">
+                    </div>
+                    <div class="info-text" style="float: left;">
+                        <div class="f18" th:text="${SysMajor.grantScholar}"></div>
+                        <div class="f14 info-color">授予学位</div>
+                    </div>
+                </div>
+                <div class="info-item" style="width: 200px; float: left;">
+                    <div class="el-image" style="width: 50px; height: 50px; float: left;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAMAAABHPGVmAAABWVBMVEUAAABm//9i6+tV4/FR5PJZ3ulY4utS5O1S3u9T4elQ4ulV3utT3+xQ3+pR4OlP3upR3+hR3+tQ3ulQ3+pQ3upR3upP3ehP3+lQ3epQ3uhR3upP3ehP3elQ3elQ3elQ3ulP3uhQ3uhQ3uhQ3elP3ulQ3elQ3uhQ3uhP3ulQ3ulP3ulP3ulQ3uhP3ulP3elQ3uhQ3ehQ3ulP3ehR3ehS3ehT3ehX3ule3+lg4Opj4Opk4epl4epn4etr4utu4+xv4+xw4+xz5Ox15O135O145e175e195u5+5u6E5++I6O+P6fCQ6fCU6vGY6/Gc6/Ke7PKj7fOk7fOm7fOo7vOs7/Su7/Sz8PW68fa78fa98va+8vbA8/bD8/fM9fjN9fjQ9vjU9vnV9/nf+Prg+fvi+fvm+vvp+vzq+/zu+/zv/P3y/P3z/P34/f75/f76/v77/v78/v79/v7///9WAHAoAAAAMnRSTlMABQ0SExcaHB8iIycoMDk9T1hcYGyFh46PkpuerrzFxsjJytLY3N/g5ebn6Ozu8fb5/L7UkpgAAAPJSURBVGjezZr5QxJBFMcXPNFE5b5BUQwCxUHUtPIqU/NMxTPwgEzRwPn/f4gQDGTnzRt2Wfv+uvI+7s68mXdJElJtRrPN4wuGovF4NBT0eWxmY5ukpjpN7hCRUcht6lSH0GsdIYBGrL1KCe2WIcLVkKVdAaLLOUFQmnB2NYnoccUJWnFXTxMIvWOSCGnSoRdlDIaJsN4OCiG6vaQpebvxjIEYaVKxASRCZycKZNdhGB0BokiBDj7DMEoUatTAY/RFiGJF+mBG/zhRQeP94HuowihRgHcxRIhKijDXpWOUqKZRxh7TBYiKCsj7i4OoKrvsWUJUlswJ0x1TGxJrPC29RHV5G+4P0gK9uF/04VZAwvpW7qyqHHUxg9B9Ppe/Th/tfMDc+7XRhUvo/5unZV3vf+T+qasmvoo3A6H08eQ9L1L6F4850fZnFpI1EEofDqbhHzifY1FUnDi/nbkpUDpfB6E0C6/NRDWCtfAJ07tXFaMvIfTuC/hLSwUyzENMbd0+22yA0OI3MBqv5AY8xtdcjclGCC2C7/KUWVg5jO0ihSH0DloXaxkC5jgkeVxvUA5Cs8AeGynnaiAjkaYICD0ATPzN+EwgJEVRkAfAK00liBtibFIchJ6wbbhLkDGAsVTAQh7Z51iolJ9DL3JJsRC6z7bSJhkBxhrFQ67ZZoySGdhZWQEIZfuKWbKxIetUBLLDtGOTPGzImRDkiGnHI/nZx2JeCJJmGvJLQeazVSoEYa98UAoxnx2KQfKAo0SZz85ZkMS8nOaYhqISO4a4YEFEFQcgOfUg7M91Lwv5LPutkhAkCiy87A5maAGChIAtnBWAzECQoORjPsvgGQVwTXzAsXKKh9yAEA9wQO7hIRkQYgOO+kU8ZBuEmKFL6ycaAjuPEbp+U1jGFeyMbVAgsYKF7BLYTcCQ6AeOcQvnKG44uPv0iIJswV/LxAlTTzCM3BQM6eQE3LO/+IziKswY4aYOy78V+kg1dQCToA0e45h3m1TaK2CL5DvMSCd5zRVUYroBfbFUgvciFlyKvcxc/cImv33TjiwWzJ7K+8vlEv9+d+LLHp9kfD+7hokhukQKOCupujM5f7aeQDBqCzi4UtTi3mkmm7/PXZwfrk4hW1A9WhfVtCkPalLo1KZkq03xWZMyuiTZ1WXYX6+1oUmTptRueqcWI2J43caZNi1AbZqZ2rRltWkwl/xF0bnv0P0/TX+NxheaHMQIiw1iaDRSos1wjEZjPk8DS8N8xLCigaWy3rR89Op5iEw2Rx5TbYisdhzOXx2H8wuNw/0BumV2/5mi+5wAAAAASUVORK5CYII=" class="el-image__inner" style="object-fit: contain;">
+                    </div>
+                    <div class="info-text" style="float: left;">
+                        <div class="f18" th:text="${SysMajor.sexRatio}"></div>
+                        <div class="f14 info-color">性别比例</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--清除浮动-->
+        <div class="clear"></div>
+        <!--专业介绍-->
+        <div class="major-introduce">
+            <div style="height: 40px; margin: 20px 0;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="float: left; padding-top: 6px;padding-left: 5px;">专业简介</h2>
+            </div>
+            <div class="major-box">
+                <h2 style="padding: 5px 10px">第一印象</h2>
+                <p th:text="${SysMajor.firstImpression}" style="padding: 5px 10px; line-height: 2; text-indent: 30px;"></p>
+                <h2 style="padding: 5px 10px">是什么？</h2>
+                <p th:text="${SysMajor.majorIntroduce}" style="padding: 5px 10px; line-height: 2; text-indent: 30px;"></p>
+                <h2 style="padding: 5px 10px">学什么？</h2>
+                <p th:text="${SysMajor.majorStudy}" style="padding: 5px 10px; line-height: 2; text-indent: 30px;"></p>
+                <h2 style="padding: 5px 10px">干什么？</h2>
+                <p th:text="${SysMajor.majorWhat}" style="padding: 5px 10px; line-height: 2; text-indent: 30px;"></p>
+            </div>
+        </div>
+        <!--选考（学科）建议-->
+        <div class="subject_proposal" th:if="${SysMajor.subjectProposal} != ''">
+            <div style="height: 40px; margin: 20px 0;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="padding: 5px 10px">选考（学科）建议</h2>
+            </div>
+            <div class="major-box">
+                <div class="subjectProposal_title-left">河北（3+3省份）：</div>
+                <div class="subjectProposal_title" th:text="${SysMajor.subjectProposal}"></div>
+            </div>
+        </div>
+        <!--就业率，需要优化-->
+        <div class="employment_rate-title" th:if="${SysMajor.employmentRate} != ''">
+            <div style="height: 40px; margin: 20px 0;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="float: left; padding-top: 6px;padding-left: 5px;">近几年就业率</h2>
+            </div>
+            <div class="jiuye_content">
+                <div id="zhuJob" class="clearfix">
+                    <ul class="job_ul">
+                        <li class="job_li_a">
+                            <span th:text="${#strings.substring(SysMajor.employmentRate,6,13)}"></span>
+                        </li>
+                        <li class="job_li_b" th:text="${#strings.substring(SysMajor.employmentRate,0,5)}"></li>
+                    </ul>
+                    <ul class="job_ul">
+                        <li class="job_li_a">
+                            <span th:text="${#strings.substring(SysMajor.employmentRate,20,27)}"></span>
+                        </li>
+                        <li class="job_li_b" th:text="${#strings.substring(SysMajor.employmentRate,0,5)}"></li>
+                    </ul>
+                    <!--                    StringUtils.substringBefore(“dskeabcee”, “e”); -->
+                    <!--                    /结果是：dsk/ -->
+                    <!--                    这里是以第一个”e”，为标准。-->
+                    <ul class="job_ul">
+                        <li class="job_li_a">
+                            <span th:text="${#strings.substring(SysMajor.employmentRate,34,41)}"></span>
+                        </li>
+                        <li class="job_li_b"th:text="${#strings.substring(SysMajor.employmentRate,28,33)}"></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--            &lt;!&ndash;//th:utext="${#strings.abbreviate(SysHost.hostContent,105)}"&ndash;&gt;-->
+        <!--            年份<div th:text="${#strings.substring(SysMajor.employmentRate,0,5)}"></div>-->
+        <!--            就业率<div th:text="${#strings.substring(SysMajor.employmentRate,6,13)}"></div>-->
+        <!--            年份<div th:text="${#strings.substring(SysMajor.employmentRate,14,19)}"></div>-->
+        <!--            就业率<div th:text="${#strings.substring(SysMajor.employmentRate,20,27)}"></div>-->
+        <!--            年份<div th:text="${#strings.substring(SysMajor.employmentRate,28,33)}"></div>-->
+        <!--            就业率<div th:text="${#strings.substring(SysMajor.employmentRate,34,41)}"></div>-->
+        <!--        </div>-->
+        <!--${#strings.startsWith(name,'o')}
+${#strings.endsWith(name, 'o')}
+${#strings.indexOf(name,frag)}// 下标
+${#strings.substring(name,3,5)}// 截取
+${#strings.substringAfter(name,prefix)}// 从 prefix之后的一位开始截取到最后,比如 (ywj,y) = wj, 如果是(abccdefg,c) = cdefg//里面有2个c,取的是第一个c
+${#strings.substringBefore(name,suffix)}// 同上，不过是往前截取
+-->
+        <!--近十年平均薪资-->
+        <div class="average-salary">
+            <div style="height: 40px; margin: 20px 0;">
+                <div style="width: 3px; height: 40px; float: left; background: #FF5202"></div>
+                <h2 style="float: left; padding-top: 6px;padding-left: 5px;">近十年平均薪资</h2>
+                <h3 class="h3">平均薪资：￥<h3 class="pt7" th:text="${averageSalary?.averageSalary}+K"></h3></h3>
+            </div>
+            <div class="average-Salary-charts">
+                <div id="container" style="height: 300px; width: 40%; float:left;"></div>
+                <div class="salary-box">
+                    <ul class="mr30" style="float: left;" th:each="SysSalary,salary : ${salaryPageInfo.list}" th:if="${salary.count}<=5">
+                        <li>
+                            <div class="mr20" th:text="${salary.count}"></div>
+                            <div style="width: 280px;" th:text="${SysSalary.years}"></div>
+                            <div class="value" th:text="${SysSalary.salary}+K"></div>
+                        </li>
+                    </ul>
+                    <ul th:each="SysSalary,salary : ${salaryPageInfo.list}"th:if="${salary.count}>5">
+                        <li>
+                            <div class="mr20" th:text="${salary.count}"></div>
+                            <div style="width: 280px;" th:text="${SysSalary.years}"></div>
+                            <div class="value" th:text="${SysSalary.salary}+K"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--数据隐藏-->
+        <input hidden th:value="${SysMajor.majorId}" id="majorId" />
+    </div>
+<!--    <div id="rightSidebar" th:replace="client/public/rightSidebar"></div>-->
+    <div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+
+    <div class="clear"></div>
+</div>
+
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<!--引入专业薪资的可视化视图-->
+<div th:replace="client/major/majorEchartsJs :: majorEchartsJs"></div>
+<script type="text/javascript">
+    //记录用户访问专业的记录
+    $(function () {
+        if($("#stuIdSession").val() != null && $("#stuIdSession").val() != ''){
+            var majorName = $("#majorName").text().slice(5);
+            $.ajax({
+                type:'post',
+                url : '/client/majorHistory/add',
+                data: {
+                    "historyName":majorName,
+                    "userId":$("#stuIdSession").val(),
+                    "historyType":0
+                },
+                dataType: 'json',
+                // success: function (result) {
+                //     if (result && result.success) {
+                //         window.alert("专业记录添加成功！");
+                //     } else {
+                //         window.alert(result.msg || '专业记录添加失败！')
+                //     }
+                // }
+            });
+        }
+    })
+
+    //收藏
+    function collection() {
+        if ($("#stuIdSession").val() == null || $("#stuIdSession").val() == '') {
+            alert("请用普通身份登录后，进行收藏！");
+        }
+        var majorName = $("#majorName").text().substring(5);
+        $.ajax({
+            url: "/client/collection/add",
+            type: "post",
+            data: {
+                "stuId": $("#stuIdSession").val(),
+                "collectionType": "0",
+                "collectionName": majorName,
+                "collectionId": $("#majorId").val()
+            },
+            dataType: "json",
+            success: function (data) {
+                alert(data.msg);
+            }
+        })
+    }
+</script>
+</body>
+</html>

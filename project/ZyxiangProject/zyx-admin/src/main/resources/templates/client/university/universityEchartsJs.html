@@ -1,0 +1,111 @@
+<div th:fragment="universityEchartsJs">
+    <script>
+        function loadData(option){
+            var universityId = document.getElementById("universityId").innerText;
+            console.log(universityId);
+            $.ajax({
+                type:"GET",
+                async:false,
+                url:"/client/universityDetail/"+universityId+"/plan",
+                data:{},
+                dataType:'json',
+                success:function(result){
+                    if(result){
+                        //初始化x轴数据
+                        option.xAxis.data=[];
+                        for(var i=0;i<result.length;i++){
+                            option.xAxis.data.push(result[i].majorName);
+                        }
+                        //初始化y轴数据
+                        option.series[0].data=[];
+                        for(var i=0;i<result.length;i++){
+                            option.series[0].data.push(result[i].minScore);
+                        }
+                        option.series[1].data=[];
+                        for(var i=0;i<result.length;i++){
+                            option.series[1].data.push(result[i].annualTarget);
+                        }
+                        option.series[2].data=[];
+                        for(var i=0;i<result.length;i++){
+                            option.series[2].data.push(result[i].forSeveral);
+                        }
+                        // option.series[3].data=[];
+                        // for(var i=0;i<result.length;i++){
+                        // 	option.series[3].data.push(result[i].forSeveral);
+                        // }
+                        // option.series[4].data=[];
+                        // for(var i=0;i<result.length;i++){
+                        // 	option.series[4].data.push(result[i].peopleNumber);
+                        // }
+                    }
+                },
+                error:function(errorMsg){
+                    alert("获取后台数据失败，请联系工作开发人员！！");
+                }
+            });
+        }
+        var myChart = echarts.init(document.getElementById('container'));
+        var option = {
+            title: {
+                text: ''
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data: ['最低分', '计划人数', '投出数']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataZoom: {
+                        yAxisIndex: 'none'
+                    },
+                    dataView: {readOnly: false},
+                    magicType: {type: ['line', 'bar']},
+                    restore: {},
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: []
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '最低分',
+                    type: 'line',
+                    data: []
+                },
+                {
+                    name: '计划人数',
+                    type: 'line',
+                    data: []
+                },
+                {
+                    name: '投出数',
+                    type: 'line',
+                    data: []
+                }
+            ]
+        };
+        // 3. 加载数据到option
+        loadData(option);
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        // 5. 让图表跟随屏幕自动的去适应
+        window.addEventListener("resize", function() {
+            myChart.resize();
+        });
+    </script>
+</div>

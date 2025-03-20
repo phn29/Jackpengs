@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysNatureMapper">
+
+    <resultMap type="SysNature" id="SysNatureResult">
+        <result property="natureId"    column="nature_id"    />
+        <result property="problem"    column="problem"    />
+        <result property="optionsA"    column="options_a"    />
+        <result property="optionsB"    column="options_b"    />
+        <result property="valueA"    column="value_a"    />
+        <result property="valueB"    column="value_b"    />
+    </resultMap>
+
+    <sql id="selectSysNatureVo">
+        select nature_id, problem, options_a, options_b, value_a, value_b from sys_nature
+    </sql>
+
+    <select id="selectSysNatureList" parameterType="SysNature" resultMap="SysNatureResult">
+        <include refid="selectSysNatureVo"/>
+        <where>
+            <if test="problem != null  and problem != ''"> and problem = #{problem}</if>
+            <if test="optionsA != null  and optionsA != ''"> and options_a = #{optionsA}</if>
+            <if test="optionsB != null  and optionsB != ''"> and options_b = #{optionsB}</if>
+            <if test="valueA != null  and valueA != ''"> and value_a = #{valueA}</if>
+            <if test="valueB != null  and valueB != ''"> and value_b = #{valueB}</if>
+        </where>
+    </select>
+
+    <select id="selectSysNatureById" parameterType="Long" resultMap="SysNatureResult">
+        <include refid="selectSysNatureVo"/>
+        where nature_id = #{natureId}
+    </select>
+
+    <insert id="insertSysNature" parameterType="SysNature" useGeneratedKeys="true" keyProperty="natureId">
+        insert into sys_nature
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="problem != null">problem,</if>
+            <if test="optionsA != null">options_a,</if>
+            <if test="optionsB != null">options_b,</if>
+            <if test="valueA != null">value_a,</if>
+            <if test="valueB != null">value_b,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="problem != null">#{problem},</if>
+            <if test="optionsA != null">#{optionsA},</if>
+            <if test="optionsB != null">#{optionsB},</if>
+            <if test="valueA != null">#{valueA},</if>
+            <if test="valueB != null">#{valueB},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysNature" parameterType="SysNature">
+        update sys_nature
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="problem != null">problem = #{problem},</if>
+            <if test="optionsA != null">options_a = #{optionsA},</if>
+            <if test="optionsB != null">options_b = #{optionsB},</if>
+            <if test="valueA != null">value_a = #{valueA},</if>
+            <if test="valueB != null">value_b = #{valueB},</if>
+        </trim>
+        where nature_id = #{natureId}
+    </update>
+
+    <delete id="deleteSysNatureById" parameterType="Long">
+        delete from sys_nature where nature_id = #{natureId}
+    </delete>
+
+    <delete id="deleteSysNatureByIds" parameterType="String">
+        delete from sys_nature where nature_id in
+        <foreach item="natureId" collection="array" open="(" separator="," close=")">
+            #{natureId}
+        </foreach>
+    </delete>
+
+</mapper>

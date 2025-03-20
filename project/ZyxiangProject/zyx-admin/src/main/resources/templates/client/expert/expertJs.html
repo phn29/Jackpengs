@@ -1,0 +1,39 @@
+<div th:fragment="expertJs">
+    <script type="text/javascript">
+        //咨询师预约 给咨询师发送邮件提醒，并生成咨询师和学生一对一的信息
+        // 此时状态为0 预约中，待咨询师通过时状态为1 预约成功
+        function consults() {
+            //校验用户是否登录
+            var studentName = $("#studentNameSession").text();
+            var expertName = $("#expertNameSession").text();
+            if(studentName == null || studentName == ''){
+                alert("您还未登录，无法进行预约！");
+            } else if(expertName != null && expertName != ''){
+                alert("您是咨询师，你不能进行预约！")
+            } else if(studentName != null && studentName != ''){
+                var stuId = $("#stuIdSession").val(); // 学生id
+                var expertId = $("#expertId").val() //咨询师id
+                var state = 0; //预约状态
+                $.ajax({
+                    url: '/client/chat/insert',
+                    type: 'post',
+                    dataType: 'json',
+                    timeout: 1000,
+                    data: {
+                        stuId: stuId,
+                        expertId: expertId,
+                        state: state
+                    },
+                    success: function (result) {
+                        if (result && result.success) {
+                            window.alert("预约成功，请你耐心等待咨询师的回复！");
+                            window.location.reload();
+                        } else {
+                            window.alert(result.msg || '预约失败，您已经预约了该专家了，请您耐心等待专家回复！')
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</div>

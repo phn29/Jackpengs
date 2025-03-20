@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改院校管理')" />
+</head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-university-edit" th:object="${sysUniversity}">
+        <input name="universityId" th:field="*{universityId}" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">院校名称：</label>
+            <div class="col-sm-8">
+                <input name="universityName" th:field="*{universityName}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">院校代码：</label>
+            <div class="col-sm-8">
+                <input name="universityCode" th:field="*{universityCode}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">校徽：</label>
+            <div class="col-sm-8">
+                <textarea name="universityBadge" class="form-control" required>[[*{universityBadge}]]</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">全国排名：</label>
+            <div class="col-sm-8">
+                <textarea name="ranking" class="form-control" required>[[*{ranking}]]</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">隶属于：</label>
+            <div class="col-sm-8">
+                <input name="belong" th:field="*{belong}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">重点学科数量：</label>
+            <div class="col-sm-8">
+                <input name="numSubject" th:field="*{numSubject}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">硕士点数量：</label>
+            <div class="col-sm-8">
+                <input name="numMaster" th:field="*{numMaster}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">博士点数量：</label>
+            <div class="col-sm-8">
+                <input name="numDoctor" th:field="*{numDoctor}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">院士人数：</label>
+            <div class="col-sm-8">
+                <input name="numAcademician" th:field="*{numAcademician}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">藏书量：</label>
+            <div class="col-sm-8">
+                <input name="numLibrary" th:field="*{numLibrary}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">重点实验室数：</label>
+            <div class="col-sm-8">
+                <input name="numLab" th:field="*{numLab}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">所属省份：</label>
+            <div class="col-sm-8">
+                <input name="provinceName" th:field="*{provinceName}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">所属城市：</label>
+            <div class="col-sm-8">
+                <input name="cityName" th:field="*{cityName}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">所属市区：</label>
+            <div class="col-sm-8">
+                <input name="townName" th:field="*{townName}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">创办年份：</label>
+            <div class="col-sm-8">
+                <input name="createDate" th:field="*{createDate}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">占地面积（亩）：</label>
+            <div class="col-sm-8">
+                <input name="area" th:field="*{area}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">学科范围：</label>
+            <div class="col-sm-8">
+                <select name="universityType" class="form-control m-b" th:with="type=${@dict.getType('sys_university_type')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{universityType}" required>所有</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">办学层次：</label>
+            <div class="col-sm-8">
+                <select name="universityLevel" class="form-control m-b" th:with="type=${@dict.getType('sys_university_Level')}">
+                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{universityLevel}" required>所有</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">教育类型：</label>
+            <div class="col-sm-8">
+                <input name="universityNature" th:field="*{universityNature}" class="form-control" type="text" required>
+<!--                <select name="universityEducation" class="form-control m-b" th:with="type=${@dict.getType('sys_university_education')}">-->
+<!--                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{universityEducation}" required>所有</option>-->
+<!--                </select>-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">院校地址：</label>
+            <div class="col-sm-8">
+                <input name="universityAddress" th:field="*{universityAddress}" class="form-control" type="text" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">首图：</label>
+            <div class="col-sm-8">
+                <textarea name="universityPicture" class="form-control" required>[[*{universityPicture}]]</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label is-required">院校具体信息：</label>
+            <div class="col-sm-8">
+                <textarea name="universityInformation" class="form-control" required>[[*{universityInformation}]]</textarea>
+            </div>
+        </div>
+    </form>
+</div>
+<th:block th:include="include :: footer" />
+<script th:inline="javascript">
+    var prefix = ctx + "system/university";
+    $("#form-university-edit").validate({
+        focusCleanup: true
+    });
+
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/edit", $('#form-university-edit').serialize());
+        }
+    }
+</script>
+</body>
+</html>

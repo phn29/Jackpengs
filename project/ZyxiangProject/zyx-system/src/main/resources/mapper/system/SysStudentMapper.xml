@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysStudentMapper">
+
+    <resultMap type="SysStudent" id="SysStudentResult">
+        <result property="stuId"    column="stu_id"    />
+        <result property="stuPassword"    column="stu_password"    />
+        <result property="stuNo"    column="stu_no"    />
+        <result property="stuName"    column="stu_name"    />
+        <result property="stuSex"    column="stu_sex"    />
+        <result property="stuAddress"    column="stu_address"    />
+        <result property="stuAge"    column="stu_age"    />
+        <result property="stuScore"    column="stu_score"    />
+        <result property="stuEmail"    column="stu_email"    />
+        <result property="stuPhone"    column="stu_phone"    />
+        <result property="stuPostcode"    column="stu_postcode"    />
+        <result property="provinceName"    column="province_name"    />
+        <result property="cityName"    column="city_name"    />
+        <result property="ranking"    column="ranking"    />
+        <result property="physics"    column="physics"    />
+        <result property="chemistry"    column="chemistry"    />
+        <result property="politics"    column="politics"    />
+        <result property="biology"    column="biology"    />
+        <result property="history"    column="history"    />
+        <result property="geography"    column="geography"    />
+        <result property="optional"    column="optional"    />
+        <result property="mbtiResult"    column="mbti_result"    />
+        <result property="purposeAddressOne"    column="purpose_address_one"    />
+        <result property="purposeAddressTwo"    column="purpose_address_two"    />
+        <result property="purposeAddressThree"    column="purpose_address_three"    />
+        <result property="purposeMajorOne"    column="purpose_major_one"    />
+        <result property="purposeMajorTwo"    column="purpose_major_two"    />
+        <result property="purposeMajorThree"    column="purpose_major_three"    />
+        <result property="appositive"    column="appositive"    />
+    </resultMap>
+
+    <!--查询用户名和密码-->
+    <select id="findBystuNoAndstuPassword" resultMap="SysStudentResult">
+        select * from sys_student
+        where stu_no = #{stuNo} and stu_password = #{stuPassword};
+    </select>
+
+    <sql id="selectSysStudentVo">
+        select stu_id, stu_password, stu_no, stu_name, stu_sex, stu_address, stu_age, stu_score, stu_email, stu_phone, stu_postcode, province_name, city_name, ranking, physics, chemistry, politics, biology, history, geography, optional, mbti_result, purpose_address_one, purpose_address_two, purpose_address_three, purpose_major_one, purpose_major_two, purpose_major_three, appositive from sys_student
+    </sql>
+    <select id="selectSysStudentList" parameterType="SysStudent" resultMap="SysStudentResult">
+        <include refid="selectSysStudentVo"/>
+        <where>
+            <if test="stuPassword != null  and stuPassword != ''"> and stu_password = #{stuPassword}</if>
+            <if test="stuNo != null  and stuNo != ''"> and stu_no = #{stuNo}</if>
+            <if test="stuName != null  and stuName != ''"> and stu_name like concat('%', #{stuName}, '%')</if>
+            <if test="stuSex != null  and stuSex != ''"> and stu_sex = #{stuSex}</if>
+            <if test="stuAddress != null  and stuAddress != ''"> and stu_address = #{stuAddress}</if>
+            <if test="stuAge != null "> and stu_age = #{stuAge}</if>
+            <if test="stuScore != null "> and stu_score = #{stuScore}</if>
+            <if test="stuEmail != null  and stuEmail != ''"> and stu_email = #{stuEmail}</if>
+            <if test="stuPhone != null  and stuPhone != ''"> and stu_phone = #{stuPhone}</if>
+            <if test="stuPostcode != null  and stuPostcode != ''"> and stu_postcode = #{stuPostcode}</if>
+            <if test="provinceName != null  and provinceName != ''"> and province_name like concat('%', #{provinceName}, '%')</if>
+            <if test="cityName != null  and cityName != ''"> and city_name like concat('%', #{cityName}, '%')</if>
+            <if test="ranking != null  and ranking != ''"> and ranking = #{ranking}</if>
+            <if test="physics != null  and physics != ''"> and physics = #{physics}</if>
+            <if test="chemistry != null  and chemistry != ''"> and chemistry = #{chemistry}</if>
+            <if test="politics != null  and politics != ''"> and politics = #{politics}</if>
+            <if test="biology != null  and biology != ''"> and biology = #{biology}</if>
+            <if test="history != null  and history != ''"> and history = #{history}</if>
+            <if test="geography != null  and geography != ''"> and geography = #{geography}</if>
+            <if test="optional != null  and optional != ''"> and optional = #{optional}</if>
+            <if test="mbtiResult != null  and mbtiResult != ''"> and mbti_result = #{mbtiResult}</if>
+            <if test="purposeAddressOne != null  and purposeAddressOne != ''"> and purpose_address_one = #{purposeAddressOne}</if>
+            <if test="purposeAddressTwo != null  and purposeAddressTwo != ''"> and purpose_address_two = #{purposeAddressTwo}</if>
+            <if test="purposeAddressThree != null  and purposeAddressThree != ''"> and purpose_address_three = #{purposeAddressThree}</if>
+            <if test="purposeMajorOne != null  and purposeMajorOne != ''"> and purpose_major_one = #{purposeMajorOne}</if>
+            <if test="purposeMajorTwo != null  and purposeMajorTwo != ''"> and purpose_major_two = #{purposeMajorTwo}</if>
+            <if test="purposeMajorThree != null  and purposeMajorThree != ''"> and purpose_major_three = #{purposeMajorThree}</if>
+        </where>
+    </select>
+
+    <select id="selectSysStudentById" parameterType="Long" resultMap="SysStudentResult">
+        <include refid="selectSysStudentVo"/>
+        where stu_id = #{stuId}
+    </select>
+
+    <insert id="insertSysStudent" parameterType="SysStudent">
+        insert into sys_student
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stuId != null">stu_id,</if>
+            <if test="stuPassword != null">stu_password,</if>
+            <if test="stuNo != null">stu_no,</if>
+            <if test="stuName != null">stu_name,</if>
+            <if test="stuSex != null">stu_sex,</if>
+            <if test="stuAddress != null">stu_address,</if>
+            <if test="stuAge != null">stu_age,</if>
+            <if test="stuScore != null">stu_score,</if>
+            <if test="stuEmail != null">stu_email,</if>
+            <if test="stuPhone != null">stu_phone,</if>
+            <if test="stuPostcode != null">stu_postcode,</if>
+            <if test="provinceName != null">province_name,</if>
+            <if test="cityName != null">city_name,</if>
+            <if test="ranking != null">ranking,</if>
+            <if test="physics != null">physics,</if>
+            <if test="chemistry != null">chemistry,</if>
+            <if test="politics != null">politics,</if>
+            <if test="biology != null">biology,</if>
+            <if test="history != null">history,</if>
+            <if test="geography != null">geography,</if>
+            <if test="optional != null">optional,</if>
+            <if test="mbtiResult != null">mbti_result,</if>
+            <if test="purposeAddressOne != null">purpose_address_one,</if>
+            <if test="purposeAddressTwo != null">purpose_address_two,</if>
+            <if test="purposeAddressThree != null">purpose_address_three,</if>
+            <if test="purposeMajorOne != null">purpose_major_one,</if>
+            <if test="purposeMajorTwo != null">purpose_major_two,</if>
+            <if test="purposeMajorThree != null">purpose_major_three,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stuId != null">#{stuId},</if>
+            <if test="stuPassword != null">#{stuPassword},</if>
+            <if test="stuNo != null">#{stuNo},</if>
+            <if test="stuName != null">#{stuName},</if>
+            <if test="stuSex != null">#{stuSex},</if>
+            <if test="stuAddress != null">#{stuAddress},</if>
+            <if test="stuAge != null">#{stuAge},</if>
+            <if test="stuScore != null">#{stuScore},</if>
+            <if test="stuEmail != null">#{stuEmail},</if>
+            <if test="stuPhone != null">#{stuPhone},</if>
+            <if test="stuPostcode != null">#{stuPostcode},</if>
+            <if test="provinceName != null">#{provinceName},</if>
+            <if test="cityName != null">#{cityName},</if>
+            <if test="ranking != null">#{ranking},</if>
+            <if test="physics != null">#{physics},</if>
+            <if test="chemistry != null">#{chemistry},</if>
+            <if test="politics != null">#{politics},</if>
+            <if test="biology != null">#{biology},</if>
+            <if test="history != null">#{history},</if>
+            <if test="geography != null">#{geography},</if>
+            <if test="optional != null">#{optional},</if>
+            <if test="mbtiResult != null">#{mbtiResult},</if>
+            <if test="purposeAddressOne != null">#{purposeAddressOne},</if>
+            <if test="purposeAddressTwo != null">#{purposeAddressTwo},</if>
+            <if test="purposeAddressThree != null">#{purposeAddressThree},</if>
+            <if test="purposeMajorOne != null">#{purposeMajorOne},</if>
+            <if test="purposeMajorTwo != null">#{purposeMajorTwo},</if>
+            <if test="purposeMajorThree != null">#{purposeMajorThree},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysStudent" parameterType="SysStudent">
+        update sys_student
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stuPassword != null">stu_password = #{stuPassword},</if>
+            <if test="stuNo != null">stu_no = #{stuNo},</if>
+            <if test="stuName != null">stu_name = #{stuName},</if>
+            <if test="stuSex != null">stu_sex = #{stuSex},</if>
+            <if test="stuAddress != null">stu_address = #{stuAddress},</if>
+            <if test="stuAge != null">stu_age = #{stuAge},</if>
+            <if test="stuScore != null">stu_score = #{stuScore},</if>
+            <if test="stuEmail != null">stu_email = #{stuEmail},</if>
+            <if test="stuPhone != null">stu_phone = #{stuPhone},</if>
+            <if test="stuPostcode != null">stu_postcode = #{stuPostcode},</if>
+            <if test="provinceName != null">province_name = #{provinceName},</if>
+            <if test="cityName != null">city_name = #{cityName},</if>
+            <if test="ranking != null">ranking = #{ranking},</if>
+            <if test="physics != null">physics = #{physics},</if>
+            <if test="chemistry != null">chemistry = #{chemistry},</if>
+            <if test="politics != null">politics = #{politics},</if>
+            <if test="biology != null">biology = #{biology},</if>
+            <if test="history != null">history = #{history},</if>
+            <if test="geography != null">geography = #{geography},</if>
+            <if test="optional != null">optional = #{optional},</if>
+            <if test="mbtiResult != null">mbti_result = #{mbtiResult},</if>
+            <if test="purposeAddressOne != null">purpose_address_one = #{purposeAddressOne},</if>
+            <if test="purposeAddressTwo != null">purpose_address_two = #{purposeAddressTwo},</if>
+            <if test="purposeAddressThree != null">purpose_address_three = #{purposeAddressThree},</if>
+            <if test="purposeMajorOne != null">purpose_major_one = #{purposeMajorOne},</if>
+            <if test="purposeMajorTwo != null">purpose_major_two = #{purposeMajorTwo},</if>
+            <if test="purposeMajorThree != null">purpose_major_three = #{purposeMajorThree},</if>
+            <if test="appositive != null">appositive = #{appositive},</if>
+        </trim>
+        where stu_id = #{stuId}
+    </update>
+
+    <delete id="deleteSysStudentById" parameterType="Long">
+        delete from sys_student where stu_id = #{stuId}
+    </delete>
+
+    <delete id="deleteSysStudentByIds" parameterType="String">
+        delete from sys_student where stu_id in
+        <foreach item="stuId" collection="array" open="(" separator="," close=")">
+            #{stuId}
+        </foreach>
+    </delete>
+
+</mapper>

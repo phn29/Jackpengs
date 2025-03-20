@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="client/public/head ::  head('河北新高考志愿智能决策||院校识别')"></head>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+<body class="bodyBackground">
+<!--logo and search-->
+<div th:replace="client/public/header :: header"></div>
+<!--inner content-->
+<div class="content">
+    <!--navigation-->
+    <div th:replace="client/public/navigation :: navigation"></div>
+    <div class="fl left">
+        <div class="adr">
+            <a th:href='@{/client/universityIndex}'>主页</a> >
+            <a href="#">院校识别</a> >
+        </div>
+        <!--院校识别-->
+        <div class="i_city l_city">
+            <div class="gkfunc-main-top">
+                <div class="gkfunc-filter-wrap">
+                    <div class="filter-banner">
+                        <h2 class="gkfunc-title gkfunc-1c">
+                            院校识别
+                        </h2>
+                        <div class="gkfunc-search-form">
+                            <div class="form-input">
+                                <input id="universityName" name="universityName" type="text" placeholder="输入高校名称" list="selectUniversityName">
+                                <datalist id="selectUniversityName">
+                                    <option th:each="university : ${universitys}" th:value="${university.universityName}" th:tex="${university.universityName}"></option>
+                                </datalist>
+                            </div>
+                            <button class="btn-red filter-btn search-btn" id="btn1">
+                                识别
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--院校识别列表-->
+        <div th:fragment="universityList" id="universityList" style="margin-top: 21px">
+            <table id="bootstrap-table5" class="table table-bordered table-hover" style="margin-top: -21px">
+                <thead style="background: #F8F8F8;">
+                <tr style="font-size: 18px">
+                    <th style="text-align: center; vertical-align: middle; " data-field="universityName">
+                        <div class="th-inner">院校名称</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; vertical-align: middle; " data-field="provinceName">
+                        <div class="th-inner ">所在地区</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                    <th style="text-align: center; " data-field="universityIdentification">
+                        <div class="th-inner ">院校识别</div>
+                        <div class="fht-cell"></div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-index="0" th:each="SysUniversity : ${pageInfo.list}">
+                    <td style="text-align: center; vertical-align: middle;">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysUniversity.universityName}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; vertical-align: middle; ">
+                        <div style="font-size: 16px;">
+                            <span th:text="${SysUniversity.provinceName}"></span>
+                        </div>
+                    </td>
+                    <td style="text-align: center; ">
+                        <div style="font-size: 16px;" th:if="${SysUniversity.universityIdentification == '野鸡大学'}">
+                            <img style="float: left;" th:src="@{../img/pc/yj.png}">
+                            <span style="float: left; color: red" th:text="${SysUniversity.universityIdentification}"></span>
+                        </div>
+                        <div style="font-size: 16px;" th:if="${SysUniversity.universityIdentification == '正规大学'}">
+                            <span style="float: left;"><img th:src="@{../img/pc/zg.png}"></span>
+                            <span style="float: left; color: rgb(0, 180, 33);" th:text="${SysUniversity.universityIdentification}">
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!--分页-->
+            <div class="mpage">
+                <div class="qzPagination" th:each="SysUniversity, SysUniversityStat : ${pageInfo.list}" th:if="${SysUniversityStat.count}<=1">
+                    <a th:href="@{/universityIdentification(pageNum=0)}" >首页</a>
+                    <a class="item" th:href="@{/universityIdentification(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}" th:unless="${pageInfo.isFirstPage}">上一页</a>
+                    <span class="pageinfo">第 <strong th:text="${pageInfo.pageNum}"></strong> 页，共 <strong th:text="${pageInfo.pages}"></strong> 页，有 <strong th:text="${pageInfo.total}"></strong>个野鸡院校</span>
+                    <a th:href="@{/universityIdentification(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}" th:unless="${pageInfo.isLastPage}">下一页</a>
+                    <a th:href="@{/universityIdentification(pageNum=${pageInfo.pages})}" >尾页</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="rightSidebar" th:fragment="client/public/rightSidebar :: rightSidebar"></div>
+    <div class="clear"></div>
+</div>
+<!--footer-->
+<div th:replace="client/public/footer :: footer"></div>
+<script>
+    $("#btn1").click(function () {
+        $.ajax({
+            url: "/client/universityIdentification",
+            type:"post",
+            data:{
+                "universityName":$("#universityName").val(),
+
+            },
+            success:function (data) {
+                $("#universityList").html(data);
+                console.log(data)
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

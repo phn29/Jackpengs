@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysRankingMapper">
+
+    <resultMap type="SysRanking" id="SysRankingResult">
+        <result property="rankingId"    column="ranking_id"    />
+        <result property="grade"    column="grade"    />
+        <result property="allPeopleNumber"    column="all_people_number"    />
+        <result property="allRanking"    column="all_ranking"    />
+        <result property="physicsPeopleNumber"    column="physics_people_number"    />
+        <result property="physicsTotalPeople"    column="physics_total_people"    />
+        <result property="chemicalPeopleNumber"    column="chemical_people_number"    />
+        <result property="chemicalTotalPeople"    column="chemical_total_people"    />
+        <result property="biologyPeopleNumber"    column="biology_people_number"    />
+        <result property="biologyTotalPeople"    column="biology_total_people"    />
+        <result property="politicsPeopleNumber"    column="politics_people_number"    />
+        <result property="politicsTotalPeople"    column="politics_total_people"    />
+        <result property="historyPeopleNumber"    column="history_people_number"    />
+        <result property="historyTotalPeople"    column="history_total_people"    />
+        <result property="geographyPeopleNumber"    column="geography_people_number"    />
+        <result property="geographyTotalPeople"    column="geography_total_people"    />
+        <result property="years"    column="years"    />
+    </resultMap>
+
+    <sql id="selectSysRankingVo">
+        select ranking_id, grade, all_people_number, all_ranking, physics_people_number, physics_total_people, chemical_people_number, chemical_total_people, biology_people_number, biology_total_people, politics_people_number, politics_total_people, history_people_number, history_total_people, geography_people_number, geography_total_people, years from sys_ranking
+    </sql>
+
+    <select id="selectSysRankingList" parameterType="SysRanking" resultMap="SysRankingResult">
+        <include refid="selectSysRankingVo"/>
+        <where>
+            <if test="grade != null "> and grade = #{grade}</if>
+            <if test="allPeopleNumber != null "> and all_people_number = #{allPeopleNumber}</if>
+            <if test="allRanking != null "> and all_ranking = #{allRanking}</if>
+            <if test="physicsPeopleNumber != null "> and physics_people_number = #{physicsPeopleNumber}</if>
+            <if test="physicsTotalPeople != null "> and physics_total_people = #{physicsTotalPeople}</if>
+            <if test="chemicalPeopleNumber != null "> and chemical_people_number = #{chemicalPeopleNumber}</if>
+            <if test="chemicalTotalPeople != null "> and chemical_total_people = #{chemicalTotalPeople}</if>
+            <if test="biologyPeopleNumber != null "> and biology_people_number = #{biologyPeopleNumber}</if>
+            <if test="biologyTotalPeople != null "> and biology_total_people = #{biologyTotalPeople}</if>
+            <if test="politicsPeopleNumber != null "> and politics_people_number = #{politicsPeopleNumber}</if>
+            <if test="politicsTotalPeople != null "> and politics_total_people = #{politicsTotalPeople}</if>
+            <if test="historyPeopleNumber != null "> and history_people_number = #{historyPeopleNumber}</if>
+            <if test="historyTotalPeople != null "> and history_total_people = #{historyTotalPeople}</if>
+            <if test="geographyPeopleNumber != null "> and geography_people_number = #{geographyPeopleNumber}</if>
+            <if test="geographyTotalPeople != null "> and geography_total_people = #{geographyTotalPeople}</if>
+            <if test="years != null  and years != ''"> and years = #{years}</if>
+        </where>
+    </select>
+
+    <select id="selectSysRankingById" parameterType="Long" resultMap="SysRankingResult">
+        <include refid="selectSysRankingVo"/>
+        where ranking_id = #{rankingId}
+    </select>
+
+    <insert id="insertSysRanking" parameterType="SysRanking" useGeneratedKeys="true" keyProperty="rankingId">
+        insert into sys_ranking
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="grade != null">grade,</if>
+            <if test="allPeopleNumber != null">all_people_number,</if>
+            <if test="allRanking != null">all_ranking,</if>
+            <if test="physicsPeopleNumber != null">physics_people_number,</if>
+            <if test="physicsTotalPeople != null">physics_total_people,</if>
+            <if test="chemicalPeopleNumber != null">chemical_people_number,</if>
+            <if test="chemicalTotalPeople != null">chemical_total_people,</if>
+            <if test="biologyPeopleNumber != null">biology_people_number,</if>
+            <if test="biologyTotalPeople != null">biology_total_people,</if>
+            <if test="politicsPeopleNumber != null">politics_people_number,</if>
+            <if test="politicsTotalPeople != null">politics_total_people,</if>
+            <if test="historyPeopleNumber != null">history_people_number,</if>
+            <if test="historyTotalPeople != null">history_total_people,</if>
+            <if test="geographyPeopleNumber != null">geography_people_number,</if>
+            <if test="geographyTotalPeople != null">geography_total_people,</if>
+            <if test="years != null">years,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="grade != null">#{grade},</if>
+            <if test="allPeopleNumber != null">#{allPeopleNumber},</if>
+            <if test="allRanking != null">#{allRanking},</if>
+            <if test="physicsPeopleNumber != null">#{physicsPeopleNumber},</if>
+            <if test="physicsTotalPeople != null">#{physicsTotalPeople},</if>
+            <if test="chemicalPeopleNumber != null">#{chemicalPeopleNumber},</if>
+            <if test="chemicalTotalPeople != null">#{chemicalTotalPeople},</if>
+            <if test="biologyPeopleNumber != null">#{biologyPeopleNumber},</if>
+            <if test="biologyTotalPeople != null">#{biologyTotalPeople},</if>
+            <if test="politicsPeopleNumber != null">#{politicsPeopleNumber},</if>
+            <if test="politicsTotalPeople != null">#{politicsTotalPeople},</if>
+            <if test="historyPeopleNumber != null">#{historyPeopleNumber},</if>
+            <if test="historyTotalPeople != null">#{historyTotalPeople},</if>
+            <if test="geographyPeopleNumber != null">#{geographyPeopleNumber},</if>
+            <if test="geographyTotalPeople != null">#{geographyTotalPeople},</if>
+            <if test="years != null">#{years},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysRanking" parameterType="SysRanking">
+        update sys_ranking
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="grade != null">grade = #{grade},</if>
+            <if test="allPeopleNumber != null">all_people_number = #{allPeopleNumber},</if>
+            <if test="allRanking != null">all_ranking = #{allRanking},</if>
+            <if test="physicsPeopleNumber != null">physics_people_number = #{physicsPeopleNumber},</if>
+            <if test="physicsTotalPeople != null">physics_total_people = #{physicsTotalPeople},</if>
+            <if test="chemicalPeopleNumber != null">chemical_people_number = #{chemicalPeopleNumber},</if>
+            <if test="chemicalTotalPeople != null">chemical_total_people = #{chemicalTotalPeople},</if>
+            <if test="biologyPeopleNumber != null">biology_people_number = #{biologyPeopleNumber},</if>
+            <if test="biologyTotalPeople != null">biology_total_people = #{biologyTotalPeople},</if>
+            <if test="politicsPeopleNumber != null">politics_people_number = #{politicsPeopleNumber},</if>
+            <if test="politicsTotalPeople != null">politics_total_people = #{politicsTotalPeople},</if>
+            <if test="historyPeopleNumber != null">history_people_number = #{historyPeopleNumber},</if>
+            <if test="historyTotalPeople != null">history_total_people = #{historyTotalPeople},</if>
+            <if test="geographyPeopleNumber != null">geography_people_number = #{geographyPeopleNumber},</if>
+            <if test="geographyTotalPeople != null">geography_total_people = #{geographyTotalPeople},</if>
+            <if test="years != null">years = #{years},</if>
+        </trim>
+        where ranking_id = #{rankingId}
+    </update>
+
+    <delete id="deleteSysRankingById" parameterType="Long">
+        delete from sys_ranking where ranking_id = #{rankingId}
+    </delete>
+
+    <delete id="deleteSysRankingByIds" parameterType="String">
+        delete from sys_ranking where ranking_id in
+        <foreach item="rankingId" collection="array" open="(" separator="," close=")">
+            #{rankingId}
+        </foreach>
+    </delete>
+
+</mapper>

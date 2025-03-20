@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysPlanMapper">
+
+    <resultMap type="SysPlan" id="SysPlanResult">
+        <result property="planId"    column="plan_id"    />
+        <result property="majorLevel"    column="major_level"    />
+        <result property="majorName"    column="major_name"    />
+        <result property="years"    column="years"    />
+        <result property="universityName"    column="university_name"    />
+        <result property="tuition"    column="tuition"    />
+        <result property="minScore"    column="min_score"    />
+        <result property="annualTarget"    column="annual_target"    />
+        <result property="minRanking"    column="min_ranking"    />
+        <result property="forSeveral"    column="for_several"    />
+        <result property="batch"    column="batch"    />
+        <result property="universityId"    column="university_id"    />
+        <result property="isGrade"    column="isGrade"    />
+        <result property="universityType"    column="universityType"    />
+        <result property="majorCategory"    column="majorCategory"    />
+        <association property="university" column="university_name" javaType="SysUniversity" resultMap="SysUniversityResult" />
+        <association property="major" column="major_name" javaType="SysMajor" resultMap="SysMajorResult" />
+    </resultMap>
+
+    <resultMap type="SysUniversity" id="SysUniversityResult">
+        <result property="universityId"    column="university_id"    />
+        <result property="universityName"    column="university_name"    />
+        <result property="universityIdCode"    column="university_id_code"    />
+        <result property="universityType"    column="university_type"    />
+        <result property="universityCode"    column="university_code"    />
+        <result property="universityAddress"    column="university_address"    />
+        <result property="universityInformation"    column="university_information"    />
+        <result property="universityLevel"    column="university_level"    />
+        <result property="universityNature"    column="university_nature"    />
+        <result property="universityBadge"    column="university_badge"    />
+        <result property="universityWebsite"    column="university_website"    />
+        <result property="universityPhone"    column="university_phone"    />
+        <result property="universityEmail"    column="university_email"    />
+        <result property="belong"    column="belong"    />
+        <result property="numSubject"    column="num_subject"    />
+        <result property="numMaster"    column="num_master"    />
+        <result property="numDoctor"    column="num_doctor"    />
+        <result property="numAcademician"    column="num_academician"    />
+        <result property="numLibrary"    column="num_library"    />
+        <result property="numLab"    column="num_lab"    />
+        <result property="provinceName"    column="province_name"    />
+        <result property="cityName"    column="city_name"    />
+        <result property="townName"    column="town_name"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="area"    column="area"    />
+        <result property="universityPicture"    column="university_picture"    />
+        <result property="ranking"    column="ranking"    />
+        <result property="f985"    column="f985"    />
+        <result property="f211"    column="f211"    />
+        <result property="shortName"    column="short_name"    />
+        <result property="oldName"    column="old_name"    />
+        <result property="site"    column="site"    />
+        <result property="dualClassName"    column="dual_class_name"    />
+        <result property="ranking"    column="ranking"    />
+    </resultMap>
+
+    <resultMap type="SysMajor" id="SysMajorResult">
+        <result property="majorId"    column="major_id"    />
+        <result property="majorCode"    column="major_code"    />
+        <result property="majorCategory"    column="major_category"    />
+        <result property="majorType"    column="major_type"  />
+        <result property="studyYears"   column="study_years"     />
+        <result property="grantScholar"     column="grant_scholar"  />
+        <result property="majorName"    column="major_name"    />
+        <result property="majorLevel"    column="major_level"    />
+        <result property="majorIntroduce"    column="major_introduce"    />
+        <result property="sexRatio"    column="sex_ratio"    />
+        <result property="subjectProposal"    column="subject_proposal"    />
+        <result property="majorStudy"    column="major_study"    />
+        <result property="majorWhat"    column="major_what"    />
+        <result property="firstImpression"    column="first_impression"    />
+        <result property="employmentRate"    column="employment_rate"    />
+    </resultMap>
+
+    <sql id="selectSysPlanVo">
+        select p.plan_id, p.major_level, p.major_name, p.years, p.university_name, p.tuition,
+         p.min_score, p.annual_target, p.min_ranking, p.for_several, p.batch,
+         u.university_id, u.university_name, u.belong, u.city_name, u.province_name, u.university_nature,
+         u.university_type, m.major_code, m.major_level, m.study_years, m.major_type, m.major_category
+         from sys_plan p
+          left join sys_university u on p.university_name = u.university_name
+          left join sys_major m on p.major_name = m.major_name
+    </sql>
+
+    <!--全部院校-->
+    <select id="selectSysPlanList" parameterType="SysPlan" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        <where>
+            <if test="majorLevel != null  and majorLevel != ''"> and p.major_level = #{majorLevel}</if>
+            <if test="majorName != null  and majorName != ''"> and p.major_name like concat('%', #{majorName}, '%')</if>
+            <if test="years != null  and years != ''"> and years = #{years}</if>
+            <if test="universityName != null  and universityName != ''"> and p.university_name = #{universityName}</if>
+            <if test="tuition != null  and tuition != ''"> and tuition = #{tuition}</if>
+            <if test="minScore != null "> and min_score between #{minScore}-10 and #{minScore}+5</if>
+            <if test="annualTarget != null "> and annual_target = #{annualTarget}</if>
+            <if test="minRanking != null "> and min_ranking = #{minRanking}</if>
+            <if test="forSeveral != null  and forSeveral != ''"> and for_several = #{forSeveral}</if>
+            <if test="batch != null  and batch != ''"> and batch = #{batch}</if>
+            <if test="universityType != null  and universityType != ''"> and u.university_type = #{universityType}</if>
+            <if test="majorCategory != null  and majorCategory != ''"> and m.major_category = #{majorCategory}</if>
+        </where>
+    </select>
+
+    <!--可冲击-->
+    <select id="selectSysPlanListShock" parameterType="SysPlan" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        <where>
+            <if test="majorLevel != null  and majorLevel != ''"> and p.major_level = #{majorLevel}</if>
+            <if test="majorName != null  and majorName != ''"> and p.major_name like concat('%', #{majorName}, '%')</if>
+            <if test="years != null  and years != ''"> and years = #{years}</if>
+            <if test="universityName != null  and universityName != ''"> and u.university_name like concat('%', #{universityName}, '%')</if>
+            <if test="universityId != null "> and p.university_id = #{universityId}</if>
+            <if test="tuition != null  and tuition != ''"> and tuition = #{tuition}</if>
+            <if test="minScore != null "> and min_score between #{minScore} and #{minScore}+5</if>
+            <if test="annualTarget != null "> and annual_target = #{annualTarget}</if>
+            <if test="minRanking != null "> and min_ranking = #{minRanking}</if>
+            <if test="forSeveral != null  and forSeveral != ''"> and for_several = #{forSeveral}</if>
+            <if test="batch != null  and batch != ''"> and batch = #{batch}</if>
+            <if test="cityName != null  and cityName != ''"> and u.city_name like concat('%', #{cityName}, '%')</if>
+            <if test="provinceName != null  and provinceName != ''"> and u.province_name like concat('%', #{provinceName}, '%')</if>
+        </where>
+    </select>
+
+    <!--较稳妥-->
+    <select id="selectSysPlanListSafe" parameterType="SysPlan" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        <where>
+            <if test="majorLevel != null  and majorLevel != ''"> and p.major_level = #{majorLevel}</if>
+            <if test="majorName != null  and majorName != ''"> and p.major_name like concat('%', #{majorName}, '%')</if>
+            <if test="years != null  and years != ''"> and years = #{years}</if>
+            <if test="universityName != null  and universityName != ''"> and u.university_name like concat('%', #{universityName}, '%')</if>
+            <if test="universityId != null "> and p.university_id = #{universityId}</if>
+            <if test="tuition != null  and tuition != ''"> and tuition = #{tuition}</if>
+            <if test="minScore != null "> and min_score between #{minScore}-5 and #{minScore}-1</if>
+            <if test="annualTarget != null "> and annual_target = #{annualTarget}</if>
+            <if test="minRanking != null "> and min_ranking = #{minRanking}</if>
+            <if test="forSeveral != null  and forSeveral != ''"> and for_several = #{forSeveral}</if>
+            <if test="batch != null  and batch != ''"> and batch = #{batch}</if>
+            <if test="cityName != null  and cityName != ''"> and u.city_name like concat('%', #{cityName}, '%')</if>
+            <if test="provinceName != null  and provinceName != ''"> and u.province_name like concat('%', #{provinceName}, '%')</if>
+        </where>
+    </select>
+
+    <!--可保底-->
+    <select id="selectSysPlanListGuaranteed" parameterType="SysPlan" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        <where>
+            <if test="majorLevel != null  and majorLevel != ''"> and p.major_level = #{majorLevel}</if>
+            <if test="majorName != null  and majorName != ''"> and p.major_name like concat('%', #{majorName}, '%')</if>
+            <if test="years != null  and years != ''"> and years = #{years}</if>
+            <if test="universityName != null  and universityName != ''"> and u.university_name like concat('%', #{universityName}, '%')</if>
+            <if test="universityId != null "> and p.university_id = #{universityId}</if>
+            <if test="tuition != null  and tuition != ''"> and tuition = #{tuition}</if>
+            <if test="minScore != null "> and min_score between #{minScore}-10 and #{minScore}-6</if>
+            <if test="annualTarget != null "> and annual_target = #{annualTarget}</if>
+            <if test="minRanking != null "> and min_ranking = #{minRanking}</if>
+            <if test="forSeveral != null  and forSeveral != ''"> and for_several = #{forSeveral}</if>
+            <if test="batch != null  and batch != ''"> and batch = #{batch}</if>
+            <if test="cityName != null  and cityName != ''"> and u.city_name like concat('%', #{cityName}, '%')</if>
+            <if test="provinceName != null  and provinceName != ''"> and u.province_name like concat('%', #{provinceName}, '%')</if>
+        </where>
+
+    </select>
+
+    <select id="selectSysPlanByUniversityTypes" parameterType="String" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        where u.university_type in
+        <foreach item="universityTypes" collection="array" open="(" separator="," close=")">
+            #{universityTypes}
+        </foreach>
+    </select>
+
+    <select id="selectSysPlanByMajorNameAndProvinceName" parameterType="String" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        where u.province_name in
+        <foreach item="provinceName" collection="purposeAddress" open="(" separator="," close=")">
+            #{provinceName}
+        </foreach>
+         and m.major_name in
+        <foreach item="majorName" collection="purposeMajor" open="(" separator="," close=")">
+            #{majorName}
+        </foreach>
+    </select>
+
+    <select id="selectSysPlanByMajorsAndUniversitys" parameterType="String" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        where m.major_name in
+        <foreach item="majorNames" collection="majorArray" open="(" separator="," close=")">
+            #{majorNames}
+        </foreach>
+        or u.university_name in
+        <foreach item="universityNames" collection="universityArray" open="(" separator="," close=")">
+            #{universityNames}
+        </foreach>
+    </select>
+
+
+    <select id="selectSysPlanById" parameterType="Long" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo"/>
+        where plan_id = #{planId}
+    </select>
+
+    <select id="selectSysPlanByUniversityId" parameterType="Long" resultMap="SysPlanResult">
+        <include refid="selectSysPlanVo" />
+        <where>
+            <if test="universityId != null "> u.university_id = #{universityId}</if>
+        </where>
+        order by p.years
+    </select>
+
+    <insert id="insertSysPlan" parameterType="SysPlan" useGeneratedKeys="true" keyProperty="planId">
+        insert into sys_plan
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="majorLevel != null">major_level,</if>
+            <if test="majorName != null">major_name,</if>
+            <if test="years != null">years,</if>
+            <if test="universityName != null and universityName != ''">university_name,</if>
+            <if test="tuition != null">tuition,</if>
+            <if test="minScore != null">min_score,</if>
+            <if test="annualTarget != null">annual_target,</if>
+            <if test="minRanking != null">min_ranking,</if>
+            <if test="forSeveral != null">for_several,</if>
+            <if test="batch != null">batch,</if>
+            <if test="universityId != null">university_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="majorLevel != null">#{majorLevel},</if>
+            <if test="majorName != null">#{majorName},</if>
+            <if test="years != null">#{years},</if>
+            <if test="universityName != null and universityName != ''">#{universityName},</if>
+            <if test="tuition != null">#{tuition},</if>
+            <if test="minScore != null">#{minScore},</if>
+            <if test="annualTarget != null">#{annualTarget},</if>
+            <if test="minRanking != null">#{minRanking},</if>
+            <if test="forSeveral != null">#{forSeveral},</if>
+            <if test="batch != null">#{batch},</if>
+            <if test="universityId != null">#{universityId},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysPlan" parameterType="SysPlan">
+        update sys_plan
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="majorLevel != null">major_level = #{majorLevel},</if>
+            <if test="majorName != null">major_name = #{majorName},</if>
+            <if test="years != null">years = #{years},</if>
+            <if test="universityName != null and universityName != ''">university_name = #{universityName},</if>
+            <if test="tuition != null">tuition = #{tuition},</if>
+            <if test="minScore != null">min_score = #{minScore},</if>
+            <if test="annualTarget != null">annual_target = #{annualTarget},</if>
+            <if test="minRanking != null">min_ranking = #{minRanking},</if>
+            <if test="forSeveral != null">for_several = #{forSeveral},</if>
+            <if test="batch != null">batch = #{batch},</if>
+            <if test="universityId != null">university_id = #{universityId},</if>
+        </trim>
+        where plan_id = #{planId}
+    </update>
+
+    <delete id="deleteSysPlanById" parameterType="Long">
+        delete from sys_plan where plan_id = #{planId}
+    </delete>
+
+    <delete id="deleteSysPlanByIds" parameterType="String">
+        delete from sys_plan where plan_id in
+        <foreach item="planId" collection="array" open="(" separator="," close=")">
+            #{planId}
+        </foreach>
+    </delete>
+
+</mapper>

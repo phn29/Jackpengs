@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysCollectionMapper">
+
+    <resultMap type="SysCollection" id="SysCollectionResult">
+        <result property="id"    column="id"    />
+        <result property="stuId"    column="stu_id"    />
+        <result property="collectionType"    column="collection_type"    />
+        <result property="collectionName"    column="collection_name"    />
+        <result property="collectionId"    column="collection_id"    />
+        <result property="createTime"    column="create_time"    />
+        <association property="university" column="university_id" javaType="SysUniversity" resultMap="SysUniversityResult" />
+        <association property="major" column="major_id" javaType="SysMajor" resultMap="SysMajorResult" />
+    </resultMap>
+    <resultMap type="SysUniversity" id="SysUniversityResult">
+        <result property="universityId"    column="university_id"    />
+        <result property="universityName"    column="university_name"    />
+        <result property="universityIdCode"    column="university_id_code"    />
+        <result property="universityType"    column="university_type"    />
+        <result property="universityCode"    column="university_code"    />
+        <result property="universityAddress"    column="university_address"    />
+        <result property="universityInformation"    column="university_information"    />
+        <result property="universityLevel"    column="university_level"    />
+        <result property="universityNature"    column="university_nature"    />
+        <result property="universityBadge"    column="university_badge"    />
+        <result property="universityWebsite"    column="university_website"    />
+        <result property="universityPhone"    column="university_phone"    />
+        <result property="universityEmail"    column="university_email"    />
+        <result property="belong"    column="belong"    />
+        <result property="numSubject"    column="num_subject"    />
+        <result property="numMaster"    column="num_master"    />
+        <result property="numDoctor"    column="num_doctor"    />
+        <result property="numAcademician"    column="num_academician"    />
+        <result property="numLibrary"    column="num_library"    />
+        <result property="numLab"    column="num_lab"    />
+        <result property="provinceName"    column="province_name"    />
+        <result property="cityName"    column="city_name"    />
+        <result property="townName"    column="town_name"    />
+        <result property="createDate"    column="create_date"    />
+        <result property="area"    column="area"    />
+        <result property="universityPicture"    column="university_picture"    />
+        <result property="ranking"    column="ranking"    />
+        <result property="f985"    column="f985"    />
+        <result property="f211"    column="f211"    />
+        <result property="shortName"    column="short_name"    />
+        <result property="oldName"    column="old_name"    />
+        <result property="site"    column="site"    />
+        <result property="dualClassName"    column="dual_class_name"    />
+        <result property="ranking"    column="ranking"    />
+    </resultMap>
+
+    <resultMap type="SysMajor" id="SysMajorResult">
+        <result property="majorId"    column="major_id"    />
+        <result property="majorCode"    column="major_code"    />
+        <result property="majorCategory"    column="major_category"    />
+        <result property="majorType"    column="major_type"  />
+        <result property="studyYears"   column="study_years"     />
+        <result property="grantScholar"     column="grant_scholar"  />
+        <result property="majorName"    column="major_name"    />
+        <result property="majorLevel"    column="major_level"    />
+        <result property="majorIntroduce"    column="major_introduce"    />
+        <result property="sexRatio"    column="sex_ratio"    />
+        <result property="subjectProposal"    column="subject_proposal"    />
+        <result property="majorStudy"    column="major_study"    />
+        <result property="majorWhat"    column="major_what"    />
+        <result property="firstImpression"    column="first_impression"    />
+        <result property="employmentRate"    column="employment_rate"    />
+    </resultMap>
+
+    <sql id="selectSysCollectionVo">
+       SELECT
+            id,
+            stu_id,
+            collection_type,
+            collection_name,
+            collection_id,
+            c.create_time,
+            m.major_type,
+            m.major_category,
+            m.major_level,
+            u.province_name,
+            u.university_level,
+            u.university_badge
+        FROM
+            sys_collection c
+            left join sys_major m on c.collection_id = m.major_id
+            left join sys_university u on c.collection_id = u.university_id
+	</sql>
+
+    <select id="selectSysCollectionList" parameterType="SysCollection" resultMap="SysCollectionResult">
+        <include refid="selectSysCollectionVo"/>
+        <where>
+            <if test="stuId != null "> and stu_id = #{stuId}</if>
+            <if test="collectionType != null  and collectionType != ''"> and collection_type = #{collectionType}</if>
+            <if test="collectionName != null  and collectionName != ''"> and collection_name like concat('%', #{collectionName}, '%')</if>
+            <if test="collectionId != null  and collectionId != ''"> and collection_id = #{collectionId}</if>
+        </where>
+    </select>
+
+    <select id="selectSysCollectionById" parameterType="Long" resultMap="SysCollectionResult">
+        <include refid="selectSysCollectionVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertSysCollection" parameterType="SysCollection">
+        insert into sys_collection
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="stuId != null">stu_id,</if>
+            <if test="collectionType != null">collection_type,</if>
+            <if test="collectionName != null">collection_name,</if>
+            <if test="collectionId != null">collection_id,</if>
+            <if test="createTime != null">create_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="stuId != null">#{stuId},</if>
+            <if test="collectionType != null">#{collectionType},</if>
+            <if test="collectionName != null">#{collectionName},</if>
+            <if test="collectionId != null">#{collectionId},</if>
+            <if test="createTime != null">#{createTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysCollection" parameterType="SysCollection">
+        update sys_collection
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stuId != null">stu_id = #{stuId},</if>
+            <if test="collectionType != null">collection_type = #{collectionType},</if>
+            <if test="collectionName != null">collection_name = #{collectionName},</if>
+            <if test="collectionId != null">collection_id = #{collectionId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSysCollectionById" parameterType="Long">
+        delete from sys_collection where id = #{id}
+    </delete>
+
+    <delete id="deleteSysCollectionByIds" parameterType="String">
+        delete from sys_collection where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

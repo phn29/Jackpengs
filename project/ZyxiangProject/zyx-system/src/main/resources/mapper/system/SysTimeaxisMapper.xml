@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zyx.system.mapper.SysTimeaxisMapper">
+    
+    <resultMap type="SysTimeaxis" id="SysTimeaxisResult">
+        <result property="timeAxisId"    column="time_axis_id"    />
+        <result property="month"    column="month"    />
+        <result property="content"    column="content"    />
+    </resultMap>
+
+    <sql id="selectSysTimeaxisVo">
+        select time_axis_id, month, content from sys_timeaxis
+    </sql>
+
+    <select id="selectSysTimeaxisList" parameterType="SysTimeaxis" resultMap="SysTimeaxisResult">
+        <include refid="selectSysTimeaxisVo"/>
+        <where>  
+            <if test="month != null  and month != ''"> and month = #{month}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+        </where>
+    </select>
+    
+    <select id="selectSysTimeaxisById" parameterType="Long" resultMap="SysTimeaxisResult">
+        <include refid="selectSysTimeaxisVo"/>
+        where time_axis_id = #{timeAxisId}
+    </select>
+        
+    <insert id="insertSysTimeaxis" parameterType="SysTimeaxis" useGeneratedKeys="true" keyProperty="timeAxisId">
+        insert into sys_timeaxis
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="month != null">month,</if>
+            <if test="content != null">content,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="month != null">#{month},</if>
+            <if test="content != null">#{content},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSysTimeaxis" parameterType="SysTimeaxis">
+        update sys_timeaxis
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="month != null">month = #{month},</if>
+            <if test="content != null">content = #{content},</if>
+        </trim>
+        where time_axis_id = #{timeAxisId}
+    </update>
+
+    <delete id="deleteSysTimeaxisById" parameterType="Long">
+        delete from sys_timeaxis where time_axis_id = #{timeAxisId}
+    </delete>
+
+    <delete id="deleteSysTimeaxisByIds" parameterType="String">
+        delete from sys_timeaxis where time_axis_id in 
+        <foreach item="timeAxisId" collection="array" open="(" separator="," close=")">
+            #{timeAxisId}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,21 @@
+<!--header-->
+<div class="logo_search i_logo_search" th:fragment="header">
+<!--    <a th:href="@{/client/universityIndex}" class="fl">-->
+<!--        <img src="/img/pc/logo.png">-->
+<!--    </a>-->
+    <div class="fr" style="margin-top: 10px; font-size: 16px;">
+        <a th:if="${session.SysStudent == null and (session.SysExpert == null)}" th:href="@{/client/login}" style="padding: 10px 0px 0px 360px">
+            <span >登录||注册</span>
+        </a>
+        <div th:if="${session.SysStudent} != null" style="padding: 10px 0px 0px 360px">
+<!--            <img width="50px" height="50px" style="float: left" src="http://image.gaokaokdb.com/%E6%B5%8E%E5%AE%81%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E5%AD%A6%E9%99%A2.jpg">-->
+            <span style="float: left" id="studentNameSession" th:text="'您好：'+${session.SysStudent.stuName}"></span>
+            <input type="hidden" id="stuIdSession" name="stuIdSession" th:value="${session.SysStudent.stuId}">
+        </div>
+        <div th:if="${session.SysExpert} != null" style="padding: 10px 0px 0px 360px">
+<!--            <img width="50px" height="50px" style="float: left" src="http://image.gaokaokdb.com/%E6%B5%8E%E5%AE%81%E8%81%8C%E4%B8%9A%E6%8A%80%E6%9C%AF%E5%AD%A6%E9%99%A2.jpg">-->
+            <span  style="float: left" id="expertNameSession" th:text="${session.SysExpert.expertName}"></span>
+            <input type="hidden" id="expertIdSession" name="expertIdSession" th:value="${session.SysExpert.expertId}">
+        </div>
+    </div>
+</div>

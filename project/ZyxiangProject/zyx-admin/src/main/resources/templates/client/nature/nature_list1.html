@@ -1,0 +1,2998 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head></head>
+<link rel="stylesheet" type="text/css" href="../css/main.css" th:href="@{/css/main.css}">
+<link rel="stylesheet" type="text/css" href="../css/iconfont.css" th:href="@{/css/iconfont.css}">
+<link rel="stylesheet" type="text/css" href="../css/tetest_timest.css" th:href="@{/css/test.css}">
+
+<body>
+<div class="main">
+    <!--nr start-->
+    <div class="test_main">
+        <!--试题-->
+        <div class="nr_left">
+            <div class="test">
+                <div class="tite">
+                    <h1>MBTI职业性格测试题</h1>
+                    <h2>迈尔斯-布里格斯类型指标</h2>
+                    <span>
+							<h2>MBTI测试前须知 </h2>
+							<h3>1、参加测试的人员请务必诚实、独立地回答问题，只有如此，才能得到有效的结果。  </h3>
+							<h3>2、《性格分析报告》展示的是你的性格倾向，而不是你的知识、技能、经验。 </h3>
+							<h3>3、MBTI提供的性格类型描述仅供测试者确定自己的性格类型之用，性格类型没有好坏，只有不同。
+								每一种性格特征都有其价值和优点，也有缺点和需要注意的地方。清楚地了解自己的性格优劣势，
+								有利于更好地发挥自己的特长，而尽可能的在为人处事中避免自己性格中的劣势，更好地和他人相处，更好地作重要的决策。
+							</h3>
+							<h3>
+									4、本测试分为四部分，共93题；需时约18分钟。所有题目没有对错之分，请根据自己的实际情况选择。将你选择的A或B所在的单选框，
+							</h3>
+							<h3>
+									5、只要你是认真、真实地填写了测试问卷，那么通常情况下你都能得到一个确实和你的性格相匹配的类型。
+								希望你能从中或多或少地获得一些有益的信息。
+							</h3>
+                    </span>
+                </div>
+                <form action="" method="post" id="fm">
+                    <div class="test_title">
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:18</b>
+                        </p>
+                        <font><input type="button" name="test_jiaojuan" value="交卷" onclick="sendMsg()"></font>
+                    </div>
+                    <!--试题第一部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>一、下列那个答案最能贴切的描绘你一般的感受或行为，请选出。</h2>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul class="single">
+                            <li id="qu_0_0">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                    value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                    value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_1">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                    value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                    value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_2">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_3">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                    value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_4">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                    value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_5">
+                                <div class="test_content_nr_tt">
+                                    <i>6</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                    value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_6">
+                                <div class="test_content_nr_tt">
+                                    <i>7</i><font>处理许多事情上，你会喜欢()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer7"
+                                                   value="P"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">凭兴所至行事</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer7"
+                                                   value="J"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">按照计划行事</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_7">
+                                <div class="test_content_nr_tt">
+                                    <i>8</i>
+                                    <font>你是否()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer8"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">容易让人了解</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer8"
+                                                   value="I"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">难于让人了解</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_8">
+                                <div class="test_content_nr_tt">
+                                    <i>9</i><font>按照程序表做事()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer9"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">和你心意</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer9"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">令你感到束缚</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_9">
+                                <div class="test_content_nr_tt">
+                                    <i>10</i><font>当有一份特别的任务，你会喜欢()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer10"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">开始前小心组织计划</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer10"
+                                                   value="P"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">边做变找需要什么</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_10">
+                                <div class="test_content_nr_tt">
+                                    <i>11</i><font>大多数情况下，你会选择（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer11"
+                                                   value="P"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">顺其自然</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer11"
+                                                   value="J"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">按程序表做事</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_11">
+                                <div class="test_content_nr_tt">
+                                    <i>12</i><font>大多数人会说你是一个（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer12"
+                                                   value="I"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">重视自我隐私的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer12"
+                                                   value="E"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">非常坦率开放的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_12">
+                                <div class="test_content_nr_tt">
+                                    <i>13</i><font>你宁愿被人认为是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer13"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">实事求是的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer13"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">机灵的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_13">
+                                <div class="test_content_nr_tt">
+                                    <i>14</i>
+                                    <font>在一大群人当中，通常是()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer14"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你介绍大家认识</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer14"
+                                                   value="I"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">别人介绍你</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_14">
+                                <div class="test_content_nr_tt">
+                                    <i>15</i><font>你会跟那些人做朋友()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer15"
+                                                   value="N"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">常提出新主意的</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer15"
+                                                   value="S"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">脚踏实地的</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_15">
+                                <div class="test_content_nr_tt">
+                                    <i>16</i><font>你倾向（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer16"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">重视感情多于逻辑</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer16"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">重视逻辑多于感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_16">
+                                <div class="test_content_nr_tt">
+                                    <i>17</i><font>你比较喜欢()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer17"
+                                                   value="P"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">坐观事情发展才做计划</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer17"
+                                                   value="J"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">很早就做计划</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_17">
+                                <div class="test_content_nr_tt">
+                                    <i>18</i><font>你喜欢花很多的时间（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer18"
+                                                   value="I"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">一个人独处</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer18"
+                                                   value="E"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">和别人在一起</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_18">
+                                <div class="test_content_nr_tt">
+                                    <i>19</i><font>与很多人一起会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer19"
+                                                   value="E"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">令你活力倍增</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer19"
+                                                   value="I"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">常常令你心力憔悴</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_19">
+                                <div class="test_content_nr_tt">
+                                    <i>20</i>
+                                    <font>你比较喜欢()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer20"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">很早便把约会、社交聚集等事情安排妥当</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer20"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">无拘无束、看当时有什么好玩就做什么</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_20">
+                                <div class="test_content_nr_tt">
+                                    <i>21</i><font>计划一个旅程时，你喜欢()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer21"
+                                                   value="P"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">大部分的时间都是跟当天的感觉行事</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer21"
+                                                   value="J"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">事先知道大部分的日子会做什么</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_21">
+                                <div class="test_content_nr_tt">
+                                    <i>22</i><font>在社交聚会中，你()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer22"
+                                                   value="I"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">有时感到郁闷</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer22"
+                                                   value="E"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">常常乐在其中</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_22">
+                                <div class="test_content_nr_tt">
+                                    <i>23</i><font>你通常（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer23"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">和别人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer23"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">趋向自处一隅</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_23">
+                                <div class="test_content_nr_tt">
+                                    <i>24</i><font>哪些人会更吸引你？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer24"
+                                                   value="N"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">一个思想敏捷及非常聪慧的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer24"
+                                                   value="S"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">实事求是，具丰富常识的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_24">
+                                <div class="test_content_nr_tt">
+                                    <i>25</i><font>在日常工作中，你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer25"
+                                                   value="P"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">颇为喜欢处理迫使你分秒必争的突发</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer25"
+                                                   value="J"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">通常预先计划，以免要在压力下工作</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_25">
+                                <div class="test_content_nr_tt">
+                                    <i>26</i>
+                                    <font>你认为别人一般()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer26"
+                                                   value="I"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">要花很长时间才认识你</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer26"
+                                                   value="E"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">用很短的时间便认识你</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--试题第二部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>二、在下列每一对词语中，哪一个词语更合你心意？请仔细想想这些词语的含义，而不要理会他们的字行或读音。</h2>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul class="single">
+                            <li id="qu_0_26">
+                                <div class="test_content_nr_tt">
+                                    <i>27</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer27"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer27"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_27">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_28">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_29">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_30">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_31">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_32">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_33">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_34">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_35">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_36">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_37">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_38">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_39">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_40">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_41">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_42">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_43">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_44">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_45">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_46">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_47">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_48">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_49">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_50">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_51">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_52">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_53">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_54">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_55">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_56">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_57">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--试题第三部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>三、哪一个答案最能贴切的描绘你一般的感受或行为。</h2>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul class="single">
+                            <li id="qu_0_58">
+                                <div class="test_content_nr_tt">
+                                    <i>59</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer59"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer59"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_59">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_60">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_61">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_62">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_63">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_64">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_65">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_66">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_67">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_68">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_69">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_70">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_71">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_72">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_73">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_74">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_75">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_76">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_77">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!--试题第四部分-->
+                    <div class="test_content">
+                        <div class="test_content_title">
+                            <h2>四、在下列每一对词语中，哪一个更合你的心意？</h2>
+                        </div>
+                    </div>
+                    <div class="test_content_nr">
+                        <ul class="single">
+                            <li id="qu_0_78">
+                                <div class="test_content_nr_tt">
+                                    <i>79</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer79"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer79"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_79">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_80">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_81">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_82">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_83">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_84">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_85">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>你是否经常让（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="F"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">你的情感支配你的理智</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer6"
+                                                   value="T"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">你的理智主宰你的感情</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_86">
+                                <div class="test_content_nr_tt">
+                                    <i>1</i><font>当你外出一整天你会()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="J"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">计划你要做什么和什么时候去做</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer1"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">说去就去</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_87">
+                                <div class="test_content_nr_tt">
+                                    <i>2</i>
+                                    <font>你认为自己是一个()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="J"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">较为有条理的人</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer2"
+                                                   value="P"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">较为随兴所至的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_88">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_89">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_90">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_91">
+                                <div class="test_content_nr_tt">
+                                    <i>3</i><font>加入你是位老师，你会教()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+
+                                        <li class="option">
+
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="S"/>
+                                            <label>
+                                                A.
+                                                <p class="ue" style="display: inline;">以事实为主的课程</p>
+                                            </label>
+                                        </li>
+
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer3"
+                                                   value="N"/>
+                                            <label>
+                                                B.
+                                                <p class="ue" style="display: inline;">设计理论的课程</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_92">
+                                <div class="test_content_nr_tt">
+                                    <i>4</i><font>你通常()</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="E"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">与人容易混熟</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer4"
+                                                   value="I"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">比较沉静或矜持</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                            <li id="qu_0_93">
+                                <div class="test_content_nr_tt">
+                                    <i>5</i><font>一般来说，你和哪些人比较和得来？（）</font><b class="icon iconfont">&#xe881;</b>
+                                </div>
+                                <div class="test_content_nr_main">
+                                    <ul>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="S"/>
+                                            <label >
+                                                A.
+                                                <p class="ue" style="display: inline;">显示的人</p>
+                                            </label>
+                                        </li>
+                                        <li class="option">
+                                            <input type="radio" class="radioOrCheck" name="answer5"
+                                                   value="N"/>
+                                            <label >
+                                                B.
+                                                <p class="ue" style="display: inline;">富于想象力的人</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!--答题卡-->
+        <div class="nr_right">
+            <div class="nr_rt_main">
+                <div class="rt_nr1">
+                    <div class="rt_nr1_title">
+                        <h1>
+                            <i class="icon iconfont">&#xe692;</i>答题卡
+                        </h1>
+                        <p class="test_time">
+                            <i class="icon iconfont">&#xe6fb;</i><b class="alt-1">00:18</b>
+                        </p>
+                    </div>
+
+                    <!--答题卡第一部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第一部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">26</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li><a href="#qu_0_0" id="qu1">1</a></li>
+
+                                <li><a href="#qu_0_1" id="qu2">2</a></li>
+
+                                <li><a href="#qu_0_2" id="qu3">3</a></li>
+
+                                <li><a href="#qu_0_3" id="qu4">4</a></li>
+
+                                <li><a href="#qu_0_4" id="qu5">5</a></li>
+
+                                <li><a href="#qu_0_5" id="qu6">6</a></li>
+
+                                <li><a href="#qu_0_6" id="qu7">7</a></li>
+
+                                <li><a href="#qu_0_7" id="qu8">8</a></li>
+
+                                <li><a href="#qu_0_8" id="qu9">9</a></li>
+
+                                <li><a href="#qu_0_9" id="qu10">10</a></li>
+
+                                <li><a href="#qu_0_10" id="qu11">11</a></li>
+
+                                <li><a href="#qu_0_11" id="qu12">12</a></li>
+
+                                <li><a href="#qu_0_12" id="qu13">13</a></li>
+
+                                <li><a href="#qu_0_13" id="qu14">14</a></li>
+
+                                <li><a href="#qu_0_14" id="qu15">15</a></li>
+
+                                <li><a href="#qu_0_15" id="qu16">16</a></li>
+
+                                <li><a href="#qu_0_16" id="qu17">17</a></li>
+
+                                <li><a href="#qu_0_17" id="qu18">18</a></li>
+
+                                <li><a href="#qu_0_18" id="qu19">19</a></li>
+
+                                <li><a href="#qu_0_19" id="qu20">20</a></li>
+
+                                <li><a href="#qu_0_20" id="qu21">21</a></li>
+
+                                <li><a href="#qu_0_21" id="qu22">22</a></li>
+
+                                <li><a href="#qu_0_22" id="qu23">23</a></li>
+
+                                <li><a href="#qu_0_23" id="qu24">24</a></li>
+
+                                <li><a href="#qu_0_24" id="qu25">25</a></li>
+
+                                <li><a href="#qu_0_25" id="qu26">26</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--答题卡第二部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第二部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">32</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li><a href="#qu_0_26" id="qu27">27</a></li>
+
+                                <li><a href="#qu_0_27" id="qu28">28</a></li>
+
+                                <li><a href="#qu_0_28" id="qu29">29</a></li>
+
+                                <li><a href="#qu_0_29" id="qu30">30</a></li>
+
+                                <li><a href="#qu_0_30" id="qu31">31</a></li>
+
+                                <li><a href="#qu_0_31" id="qu32">32</a></li>
+
+                                <li><a href="#qu_0_32" id="qu33">33</a></li>
+
+                                <li><a href="#qu_0_33" id="qu34">34</a></li>
+
+                                <li><a href="#qu_0_34" id="qu35">35</a></li>
+
+                                <li><a href="#qu_0_35" id="qu36">36</a></li>
+
+                                <li><a href="#qu_0_36" id="qu37">37</a></li>
+
+                                <li><a href="#qu_0_37" id="qu38">38</a></li>
+
+                                <li><a href="#qu_0_38" id="qu39">39</a></li>
+
+                                <li><a href="#qu_0_39" id="qu40">40</a></li>
+
+                                <li><a href="#qu_0_40" id="qu41">41</a></li>
+
+                                <li><a href="#qu_0_41" id="qu42">42</a></li>
+
+                                <li><a href="#qu_0_42" id="q43">43</a></li>
+
+                                <li><a href="#qu_0_43" id="qu44">44</a></li>
+
+                                <li><a href="#qu_0_44" id="qu45">45</a></li>
+
+                                <li><a href="#qu_0_45" id="qu46">46</a></li>
+
+                                <li><a href="#qu_0_46" id="qu47">47</a></li>
+
+                                <li><a href="#qu_0_47" id="qu48">48</a></li>
+
+                                <li><a href="#qu_0_48" id="qu49">49</a></li>
+
+                                <li><a href="#qu_0_49" id="qu50">50</a></li>
+
+                                <li><a href="#qu_0_50" id="qu51">51</a></li>
+
+                                <li><a href="#qu_0_51" id="qu52">52</a></li>
+
+                                <li><a href="#qu_0_52" id="qu53">53</a></li>
+
+                                <li><a href="#qu_0_53" id="qu54">54</a></li>
+
+                                <li><a href="#qu_0_54" id="qu55">55</a></li>
+
+                                <li><a href="#qu_0_55" id="qu56">56</a></li>
+
+                                <li><a href="#qu_0_56" id="qu57">57</a></li>
+
+                                <li><a href="#qu_0_57" id="qu58">58</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--答题卡第三部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第三部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">20</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li><a href="#qu_0_58" id="qu59">59</a></li>
+
+                                <li><a href="#qu_0_59" id="qu60">60</a></li>
+
+                                <li><a href="#qu_0_60" id="qu61">61</a></li>
+
+                                <li><a href="#qu_0_61" id="qu62">62</a></li>
+
+                                <li><a href="#qu_0_62" id="qu63">63</a></li>
+
+                                <li><a href="#qu_0_63" id="qu64">64</a></li>
+
+                                <li><a href="#qu_0_64" id="qu65">65</a></li>
+
+                                <li><a href="#qu_0_65" id="qu66">66</a></li>
+
+                                <li><a href="#qu_0_66" id="qu67">67</a></li>
+
+                                <li><a href="#qu_0_67" id="qu68">68</a></li>
+
+                                <li><a href="#qu_0_68" id="qu69">69</a></li>
+
+                                <li><a href="#qu_0_69" id="qu70">70</a></li>
+
+                                <li><a href="#qu_0_70" id="qu71">71</a></li>
+
+                                <li><a href="#qu_0_71" id="qu72">72</a></li>
+
+                                <li><a href="#qu_0_72" id="qu73">73</a></li>
+
+                                <li><a href="#qu_0_73" id="qu74">74</a></li>
+
+                                <li><a href="#qu_0_74" id="qu75">75</a></li>
+
+                                <li><a href="#qu_0_75" id="qu76">76</a></li>
+
+                                <li><a href="#qu_0_76" id="qu77">77</a></li>
+
+                                <li><a href="#qu_0_77" id="qu78">78</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--答题卡第四部分-->
+                    <div class="rt_content">
+                        <div class="rt_content_tt">
+                            <h2>第四部分</h2>
+                            <p>
+                                <span>共</span><i class="content_lit">15</i><span>题</span>
+                            </p>
+                        </div>
+                        <div class="rt_content_nr answerSheet">
+                            <ul>
+                                <li><a href="#qu_0_78" id="qu79">79</a></li>
+
+                                <li><a href="#qu_0_79" id="qu80">80</a></li>
+
+                                <li><a href="#qu_0_80" id="qu81">81</a></li>
+
+                                <li><a href="#qu_0_81" id="qu82">82</a></li>
+
+                                <li><a href="#qu_0_82" id="qu83">83</a></li>
+
+                                <li><a href="#qu_0_83" id="qu84">84</a></li>
+
+                                <li><a href="#qu_0_84" id="qu85">85</a></li>
+
+                                <li><a href="#qu_0_85" id="qu86">86</a></li>
+
+                                <li><a href="#qu_0_86" id="qu87">87</a></li>
+
+                                <li><a href="#qu_0_87" id="qu88">88</a></li>
+
+                                <li><a href="#qu_0_88" id="qu89">89</a></li>
+
+                                <li><a href="#qu_0_89" id="qu90">90</a></li>
+
+                                <li><a href="#qu_0_90" id="qu91">91</a></li>
+
+                                <li><a href="#qu_0_91" id="qu92">92</a></li>
+
+                                <li><a href="#qu_0_92" id="qu93">93</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--nr end-->
+    <div class="foot"></div>
+</div>
+
+<script src="/js/jquery-1.11.0.min.js" th:src="@{/js/jquery-1.11.0.min.js}"></script>
+<script src="/js/jquery.easy-pie-chart.js" th:src="@{/js/jquery.easy-pie-chart.js}"></script>
+<!--时间js-->
+<script src="/js/time/jquery.countdown.js" th:src="@{/js/time/jquery.countdown.js}"></script>
+<script>
+    window.jQuery(function($) {
+        "use strict";
+
+        $('time').countDown({
+            with_separators : false
+        });
+        $('.alt-1').countDown({
+            css_class : 'countdown-alt-1'
+        });
+        $('.alt-2').countDown({
+            css_class : 'countdown-alt-2'
+        });
+
+    });
+
+
+    $(function() {
+        $('li.option label').click(function() {
+            debugger;
+            var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+            var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+            // 设置已答题
+            if(!cardLi.hasClass('hasBeenAnswer')){
+                cardLi.addClass('hasBeenAnswer');
+            }
+        });
+
+        //当试题已做时，答题卡对应的题号变成绿色
+        $(".single > li").each(function(index){
+            $("input[name='answer"+(index+1)+"']").on("click", function () {
+                document.getElementById("qu"+(index+1)).style.background="#07d107";
+            });
+        })
+    });
+
+
+    //通过答题获取结果数据，将结果数据进行处理得到测试结果
+    function sendMsg() {
+        //题目数
+        var singleSize = $(".single1 > li").length;
+        //生成答案数组
+        var answerArr = new Array(singleSize);
+        //单选答案
+        $(".single > li").each(function(index){
+            //放入答案
+            var answer = $("input[name='answer"+(index+1)+"']:checked").val();
+            answerArr[index] = answer;
+        })
+        //在调试模式下的console中查看结果
+        console.log("选项对应的结果："+answerArr);
+        //获取出现次数最多的四个元素
+        var temp=[];//对象数组
+        answerArr.sort();
+        temp[0]={index:1, value:answerArr[0]}; //保存数组元素出现的次数和值
+        for(var i = 1; i<answerArr.length;i++){
+            var fisrt = answerArr[i];
+            var second = answerArr[i-1];
+            if(fisrt == second){
+                temp[temp.length-1].index++;
+            }else{//不相同则新增一个对象元素
+                temp.push({index:1, value:answerArr[i]});
+            }
+        }
+        temp.sort(function (a, b) {
+            return b.index-a.index;
+        })
+        var oneV=temp[0].value;//出现次数第一多元素的值
+        var twoV=temp[1].value;//出现次数第二多元素的值
+        var threeV=temp[2].value;//出现次数第三多元素的值
+        var fourV=temp[3].value;//出现次数第四多元素的值
+        //最终结果值
+        var resV=oneV+twoV+threeV+fourV;
+        console.log(resV);
+    }
+</script>
+
+
+</body>
+
+</html>
